@@ -14,6 +14,7 @@ import { GroupService } from '../common/services/group.service';
 
 export class GroupChatComponent implements OnInit {
   public _hubConnection: HubConnection;
+
   groupid = '';
   userName = '';
   message = '';
@@ -34,6 +35,7 @@ export class GroupChatComponent implements OnInit {
   }
 
   ngOnInit() {
+
     const jwt = new JwtHelperService();
     this.authService.isAuthenticated().subscribe(val => {
       this.isLogin = val;
@@ -42,7 +44,7 @@ export class GroupChatComponent implements OnInit {
     this.userName = this.authService.getUserFullName();
     
     this.isVisible();
-    
+      
     this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44338/chat').build();
 
     this._hubConnection
