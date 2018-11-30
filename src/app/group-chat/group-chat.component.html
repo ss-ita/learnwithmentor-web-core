@@ -1,10 +1,23 @@
-<div id="main-container" style="text-align:center">
+<div>
+  <button id='chatBlock'class="open-button" (click)="openForm()">Chat</button>
+  <div class="form-popup" id="groupChatForm">
+    <form action="/action_page.php" class="form-container">
+      <div id="main-container" style="text-align:center">
         <h1>
-          CHAAAAAAAAAAAAAAAAAAAAAAAAAAT!!
+          CHAT!!
         </h1>
       
         <div class="container">
-          <h2>Hello {{nick}}!</h2>
+          <h2>Hello {{userName}}!</h2>
+        </div>
+      
+        <div class="container" *ngIf="messages.length > 0">
+          <div *ngFor="let message of messages">
+            <span>{{message}}</span>
+          </div>
+        </div>
+        
+        <div class="container">
           <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
             <div>
               <label for="message">Message</label>
@@ -15,11 +28,9 @@
             </button>
           </form>
         </div>
-      
-        <div class="container" *ngIf="messages.length > 0">
-          <div *ngFor="let message of messages">
-            <span>{{message}}</span>
-          </div>
-        </div>
-      
+
       </div>
+      <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+    </form>
+  </div>
+</div>
