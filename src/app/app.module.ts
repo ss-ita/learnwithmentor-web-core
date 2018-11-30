@@ -48,6 +48,7 @@ import { FormsModule } from '@angular/forms';
 import { ConversationComponent } from './task/conversation/conversation.component';
 import { AboutPageComponent } from './main-page/about-page/about-page.component';
 import { ContactPageComponent } from './main-page/contact-page/contact-page.component';
+import {GroupChatComponent} from './group-chat/group-chat.component';
 
 import { AlertWindowsComponent } from './components/alert-windows/alert-windows.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
@@ -64,7 +65,7 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
-import { MatPaginatorModule, MatTableDataSource, MatIconModule } from '@angular/material';
+import { MatPaginatorModule, MatTableDataSource } from '@angular/material';
 import { MentorGuard } from './auth/mentor.guard';
 import { AdminGuard } from './auth/admin.guard';
 import { SpecificGroupComponent } from './groups/specific-group/specific-group/specific-group.component';
@@ -101,6 +102,7 @@ export class RavenErrorHandler implements ErrorHandler {
     AppComponent,
     UsersComponent,
     NavbarComponent,
+    GroupChatComponent,
     TasksComponent, TaskDetailComponent, TaskEditorComponent,
     TasksListEditorComponent, TaskCreatorComponent,
     CommentComponent,
@@ -145,11 +147,11 @@ export class RavenErrorHandler implements ErrorHandler {
     EmailNotConfirmedComponent,
     SuggestDeadlineComponent,
     ReviewSuggestedDeadlinesComponent,
-    CustomPaginatorComponent
+    CustomPaginatorComponent,
+    
     ],
   imports: [
     AppRoutingModule,
-    MatIconModule,
     BrowserModule,
     HttpClientModule,
     MatPaginatorModule,
