@@ -12,14 +12,22 @@ import { AuthService } from '../common/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  mainTag = '</>';
+  mainTag = 'Learn with mentor';
   isLogin = false;
   isAdmin = false;
   fullName: string;
+
+  profileTooltip = "Profile";
+  administrationTooltip = "Admin tools";
+  groupsTooltip = "Groups";
+  notificationsTooltip = "Notifications";
+  logOutTooltip = "Log out";
+
+  notifications = ["Lorem ipsum", "dolor sit amet", "consectetur adipiscing elit", "sed do eiusmod", "tempor incididunt"];
+
   constructor(private dialog: MatDialog,
     private router: Router,
     private authService: AuthService) {
-
   }
 
   openSignInDialog() {
