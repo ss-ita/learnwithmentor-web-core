@@ -18,15 +18,8 @@
 }
 
 .notification-container {
-  height: 100em;
-}
-
-.notification {
+  height: 15em; 
   width: 15em;
-}
-
-.mat-menu {
-  background-color: 'red' !important;
 }
 
 .tooltip {

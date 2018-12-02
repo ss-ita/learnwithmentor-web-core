@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatMenu, MatMenuTrigger } from '@angular/material';
 import { SigninComponent } from '../auth/signin/signin.component';
 import { SignupComponent } from '../auth/signup/signup.component';
 import { Router } from '@angular/router';
@@ -17,6 +17,8 @@ import { Image } from '../common/models/image';
   encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
+
   mainTag = 'Learn with mentor';
   isLogin = false;
   isAdmin = false;
@@ -29,7 +31,16 @@ export class NavbarComponent implements OnInit {
   notificationsTooltip = "Notifications";
   logOutTooltip = "Log out";
 
-  notifications = ["Lorem ipsum", "dolor sit amet", "consectetur adipiscing elit", "sed do eiusmod", "tempor incididunt"];
+  notifications = [
+    "Lorem ipsum", 
+    "dolor sit amet", 
+    "consectetur adipiscing elit",
+    "Vestibulum pulvinar purus",
+    "vitae lectus dignissim",
+    "sollicitudin", 
+    "Aenean malesuada ex purus",
+    "non ullamcorper",
+    "orci congue et"];
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -37,7 +48,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private userService: UserService,
-    private httpStatusCodeService: HttpStatusCodeService) {
+    private httpStatusCodeService: HttpStatusCodeService,
+    public elementRef: ElementRef) {
   }
 
   openSignInDialog() {
@@ -80,4 +92,14 @@ export class NavbarComponent implements OnInit {
     const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
     this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
   }
+
+  @HostListener('window:scroll', ['$event'])
+    checkScroll() {
+      const componentPosition = this.elementRef.nativeElement.offsetTop
+      const scrollPosition = window.pageYOffset
+
+      if (scrollPosition >= componentPosition) {
+        this.menuTrigger.closeMenu();
+      }
+    }
 }

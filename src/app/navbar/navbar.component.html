@@ -44,10 +44,12 @@
       <mat-icon>notifications</mat-icon>
     </button>
   </div>
-  <mat-menu #menu="matMenu">
-    <div mat-menu-item *ngFor="let item of notifications; let i = index" class="notification">
-      <mat-icon>error_outline</mat-icon>
-      <span style="font-size: 12px;">{{item}}</span>
+  <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
+    <div class="notification-container">
+      <div mat-menu-item *ngFor="let item of notifications; let i = index">
+        <mat-icon>error_outline</mat-icon>
+        <span style="font-size: 12px;">{{item}}</span>
+      </div>
     </div>
   </mat-menu>
   <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{logOutTooltip}} matTooltipClass="tooltip">
