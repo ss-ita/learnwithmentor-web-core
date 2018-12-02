@@ -4,8 +4,8 @@
 }
 
 .toolbar {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .ordItem {
@@ -15,4 +15,31 @@
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.notification-container {
+  height: 100em;
+}
+
+.notification {
+  width: 15em;
+}
+
+.mat-menu {
+  background-color: 'red' !important;
+}
+
+.tooltip {
+  font-size: 12px;
+}
+
+.profile-image {
+  width: 26px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.profile-button {
+  padding: 0; 
+  height: 40px;
 }

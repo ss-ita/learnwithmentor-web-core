@@ -18,34 +18,39 @@
       </button>
     </a>
   </div>
-
-  <div *ngIf="isLogin" class="ordItem" matTooltip={{profileTooltip}} [matTooltipClass]="mat-tooltip-yellow">
-    <button mat-button routerLink="profile">
-      {{fullName}}
+  
+  <div *ngIf="isLogin">
+    <button  mat-button routerLink="profile" class="profile-button">
+      <div style="display: flex;
+      justify-content: center;
+      align-items: center;">
+          <img *ngIf="userImage" [src]="userImage" class="profile-image">
+          {{fullName}}
+      </div>
     </button>
   </div>
-  <div *ngIf="isLogin && isAdmin" routerLink="users" style="margin-left:15px;" matTooltip={{administrationTooltip}}>
-    <button mat-icon-button>
+  <div *ngIf="isLogin && isAdmin" routerLink="users" style="margin-left:15px;" matTooltip={{administrationTooltip}} matTooltipClass="tooltip">
+    <button mat-icon-button >
       <mat-icon>settings</mat-icon>
     </button>
   </div>  
-  <div *ngIf="isLogin" routerLink="mygroups" style="margin-left:15px;" matTooltip={{groupsTooltip}}>
+  <div *ngIf="isLogin" routerLink="mygroups" style="margin-left:15px;" matTooltip={{groupsTooltip}} matTooltipClass="tooltip">
     <button mat-icon-button>
       <mat-icon>group</mat-icon>
     </button>
   </div>  
-  <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}}>
+  <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}} matTooltipClass="tooltip">
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>notifications</mat-icon>
     </button>
   </div>
   <mat-menu #menu="matMenu">
-    <div mat-menu-item *ngFor="let item of notifications; let i = index">
+    <div mat-menu-item *ngFor="let item of notifications; let i = index" class="notification">
       <mat-icon>error_outline</mat-icon>
       <span style="font-size: 12px;">{{item}}</span>
     </div>
   </mat-menu>
-  <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{logOutTooltip}}>
+  <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{logOutTooltip}} matTooltipClass="tooltip">
     <button mat-icon-button (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
