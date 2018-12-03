@@ -3,50 +3,36 @@
   padding: 0;
 }
 
+.toolbar {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .ordItem {
   color: aliceblue;
   text-decoration: none;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(16, 1fr);
+.spacer {
+  flex: 1 1 auto;
 }
 
-.cell1 {
-  grid-column-start: 1;
-  grid-column-end: 1;
+.notification-container {
+  height: 15em; 
+  width: 15em;
 }
 
-.cell2 {
-  grid-column-start: 2;
-  grid-column-end: 2;
+.tooltip {
+  font-size: 12px;
 }
 
-.cell15 {
-  grid-column-start: 15;
-  grid-column-end: 15;
-}
-
-.cell16 {
-  grid-column-start: 16;
-  grid-column-end: 16;
-}
-
-.cell15-16{
-  grid-column-start: 15;
-  grid-column-end: 16;
-}
-
-.user {
-  font-size: 15px;
-  grid-column-start: 15;
-  grid-column-end: 15;
+.profile-image {
+  width: 26px;
+  border-radius: 100%;
   margin-right: 10px;
-  margin-top: 2px;
 }
 
-.user a{
-  text-decoration: none;
-  color:#3f51b5;
+.profile-button {
+  padding: 0; 
+  height: 40px;
 }

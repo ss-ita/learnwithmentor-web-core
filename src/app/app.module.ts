@@ -17,7 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { MatSnackBarModule, MatNativeDateModule } from '@angular/material';
+import { MatSnackBarModule, MatNativeDateModule, MatIconModule } from '@angular/material';
 import { TasksComponent } from './task/tasks/tasks.component';
 import { MatListModule, MatListBase } from '@angular/material/list';
 import { TaskDetailComponent } from './task/task-detail/task-detail.component';
@@ -147,8 +147,7 @@ export class RavenErrorHandler implements ErrorHandler {
     EmailNotConfirmedComponent,
     SuggestDeadlineComponent,
     ReviewSuggestedDeadlinesComponent,
-    CustomPaginatorComponent,
-    
+    CustomPaginatorComponent
     ],
   imports: [
     AppRoutingModule,
