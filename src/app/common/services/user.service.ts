@@ -143,32 +143,9 @@ export class UserService {
 
   updatePassword(newPass: string) {
     const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log("this works");
     return this.http.put<string>(`${this.url}/newpassword`, newPass, { observe: 'response', headers: reqHeader }).pipe(
       catchError(val => of(val)));
   }
-
-
-
-
-sendMessageTest(userName: string, receivedMessage: string){
-  //var body = {userName: userName, receivedMessage: receivedMessage}; 
-  var urlTest = `${environment.apiUrl}/chat`;
-  console.log("this works");
-  //return this.http.post(`${urlTest}`, body);
-  //return this.http.post(`https://localhost:44338/api/chat/${userName}/${receivedMessage}`,body);
-  const body: Login = {
-    Password: userName,
-    Email: receivedMessage
-  };
-  const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
-  return this.http.post(`${environment.apiUrl}` + 'token', body, { headers: reqHeader });
-}
-
-
-
-
-
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

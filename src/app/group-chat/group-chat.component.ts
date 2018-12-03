@@ -7,6 +7,7 @@ import { AuthService } from '../common/services/auth.service';
 import { GroupService } from '../common/services/group.service';
 import { UserService } from '../common/services/user.service';
 import { HttpBackend } from '@angular/common/http';
+import { GroupChatService } from '../common/services/group-chat.service'
 
 @Component({
   selector: 'app-group-chat',
@@ -29,7 +30,8 @@ export class GroupChatComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private groupService: GroupService,
-    private userService: UserService) {
+    private userService: UserService,
+    private groupChatService: GroupChatService) {
   }
 
   ngOnInit() {
@@ -66,7 +68,7 @@ export class GroupChatComponent implements OnInit {
       .invoke('BroadcastMessage', this.userName, this.message)
       .then(() => this.message = '')
       .catch(err => console.error(err));*/
-      this.userService.updatePassword(this.userName);
+      this.groupChatService.sendMessageToAll(this.userName, this.message);
     }
     public openForm(){
       document.getElementById("groupChatForm").style.display = "block";
