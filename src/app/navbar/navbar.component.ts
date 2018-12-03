@@ -95,11 +95,13 @@ export class NavbarComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
     checkScroll() {
-      const componentPosition = this.elementRef.nativeElement.offsetTop
-      const scrollPosition = window.pageYOffset
+      if (this.isLogin) {
+        const componentPosition = this.elementRef.nativeElement.offsetTop
+        const scrollPosition = window.pageYOffset
 
-      if (scrollPosition >= componentPosition) {
-        this.menuTrigger.closeMenu();
+        if (scrollPosition >= componentPosition) {
+          this.menuTrigger.closeMenu();
+        }
       }
     }
 }
