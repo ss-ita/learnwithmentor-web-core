@@ -115,7 +115,5 @@ export class NavbarComponent implements OnInit {
           this.menuTrigger.closeMenu();
         }
       }
-    }
-
-  
+    } 
 }
