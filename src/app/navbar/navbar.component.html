@@ -40,7 +40,7 @@
     </button>
   </div>  
   <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}} matTooltipClass="tooltip">
-    <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" [(matBadge)]="notificationCounter">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>notifications</mat-icon>
     </button>
   </div>

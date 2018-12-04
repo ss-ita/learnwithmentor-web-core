@@ -29,8 +29,6 @@ export class NavbarComponent implements OnInit {
   fullName: string;
   userId: number;
   userImage = null;
-  notificationCounter = "";
-  notifitcationLogicAdd = 0;
 
   administrationTooltip = "Admin tools";
   groupsTooltip = "Groups";
@@ -93,8 +91,6 @@ export class NavbarComponent implements OnInit {
               this.notifications.push(text);
               console.log(payload);
 
-              this.notifitcationLogicAdd++;
-              this.notificationCounter=this.notifitcationLogicAdd.toString();
             });
         }
       }
@@ -107,11 +103,6 @@ export class NavbarComponent implements OnInit {
     const extension = img.Name.split('.').pop().toLowerCase();
     const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
     this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-  }
-  clearCounter() {
-    console.log(this.notificationCounter);
-    this.notificationCounter = "";
-    this.notifitcationLogicAdd = 0;
   }
 
   @HostListener('window:scroll', ['$event'])
