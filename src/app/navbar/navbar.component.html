@@ -46,7 +46,7 @@
   </div>
   <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
     <div class="notification-container">
-      <div mat-menu-item *ngFor="let item of notifications; let i = index">
+      <div mat-menu-item *ngFor="let item of notifications; let i = index" style="background-color: aquamarine;margin-bottom: 1px">
         <mat-icon>error_outline</mat-icon>
         <span style="font-size: 12px;">{{item}}</span>
       </div>
