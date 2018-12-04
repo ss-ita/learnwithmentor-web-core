@@ -11,7 +11,6 @@ import { HttpStatusCodeService } from '../common/services/http-status-code.servi
 import { Image } from '../common/models/image';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -29,6 +28,8 @@ export class NavbarComponent implements OnInit {
   fullName: string;
   userId: number;
   userImage = null;
+  notificationCounter = "";
+  notifitcationLogicAdd = 0;
 
   administrationTooltip = "Admin tools";
   groupsTooltip = "Groups";
@@ -91,6 +92,8 @@ export class NavbarComponent implements OnInit {
               this.notifications.push(text);
               console.log(payload);
 
+              this.notifitcationLogicAdd++;
+              this.notificationCounter=this.notifitcationLogicAdd.toString();
             });
         }
       }
@@ -104,6 +107,11 @@ export class NavbarComponent implements OnInit {
     const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
     this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
   }
+  clearCounter() {
+    console.log(this.notificationCounter);
+    this.notificationCounter = "";
+    this.notifitcationLogicAdd = 0;
+  }
 
   @HostListener('window:scroll', ['$event'])
     checkScroll() {
@@ -115,5 +123,6 @@ export class NavbarComponent implements OnInit {
           this.menuTrigger.closeMenu();
         }
       }
-    } 
+    }
 }
+
