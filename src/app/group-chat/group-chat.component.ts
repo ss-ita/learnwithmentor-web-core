@@ -53,10 +53,10 @@ export class GroupChatComponent implements OnInit {
       .then(() => console.log('Connection started!'))
       .catch(err => console.log('Error while establishing connection :('));
     }
-      this._hubConnection.on('BroadcastMessage', (userName: string, receivedMessage: string) => {
-        const text = `${userName}: ${receivedMessage}`;
-        this.messages.push(text);
-     });
+    this._hubConnection.on('sendToAll', (userName: string, receivedMessage: string) => {
+      const text = `${userName}: ${receivedMessage}`;
+      this.messages.push(text);
+    });
     }
     public isVisible(){
       if(this.isLogin) {
@@ -65,10 +65,9 @@ export class GroupChatComponent implements OnInit {
     }
     public sendMessage(): void {    
       /*this._hubConnection
-      .invoke('BroadcastMessage', this.userName, this.message)
-      .then(() => this.message = '')
+      .invoke('sendToAll', this.userName, this.message)
       .catch(err => console.error(err));*/
-      this.groupChatService.sendMessageToAll(this.userName, this.message);
+      this.groupChatService.sendMessageToAll();
     }
     public openForm(){
       document.getElementById("groupChatForm").style.display = "block";
