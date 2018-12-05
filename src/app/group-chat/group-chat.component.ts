@@ -21,6 +21,7 @@ export class GroupChatComponent implements OnInit {
 
   groupid = '';
   userName = '';
+  userId = 0;
   message = '';
   messages: string[] = [];
 
@@ -42,7 +43,7 @@ export class GroupChatComponent implements OnInit {
     });
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
-    
+    this.userId = this.authService.getUserId();
     this.isVisible();
     
     if (this._hubConnection == null) {
@@ -67,7 +68,7 @@ export class GroupChatComponent implements OnInit {
       /*this._hubConnection
       .invoke('sendToAll', this.userName, this.message)
       .catch(err => console.error(err));*/
-      this.groupChatService.sendMessageToAll();
+      this.groupChatService.sendMessageToAll(this.userId, this.message);
     }
     public openForm(){
       document.getElementById("groupChatForm").style.display = "block";

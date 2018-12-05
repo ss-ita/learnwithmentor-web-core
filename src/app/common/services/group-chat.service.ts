@@ -28,11 +28,11 @@ export class GroupChatService {
 
   private url = `${environment.apiUrl}`;
 
-  sendMessageToAll(){
+  sendMessageToAll(id: number, message: string ){
     var body = {}; 
     console.log("group-chat.service works");
-    this.http.get('https://localhost:44338/api/chat/message').subscribe();//(data:string) => this.idc = data); 
+    //this.http.get('https://localhost:44338/api/chat/message').subscribe();//(data:string) => this.idc = data); 
+    this.http.get(`${this.url}chat/${id}/${message}`).subscribe();
     
-    console.log(this.idc);
   } 
 }
