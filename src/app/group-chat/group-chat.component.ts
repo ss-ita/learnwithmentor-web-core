@@ -8,6 +8,7 @@ import { GroupService } from '../common/services/group.service';
 import { UserService } from '../common/services/user.service';
 import { HttpBackend } from '@angular/common/http';
 import { GroupChatService } from '../common/services/group-chat.service'
+import { Group } from '../common/models/group';
 
 @Component({
   selector: 'app-group-chat',
@@ -19,8 +20,9 @@ export class GroupChatComponent implements OnInit {
 
   public _hubConnection: HubConnection;
 
-  groupid = '';
+  group: Group;
   userName = '';
+  groupName = '';
   userId = 0;
   message = '';
   messages: string[] = [];
@@ -40,20 +42,20 @@ export class GroupChatComponent implements OnInit {
     const jwt = new JwtHelperService();
     this.authService.isAuthenticated().subscribe(val => {
       this.isLogin = val;
+      this.isVisible();
+      if (this._hubConnection == null) {
+      this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44338/api/chat').build();
+  
+      this._hubConnection
+        .start()
+        .then(() => console.log('Connection started!'))
+        .catch(err => console.log('Error while establishing connection :('));
+      }
     });
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
     this.userId = this.authService.getUserId();
-    this.isVisible();
-    
-    if (this._hubConnection == null) {
-    this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44338/api/chat').build();
 
-    this._hubConnection
-      .start()
-      .then(() => console.log('Connection started!'))
-      .catch(err => console.log('Error while establishing connection :('));
-    }
     this._hubConnection.on('sendToAll', (userName: string, receivedMessage: string) => {
       const text = `${userName}: ${receivedMessage}`;
       this.messages.push(text);
@@ -70,6 +72,11 @@ export class GroupChatComponent implements OnInit {
       .catch(err => console.error(err));*/
       this.groupChatService.sendMessageToAll(this.userId, this.message);
     }
+    public sendMessageToGroup(): void {
+      //WE ARE HEREE
+      this.groupChatService.sendMessageToGroup(this.userId, this.message);
+    }
+
     public openForm(){
       document.getElementById("groupChatForm").style.display = "block";
     }

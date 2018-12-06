@@ -18,7 +18,7 @@
         </div>
         
         <div class="container">
-          <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
+          <form (ngSubmit)="sendMessageToGroup()" #chatForm="ngForm">
             <div>
               <label for="message">Message</label>
               <input type="text" id="message" name="message" [(ngModel)]="message" required>
