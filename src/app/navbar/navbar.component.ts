@@ -10,6 +10,7 @@ import { UserService } from '../common/services/user.service';
 import { HttpStatusCodeService } from '../common/services/http-status-code.service';
 import { Image } from '../common/models/image';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-navbar',
@@ -79,8 +80,10 @@ export class NavbarComponent implements OnInit {
         });
 
         if (this._hubConnection == null) {
-          this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44339/api/notify').build();
-          this._hubConnection
+          this._hubConnection = new HubConnectionBuilder()
+            .withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
+            .build();
+          this._hubConnection 
             .start()
             .then(() => console.log('Connection started!'))
             .catch(err => console.log('Error while establishing connection :('));
