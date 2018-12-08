@@ -8,10 +8,7 @@ import { GroupService } from '../common/services/group.service';
 import { UserService } from '../common/services/user.service';
 import { HttpBackend } from '@angular/common/http';
 import { GroupChatService } from '../common/services/group-chat.service'
-<<<<<<< HEAD
 import { User } from '../common/models/user';
-=======
->>>>>>> 015d11f171c5154aee1508effd457075db08d419
 import { Group } from '../common/models/group';
 
 @Component({
@@ -31,7 +28,6 @@ export class GroupChatComponent implements OnInit {
   message = '';
   messages: string[] = [];
   user: User;
-  group: Group;
 
   isLogin = false;
 
