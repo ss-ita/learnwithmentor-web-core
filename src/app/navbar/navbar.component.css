@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  z-index:1000;
 }
 
 .toolbar {
@@ -35,4 +36,7 @@
 .profile-button {
   padding: 0; 
   height: 40px;
+}
+.content {
+  padding-top: 45px;
 }

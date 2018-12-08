@@ -83,6 +83,7 @@ import { ReviewSuggestedDeadlinesComponent } from './specific-group/review-sugge
 import { CustomPaginatorComponent } from './custom-paginator/custom-paginator.component';
 import { InViewportModule } from 'ng-in-viewport';
 import 'intersection-observer';
+import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
 
 
 import * as Raven from 'raven-js';
@@ -147,7 +148,8 @@ export class RavenErrorHandler implements ErrorHandler {
     EmailNotConfirmedComponent,
     SuggestDeadlineComponent,
     ReviewSuggestedDeadlinesComponent,
-    CustomPaginatorComponent
+    CustomPaginatorComponent,
+    StickyHeaderComponent
     ],
   imports: [
     AppRoutingModule,
