@@ -27,6 +27,10 @@ export class GroupChatService {
 
   private url = `${environment.apiUrl}`;
 
+  sendMessageToGroup(id:number, message:string){
+      this.http.get(`${this.url}chat/${id}/${message}/group`).subscribe();
+  }
+
   sendMessageToAll(id: number, message: string ){
     var body = {}; 
     console.log("group-chat.service works");
