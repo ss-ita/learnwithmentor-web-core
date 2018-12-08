@@ -8,6 +8,8 @@ import { GroupService } from '../common/services/group.service';
 import { UserService } from '../common/services/user.service';
 import { HttpBackend } from '@angular/common/http';
 import { GroupChatService } from '../common/services/group-chat.service'
+import { User } from '../common/models/user';
+import { Group } from '../common/models/group';
 
 @Component({
   selector: 'app-group-chat',
@@ -24,6 +26,8 @@ export class GroupChatComponent implements OnInit {
   userId = 0;
   message = '';
   messages: string[] = [];
+  user: User;
+  group: Group;
 
   isLogin = false;
 
@@ -64,7 +68,7 @@ export class GroupChatComponent implements OnInit {
         document.getElementById("chatBlock").style.display = "block";
       }
     }
-    public sendMessage(): void {    
+    public sendMessage(): void {   
       /*this._hubConnection
       .invoke('sendToAll', this.userName, this.message)
       .catch(err => console.error(err));*/
@@ -75,5 +79,9 @@ export class GroupChatComponent implements OnInit {
     }
     public closeForm() {
       document.getElementById("groupChatForm").style.display = "none";
+    }
+    public connectToGroup()
+    {
+      this.groupChatService.connectToGroup(this.userId);
     }
 }

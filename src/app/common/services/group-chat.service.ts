@@ -23,7 +23,6 @@ const httpOptions = {
 
 export class GroupChatService {
 
-  private idc: string;
   constructor(private http: HttpClient) { }
 
   private url = `${environment.apiUrl}`;
@@ -32,7 +31,11 @@ export class GroupChatService {
     var body = {}; 
     console.log("group-chat.service works");
     //this.http.get('https://localhost:44338/api/chat/message').subscribe();//(data:string) => this.idc = data); 
-    this.http.get(`${this.url}chat/${id}/${message}`).subscribe();
+    this.http.get(`${this.url}chat/${id}/${message}/group`).subscribe();
     
   } 
+  connectToGroup(id: number)
+  {
+    this.http.get(`${this.url}chat/connect/${id}`).subscribe();
+  }
 }
