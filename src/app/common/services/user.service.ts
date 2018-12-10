@@ -41,7 +41,7 @@ export class UserService {
     );
   }
   getPage(pageSize: number, pageNumber: number): Observable<Pagination<User>> {
-    return this.http.get<Pagination<User>>(`${this.url}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(
+    return this.http.get<Pagination<User>>(`${this.url}/pagesize/${pageSize}/pagenumber/${pageNumber}`).pipe(
       catchError(this.handleError<Pagination<User>>(`getPagedUsers`)));
   }
 
@@ -51,7 +51,7 @@ export class UserService {
     );
   }
   getPageByRole_id(id: number, pageSize: number, pageNumber: number): Observable<Pagination<User>> {
-    return this.http.get<Pagination<User>>(`${this.url}/inrole/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(
+    return this.http.get<Pagination<User>>(`${this.url}/inrole/${id}/pagesize/${pageSize}/pagenumber/${pageNumber}`).pipe(
       catchError(this.handleError<Pagination<User>>(`getUserbyrole`))
     );
   }
@@ -62,7 +62,7 @@ export class UserService {
     );
   }
   getPageByState(state: boolean, pageSize: number, pageNumber: number): Observable<Pagination<User>> {
-    return this.http.get<Pagination<User>>(`${this.url}/instate/${state}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(
+    return this.http.get<Pagination<User>>(`${this.url}/instate/${state}/pagesize/${pageSize}/pagenumber/${pageNumber}`).pipe(
       catchError(this.handleError<Pagination<User>>(`getUserbystate`))
     );
   }
@@ -141,10 +141,21 @@ export class UserService {
       catchError(val => of(val)));
   }
 
-  updatePassword(newPass: string) {
-    const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<string>(`${this.url}/newpassword`, newPass, { observe: 'response', headers: reqHeader }).pipe(
+  updatePassword(newPass: string, oldPass: string) {
+    const body = {
+      NewPassword: newPass,
+      OldPassword: oldPass
+    };
+    return this.http.put<string>(`${this.url}/newpassword`, body).pipe(
       catchError(val => of(val)));
+  }
+
+  facebookLogin(accessToken: string) {
+    const body = {
+      AccessToken: accessToken
+    };
+    const reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.post(`${this.url}/facebook`, body, { headers: reqHeader });
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
