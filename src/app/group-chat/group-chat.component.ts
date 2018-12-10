@@ -42,40 +42,50 @@ export class GroupChatComponent implements OnInit {
   ngOnInit() {
 
     const jwt = new JwtHelperService();
+
     this.authService.isAuthenticated().subscribe(val => {
       this.isLogin = val;
       this.isVisible();
+      
+      if(this.isLogin)
+      {
       if (this._hubConnection == null) {
-      this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44338/api/chat').build();
+      this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') }).build();
   
       this._hubConnection
         .start()
         .then(() => console.log('Connection started!'))
         .catch(err => console.log('Error while establishing connection :('));
       }
+    }
     });
+  
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
     this.userId = this.authService.getUserId();
-
-    this._hubConnection.on('sendToAll', (userName: string, receivedMessage: string) => {
-      const text = `${userName}: ${receivedMessage}`;
+    if(this.isLogin)
+    {
+      this.groupChatService.connectToGroup(this.userId);
+      this._hubConnection.on('GroupMessage', (userName: string, receivedMessage: string, timeSended: string) => {
+      const text = `${userName}: ${receivedMessage} ${timeSended}`;
       this.messages.push(text);
-    });
+      
+      });
+    }
+
+    
     }
     public isVisible(){
       if(this.isLogin) {
         document.getElementById("chatBlock").style.display = "block";
       }
     }
-    public sendMessage(): void {   
-      /*this._hubConnection
-      .invoke('sendToAll', this.userName, this.message)
-      .catch(err => console.error(err));*/
+    public sendMessage(): void 
+    {   
       this.groupChatService.sendMessageToAll(this.userId, this.message);
     }
-    public sendMessageToGroup(): void {
-      //WE ARE HEREE
+    public sendMessageToGroup(): void 
+    {
       this.groupChatService.sendMessageToGroup(this.userId, this.message);
     }
 
@@ -84,9 +94,5 @@ export class GroupChatComponent implements OnInit {
     }
     public closeForm() {
       document.getElementById("groupChatForm").style.display = "none";
-    }
-    public connectToGroup()
-    {
-      this.groupChatService.connectToGroup(this.userId);
     }
 }
