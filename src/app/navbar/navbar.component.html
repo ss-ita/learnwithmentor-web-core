@@ -1,60 +1,68 @@
-<mat-toolbar color="primary" class="toolbar">
-  <span>
-    <a routerLink="/" class="ordItem">{{mainTag}}</a>
-  </span>
-  <span class="spacer"></span>
-
-  <div *ngIf="!isLogin">
-    <a class="ordItem" (click)="openSignInDialog()">
-      <button mat-button>
-        Sign In
-      </button>
-    </a>
-  </div>
-  <div *ngIf="!isLogin">
-    <a class="ordItem" (click)="openSignUpDialog()">
-      <button mat-button>
-        Sign Up
-      </button>
-    </a>
-  </div>
+<app-sticky-header>
+  <mat-toolbar color="primary" class="toolbar">
+    <span>
+      <a routerLink="/" class="ordItem">{{mainTag}}</a>
+    </span>
+    <span class="spacer"></span>
   
-  <div *ngIf="isLogin">
-    <button  mat-button routerLink="profile" class="profile-button">
-      <div style="display: flex;
-      justify-content: center;
-      align-items: center;">
-          <img *ngIf="userImage" [src]="userImage" class="profile-image">
-          {{fullName}}
-      </div>
-    </button>
-  </div>
-  <div *ngIf="isLogin && isAdmin" routerLink="users" style="margin-left:15px;" matTooltip={{administrationTooltip}} matTooltipClass="tooltip">
-    <button mat-icon-button >
-      <mat-icon>settings</mat-icon>
-    </button>
-  </div>  
-  <div *ngIf="isLogin" routerLink="mygroups" style="margin-left:15px;" matTooltip={{groupsTooltip}} matTooltipClass="tooltip">
-    <button mat-icon-button>
-      <mat-icon>group</mat-icon>
-    </button>
-  </div>  
-  <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}} matTooltipClass="tooltip">
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>notifications</mat-icon>
-    </button>
-  </div>
-  <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
-    <div class="notification-container">
-      <div mat-menu-item *ngFor="let item of notifications; let i = index">
-        <mat-icon>error_outline</mat-icon>
-        <span style="font-size: 12px;">{{item}}</span>
-      </div>
+    <div *ngIf="!isLogin">
+      <a class="ordItem" (click)="openSignInDialog()">
+        <button mat-button>
+          Sign In
+        </button>
+      </a>
     </div>
-  </mat-menu>
-  <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{logOutTooltip}} matTooltipClass="tooltip">
-    <button mat-icon-button (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
-  </div>
-</mat-toolbar>
+    <div *ngIf="!isLogin">
+      <a class="ordItem" (click)="openSignUpDialog()">
+        <button mat-button>
+          Sign Up
+        </button>
+      </a>
+    </div>
+    
+    <div *ngIf="isLogin">
+      <button  mat-button routerLink="profile" class="profile-button">
+        <div style="display: flex;
+        justify-content: center;
+        align-items: center;">
+            <img *ngIf="userImage" [src]="userImage" class="profile-image">
+            {{fullName}}
+        </div>
+      </button>
+    </div>
+    <div *ngIf="isLogin && isAdmin" routerLink="users" style="margin-left:15px;" matTooltip={{administrationTooltip}} matTooltipClass="tooltip">
+      <button mat-icon-button >
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>  
+    <div *ngIf="isLogin" routerLink="mygroups" style="margin-left:15px;" matTooltip={{groupsTooltip}} matTooltipClass="tooltip">
+      <button mat-icon-button>
+        <mat-icon>group</mat-icon>
+      </button>
+    </div>  
+    <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}} matTooltipClass="tooltip">
+      <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" [(matBadge)]="notificationCounter">
+        <mat-icon>notifications</mat-icon>
+      </button>
+    </div>
+    <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
+      <div class="notification-container">
+        <div *ngFor="let item of notifications; let i = index" style="margin-bottom: 1px; display: inline-block;">
+        <!--<div mat-menu-item  *ngFor="let item of notifications; let i = index" style="margin-bottom: 1px; display: inline-block;">-->
+         <div class = "notificationHover">
+          <mat-icon>error_outline</mat-icon>
+          <div>
+            <div style="font-size: 14px;">{{item.Text}}</div>
+            <div style="font-size: 12px;">{{item.DateTime | date}}<hr></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </mat-menu>
+    <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{logOutTooltip}} matTooltipClass="tooltip">
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  </app-sticky-header>

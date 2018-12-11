@@ -17,7 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { MatSnackBarModule, MatNativeDateModule, MatIconModule } from '@angular/material';
+import { MatSnackBarModule, MatNativeDateModule } from '@angular/material';
 import { TasksComponent } from './task/tasks/tasks.component';
 import { MatListModule, MatListBase } from '@angular/material/list';
 import { TaskDetailComponent } from './task/task-detail/task-detail.component';
@@ -28,6 +28,7 @@ import { TaskEditorComponent } from './task/task-editor/task-editor.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule, MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { SigninComponent } from './auth/signin/signin.component';
@@ -83,6 +84,7 @@ import { ReviewSuggestedDeadlinesComponent } from './specific-group/review-sugge
 import { CustomPaginatorComponent } from './custom-paginator/custom-paginator.component';
 import { InViewportModule } from 'ng-in-viewport';
 import 'intersection-observer';
+import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
 
 
 import * as Raven from 'raven-js';
@@ -147,7 +149,8 @@ export class RavenErrorHandler implements ErrorHandler {
     EmailNotConfirmedComponent,
     SuggestDeadlineComponent,
     ReviewSuggestedDeadlinesComponent,
-    CustomPaginatorComponent
+    CustomPaginatorComponent,
+    StickyHeaderComponent
     ],
   imports: [
     AppRoutingModule,
@@ -179,7 +182,8 @@ export class RavenErrorHandler implements ErrorHandler {
     MatNativeDateModule,
     ReactiveFormsModule,
     MatBadgeModule,
-    InViewportModule
+    InViewportModule,
+    NgbModule
     ],
 
   entryComponents: [TaskEditorComponent,
