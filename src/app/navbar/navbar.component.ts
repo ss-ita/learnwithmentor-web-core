@@ -81,16 +81,6 @@ export class NavbarComponent implements OnInit {
           }
         });
 
-        this.notificationService.getNotifications(this.userId).subscribe(response => {
-          this.notifications = [];
-          this.notificationCounterLogic = 0;
-          response.forEach(element => {
-            this.notifications.push(element);
-            this.notificationCounterLogic++;
-            this.notificationCounter = this.notificationCounterLogic.toString();
-          });
-        });
-
         if (this._hubConnection == null) {
           this._hubConnection = new HubConnectionBuilder()
             .withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
@@ -100,16 +90,7 @@ export class NavbarComponent implements OnInit {
             .then(() => console.log('Connection started!'))
             .catch(err => console.log('Error while establishing connection :('));
           this._hubConnection.on('Notify', () => {
-            this.notificationService.getNotifications(this.userId).subscribe(response => {
-              this.notifications = [];
-              this.notificationCounterLogic = 0;
-              response.forEach(element => {
-                console.log(element.DateTime)
-                this.notifications.push(element);
-                this.notificationCounterLogic++;
-                this.notificationCounter = this.notificationCounterLogic.toString();
-              });
-            });
+            this.pushNotificationToArray();
           });
         }
       }
@@ -118,11 +99,24 @@ export class NavbarComponent implements OnInit {
     this.authService.updateUserState();
   }
 
+  pushNotificationToArray(){
+  this.notificationService.getNotifications(this.userId).subscribe(response => {
+    this.notifications = [];
+    this.notificationCounterLogic = 0;
+    response.forEach(element => {
+      this.notifications.push(element);
+      this.notificationCounterLogic++;
+      this.notificationCounter = this.notificationCounterLogic.toString();
+    });
+  });
+  }
+
   setUserPic(img: Image) {
     const extension = img.Name.split('.').pop().toLowerCase();
     const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
     this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
   }
+  
   clearCounter() {
     console.log(this.notificationCounter);
     this.notificationCounter = "";
