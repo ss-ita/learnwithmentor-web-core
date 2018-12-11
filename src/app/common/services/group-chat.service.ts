@@ -29,7 +29,12 @@ export class GroupChatService {
   private url = `${environment.apiUrl}`;
 
   sendMessageToGroup(id:number, message:string){
+    console.log("group-chat.service works");
       this.http.get(`${this.url}chat/${id}/${message}/group`).subscribe();
+  }
+
+  connectToGroup(id: number){
+    this.http.get(`${this.url}chat/connect/${id}`).subscribe();
   }
 
   sendMessageToAll(id: number, message: string ){
