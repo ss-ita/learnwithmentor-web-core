@@ -63,7 +63,7 @@ export class GroupChatComponent implements OnInit {
         });
         if (this._hubConnection == null) {
           this._hubConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:44342/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
+            .withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
             .build();
           this._hubConnection
             .start()
