@@ -79,8 +79,8 @@ export class GroupChatComponent implements OnInit {
               console.log(payload);
             });
         }
+      
       }
-    }
     });
   
     this.authService.updateUserState();
