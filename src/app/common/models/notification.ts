@@ -1,8 +1,9 @@
 export class Notification
 {
-    Id:number;
-    UserId:number;
-    IsRead:boolean;
-    Text:string;
-    Status:string;
+    Id: number;
+    UserId: number;
+    IsRead: boolean;
+    Text: string;
+    Type: string;
+    DateTime: string;
 }

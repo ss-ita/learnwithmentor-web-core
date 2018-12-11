@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  z-index:1000;
 }
 
 .toolbar {
@@ -18,11 +17,6 @@
   flex: 1 1 auto;
 }
 
-.notification-container {
-  height: 15em; 
-  width: 15em;
-}
-
 .tooltip {
   font-size: 12px;
 }
@@ -37,6 +31,65 @@
   padding: 0; 
   height: 40px;
 }
+
 .content {
   padding-top: 45px;
 }
+
+.toolbar {
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow: hidden;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+}
+
+.notification:hover
+{
+  background:cornflowerblue;
+  -webkit-transition: all 0.5s ease;;
+  -moz-transition: all 0.5s ease;;
+  -o-transition: all 0.5s ease;;
+  transition: all 0.5s ease;
+}
+
+.notification-container
+{
+  background-color: #e9ebee;
+}
+
+.notificationHover:hover
+{
+  background-color:#c5c7c9;
+  -webkit-transition: all 0.5s ease;;
+  -moz-transition: all 0.5s ease;;
+  -o-transition: all 0.5s ease;;
+  transition: all 0.5s ease;
+}
+
+.notificationBlock:hover
+{
+  background-color: #dee2e8
+}
+
+.taskApproved {
+  color:green;
+}
+
+.taskCompleted {
+  color:green;
+}
+
+.taskRejected {
+  color:red;
+}
+
+.taskReset {
+  color:yellow;
+}
+
+.newMessage {
+  color:blue;
+}
+
