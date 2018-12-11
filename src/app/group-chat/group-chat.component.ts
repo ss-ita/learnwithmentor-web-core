@@ -11,6 +11,7 @@ import { HttpBackend } from '@angular/common/http';
 import { Image } from '../common/models/image';
 import { HttpStatusCodeService } from '../common/services/http-status-code.service';
 import { GroupChatService } from '../common/services/group-chat.service'
+import { User } from '../common/models/user';
 import { Group } from '../common/models/group';
 
 @Component({
@@ -30,6 +31,7 @@ export class GroupChatComponent implements OnInit {
   userImage = null;
   message = '';
   messages: string[] = [];
+  user: User;
 
   isLogin = false;
 
@@ -46,6 +48,7 @@ export class GroupChatComponent implements OnInit {
   ngOnInit() {
 
     const jwt = new JwtHelperService();
+
     this.authService.isAuthenticated().subscribe(val => {
       this.isLogin = val;
       this.userId = this.authService.getUserId();
@@ -66,7 +69,7 @@ export class GroupChatComponent implements OnInit {
             .start()
             .then(() => console.log('Connection started!'))
             .catch(err => console.log('Error while establishing connection :('));
-  
+
             this.groupChatService.connectToGroup(this.userId);
 
             this._hubConnection.on('SendMessage', (type: string, payload: string) => 
@@ -77,7 +80,9 @@ export class GroupChatComponent implements OnInit {
             });
         }
       }
+    }
     });
+  
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
   }

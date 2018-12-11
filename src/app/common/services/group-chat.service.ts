@@ -12,6 +12,7 @@ import { UserWithImage } from '../models/userWithImage';
 import { AlertWindowsComponent } from './../../components/alert-windows/alert-windows.component';
   
 import { Email } from '../models/email';
+import { DateTime } from 'date-time-js';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +24,6 @@ const httpOptions = {
 
 export class GroupChatService {
 
-  private idc: string;
   constructor(private http: HttpClient) { }
 
   private url = `${environment.apiUrl}`;
@@ -42,6 +42,6 @@ export class GroupChatService {
     console.log("group-chat.service works");
     //this.http.get('https://localhost:44338/api/chat/message').subscribe();//(data:string) => this.idc = data); 
     this.http.get(`${this.url}chat/${id}/${message}`).subscribe();
-    
   } 
+  
 }
