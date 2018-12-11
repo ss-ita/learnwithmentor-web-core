@@ -1,36 +1,32 @@
 <div>
-  <button id='chatBlock'class="open-button" (click)="openForm()">Chat</button>
+    <button id='chatBlock' class="open-button" (click)="openForm()">
+        <span class="mt-name">Group chat</span>
+        <i class="material-icons">group</i>
+      </button>
   <div class="form-popup" id="groupChatForm">
+      <button class="mybutton" (click)="closeForm()">
+          <span class="mt-name">Group chat</span>
+          <i class="material-icons">group</i>
+      </button>
     <form action="/action_page.php" class="form-container">
-      <div id="main-container" style="text-align:center">
-        <h1>
-          CHAT!!
-        </h1>
-      
+      <div id="main-container" style="text-align:center">   
         <div class="container">
-          <h2>Hello {{userName}}!</h2>
-        </div>
-      
-        <div class="container" *ngIf="messages.length > 0">
-          <div *ngFor="let message of messages">
-            <span>{{message}}</span>
-          </div>
-        </div>
-        
-        <div class="container">
-          <form (ngSubmit)="sendMessageToGroup()" #chatForm="ngForm">
-            <div>
-              <label for="message">Message</label>
-              <input type="text" id="message" name="message" [(ngModel)]="message" required>
+          <form (ngSubmit)="sendMessageToGroup()" #chatForm="ngForm"> 
+            <div class="chatlogs">
+            <div *ngFor="let message of messages">
+                <div class="chat self">
+                    <img *ngIf="userImage" [src]="userImage" class="user-photo">
+                    <p class="chat-message">{{message}}</p>
+                </div>
             </div>
-            <button type="submit" id="sendmessage" [disabled]="!chatForm.valid">
-              Send
-            </button>
-          </form>
+          </div>
+            <div class="chat-form">
+              <input type="text" id="message" name="message" [(ngModel)]="message" required>
+              <button type="submit" class="send-btn">Send</button>
+            </div>
+          </form>  
         </div>
-
       </div>
-      <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
     </form>
   </div>
 </div>

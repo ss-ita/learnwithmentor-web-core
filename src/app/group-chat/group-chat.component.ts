@@ -1,12 +1,15 @@
 import {Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { MatDialog } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../common/services/auth.service';
 import { GroupService } from '../common/services/group.service';
 import { UserService } from '../common/services/user.service';
 import { HttpBackend } from '@angular/common/http';
+import { Image } from '../common/models/image';
+import { HttpStatusCodeService } from '../common/services/http-status-code.service';
 import { GroupChatService } from '../common/services/group-chat.service'
 import { User } from '../common/models/user';
 import { Group } from '../common/models/group';
@@ -25,6 +28,7 @@ export class GroupChatComponent implements OnInit {
   userName = '';
   groupName = '';
   userId = 0;
+  userImage = null;
   message = '';
   messages: string[] = [];
   user: User;
@@ -35,7 +39,9 @@ export class GroupChatComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private groupService: GroupService,
+    private sanitizer: DomSanitizer,
     private userService: UserService,
+    private httpStatusCodeService: HttpStatusCodeService,
     private groupChatService: GroupChatService) {
   }
 
@@ -45,54 +51,68 @@ export class GroupChatComponent implements OnInit {
 
     this.authService.isAuthenticated().subscribe(val => {
       this.isLogin = val;
+      this.userId = this.authService.getUserId();
       this.isVisible();
-      
-      if(this.isLogin)
-      {
-      if (this._hubConnection == null) {
-      this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') }).build();
-  
-      this._hubConnection
-        .start()
-        .then(() => console.log('Connection started!'))
-        .catch(err => console.log('Error while establishing connection :('));
+      if (this.isLogin) {
+        this.userService.getImage(this.userId).subscribe(response => {
+          if (this.httpStatusCodeService.isOk(response.status)) {
+            this.setUserPic(response.body);
+          } else {
+            this.userImage = '../../../assets/images/user-default.png';
+          }
+        });
+        if (this._hubConnection == null) {
+          this._hubConnection = new HubConnectionBuilder()
+            .withUrl('https://localhost:44342/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
+            .build();
+          this._hubConnection
+            .start()
+            .then(() => console.log('Connection started!'))
+            .catch(err => console.log('Error while establishing connection :('));
+
+            this.groupChatService.connectToGroup(this.userId);
+
+            this._hubConnection.on('SendMessage', (type: string, payload: string) => 
+            {
+              const text = `${type}:${payload}`
+              this.messages.push(text);
+              console.log(payload);
+            });
+        }
       }
     }
     });
   
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
-    this.userId = this.authService.getUserId();
-    if(this.isLogin)
-    {
-      this.groupChatService.connectToGroup(this.userId);
-      this._hubConnection.on('GroupMessage', (userName: string, receivedMessage: string, timeSended: string) => {
-      const text = `${userName}: ${receivedMessage} ${timeSended}`;
-      this.messages.push(text);
-      
-      });
-    }
+  }
 
-    
+  setUserPic(img: Image) {
+    const extension = img.Name.split('.').pop().toLowerCase();
+    const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
+    this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+  }
+  
+  public isVisible(){
+    if(this.isLogin) {
+      document.getElementById("chatBlock").style.display = "block";
     }
-    public isVisible(){
-      if(this.isLogin) {
-        document.getElementById("chatBlock").style.display = "block";
-      }
-    }
-    public sendMessage(): void 
-    {   
-      this.groupChatService.sendMessageToAll(this.userId, this.message);
-    }
-    public sendMessageToGroup(): void 
-    {
-      this.groupChatService.sendMessageToGroup(this.userId, this.message);
-    }
+  }  
+   
+  public sendMessage(): void {    
+    this.groupChatService.sendMessageToAll(this.userId, this.message);
+  }
 
-    public openForm(){
-      document.getElementById("groupChatForm").style.display = "block";
-    }
-    public closeForm() {
-      document.getElementById("groupChatForm").style.display = "none";
-    }
+  public sendMessageToGroup(): void {
+    this.groupChatService.sendMessageToGroup(this.userId, this.message);
+  }
+
+  public openForm(){
+    document.getElementById("groupChatForm").style.display = "block";
+  }
+
+  public closeForm() {
+    document.getElementById("groupChatForm").style.display = "none";
+  }  
+  
 }
