@@ -11,7 +11,7 @@ import { NotificationService } from '../common/services/notification.service';
 import { HttpStatusCodeService } from '../common/services/http-status-code.service';
 import { Image } from '../common/models/image';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
 
   private _hubConnection: HubConnection;
+  private url = `${environment.apiUrl}`;
   
   mainTag = 'Learn with mentor';
   isLogin = false;
@@ -30,8 +31,8 @@ export class NavbarComponent implements OnInit {
   fullName: string;
   userId: number;
   userImage = null;
-  notificationCounter = "";
-  notificationCounterLogic = 0;
+  notificationCounter = 0;
+  notificationCounterDisabled = true;
 
   administrationTooltip = "Admin tools";
   groupsTooltip = "Groups";
@@ -81,9 +82,11 @@ export class NavbarComponent implements OnInit {
           }
         });
 
+        this.pushNotificationToArray();
+
         if (this._hubConnection == null) {
           this._hubConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
+            .withUrl(`${this.url}notifications`, { accessTokenFactory: () => localStorage.getItem('userToken') })
             .build();
           this._hubConnection
             .start()
@@ -94,21 +97,28 @@ export class NavbarComponent implements OnInit {
           });
         }
       }
-    });    
+    });
     
     this.authService.updateUserState();
   }
 
   pushNotificationToArray(){
-  this.notificationService.getNotifications(this.userId).subscribe(response => {
-    this.notifications = [];
-    this.notificationCounterLogic = 0;
-    response.forEach(element => {
-      this.notifications.push(element);
-      this.notificationCounterLogic++;
-      this.notificationCounter = this.notificationCounterLogic.toString();
+    this.notificationService.getNotifications(this.userId).subscribe(response => {
+      this.notifications = [];
+      this.notificationCounter = 0;
+      response.forEach(element => {
+        this.notifications.push(element);
+        if (!element.IsRead) {
+          this.notificationCounter++;
+        }
+      });
+      if (this.notificationCounter > 0) {
+        this.notificationCounterDisabled = false;
+      }
+      else {
+        this.notificationCounterDisabled = true;
+      }
     });
-  });
   }
 
   setUserPic(img: Image) {
@@ -118,9 +128,9 @@ export class NavbarComponent implements OnInit {
   }
   
   clearCounter() {
-    console.log(this.notificationCounter);
-    this.notificationCounter = "";
-    this.notificationCounterLogic = 0;
+    this.notificationCounter = 0;
+    this.notificationCounterDisabled = true;
+    this.notificationService.markNotificationsAsRead(this.userId).subscribe();
   }
 
   @HostListener('window:scroll', ['$event'])

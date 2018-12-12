@@ -41,20 +41,20 @@
       </button>
     </div>  
     <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}} matTooltipClass="tooltip">
-      <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" [(matBadge)]="notificationCounter">
+      <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" 
+              [(matBadge)]="notificationCounter" matBadgeColor="warn" [(matBadgeHidden)]="notificationCounterDisabled">
         <mat-icon>notifications</mat-icon>
       </button>
     </div>
     <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
       <div class="notification-container">
         <div *ngFor="let item of notifications; let i = index" style="margin-bottom: 1px; display: inline-block;">
-        <!--<div mat-menu-item  *ngFor="let item of notifications; let i = index" style="margin-bottom: 1px; display: inline-block;">-->
-         <div class = "notificationHover">
-          <mat-icon>error_outline</mat-icon>
-          <div>
-            <div style="font-size: 14px;">{{item.Text}}</div>
-            <div style="font-size: 12px;">{{item.DateTime | date}}<hr></div>
-          </div>
+          <div class = "notificationHover">
+            <mat-icon>error_outline</mat-icon>
+            <div>
+              <div style="font-size: 14px;">{{item.Text}}</div>
+              <div style="font-size: 12px;">{{item.DateTime | date}}<hr></div>
+            </div>
           </div>
         </div>
       </div>
