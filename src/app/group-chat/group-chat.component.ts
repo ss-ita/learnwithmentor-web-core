@@ -13,6 +13,7 @@ import { HttpStatusCodeService } from '../common/services/http-status-code.servi
 import { GroupChatService } from '../common/services/group-chat.service'
 import { User } from '../common/models/user';
 import { Group } from '../common/models/group';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-group-chat',
@@ -23,6 +24,7 @@ import { Group } from '../common/models/group';
 export class GroupChatComponent implements OnInit {
 
   public _hubConnection: HubConnection;
+  private url = `${environment.apiUrl}`;
 
   group: Group;
   userName = '';
@@ -63,7 +65,7 @@ export class GroupChatComponent implements OnInit {
         });
         if (this._hubConnection == null) {
           this._hubConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
+            .withUrl(`${this.url}notifications`, { accessTokenFactory: () => localStorage.getItem('userToken') })
             .build();
           this._hubConnection
             .start()

@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { NgClass } from '@angular/common';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -24,4 +23,7 @@ export class NotificationService  {
     return this.http.get<Notification[]>(`${this.url}notifications/${userId}`, { headers: this.reqHeader }).pipe();
   }
 
+  markNotificationsAsRead(userId : number): Observable<Notification[]> {
+    return this.http.post<Notification[]>(`${this.url}notifications/${userId}`, { headers: this.reqHeader }).pipe();
+  }
 }
