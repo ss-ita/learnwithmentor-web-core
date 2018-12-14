@@ -29,15 +29,7 @@ import {
   @Component({
     selector: 'app-sticky-header',
     template: `<ng-content></ng-content>`,
-    styles: [
-      `
-        :host {
-          position: fixed;
-          top: 0;
-          width: 100%;
-        }
-      `
-    ],
+    styles: [],
     animations: [
       trigger('toggle', [
         state(
