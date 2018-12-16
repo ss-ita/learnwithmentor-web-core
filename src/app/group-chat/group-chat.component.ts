@@ -63,30 +63,19 @@ export class GroupChatComponent implements OnInit {
             this.userImage = '../../../assets/images/user-default.png';
           }
         });
-        if (this._hubConnection == null) {
-          this._hubConnection = new HubConnectionBuilder()
-            .withUrl(`${this.url}notifications`, { accessTokenFactory: () => localStorage.getItem('userToken') })
-            .build();
-          this._hubConnection
-            .start()
-            .then(() => console.log('Connection started!'))
-            .catch(err => console.log('Error while establishing connection :('));
-
-            this.groupChatService.connectToGroup(this.userId);
-
-            this._hubConnection.on('SendMessage', (type: string, payload: string) => 
-            {
-              const text = `${type}:${payload}`
-              this.messages.push(text);
-              console.log(payload);
-            });
-        }
-      
       }
     });
   
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
+  }
+
+  connectToChat(userId) {
+    this.groupChatService.connectToGroup(userId);
+  }
+
+  addMessage(message) {
+    this.messages.push(message);
   }
 
   setUserPic(img: Image) {
