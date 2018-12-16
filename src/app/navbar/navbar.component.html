@@ -43,7 +43,10 @@
     <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}} matTooltipClass="tooltip">
       <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" 
               [(matBadge)]="notificationCounter" matBadgeColor="warn" [(matBadgeHidden)]="notificationCounterDisabled">
-        <mat-icon>notifications</mat-icon>
+        <mat-icon *ngIf="notificationCounter!=0;else simple_state" [class.notification-bell]="true">notifications</mat-icon>
+        <ng-template #simple_state>
+          <mat-icon>notifications</mat-icon>
+        </ng-template>
       </button>
     </div>
     <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
