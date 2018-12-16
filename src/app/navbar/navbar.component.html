@@ -51,16 +51,18 @@
     </div>
     <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
       <div class="notification-container">
-        <div *ngFor="let item of notifications; let i = index" style="margin-bottom: 1px; display: inline-block;">
+        <div *ngFor="let item of notifications; let i = index" style="border:1px solid;border-color: #c5c7c9;font-family: Arial, Helvetica, sans-serif;">
           <div class = "notificationHover" [ngSwitch]="item.Type">
-            <mat-icon *ngSwitchCase="0" [ngClass]={taskApproved:true}>check_circle_outline</mat-icon>
-            <mat-icon *ngSwitchCase="1" [ngClass]={taskCompleted:true}>check_circle_outline</mat-icon>
-            <mat-icon *ngSwitchCase="2" [ngClass]={taskRejected:true}>cancel</mat-icon>
-            <mat-icon *ngSwitchCase="3" [ngClass]={taskReset:true}>error_outline</mat-icon>
-            <mat-icon *ngSwitchCase="4" [ngClass]={newMessage:true}>error_outline</mat-icon>
-            <div>
+            <div class = "notification-icon">
+              <mat-icon *ngSwitchCase="0" [ngClass]={taskApproved:true}>check_circle_outline</mat-icon>
+              <mat-icon *ngSwitchCase="1" [ngClass]={taskCompleted:true}>check_circle_outline</mat-icon>
+              <mat-icon *ngSwitchCase="2" [ngClass]={taskRejected:true}>cancel</mat-icon>
+              <mat-icon *ngSwitchCase="3" [ngClass]={taskReset:true}>error_outline</mat-icon>
+              <mat-icon *ngSwitchCase="4" [ngClass]={newMessage:true}>error_outline</mat-icon>
+            </div>
+            <div class = "notification-body">
               <div style="font-size: 14px;">{{item.Text}}</div>
-              <div style="font-size: 12px;">{{item.DateTime}}<hr></div>
+              <div style="font-size: 12px;">{{item.DateTime}}</div>
             </div>
           </div>
         </div>
