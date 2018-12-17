@@ -98,8 +98,10 @@ export class GroupChatComponent implements OnInit {
     this.groupChatService.sendMessageToGroup(this.userId, this.message);
   }
 
-  public openForm(){
+  public openForm(): void {
+    this.connectToChat(this.userId);    
     document.getElementById("groupChatForm").style.display = "block";
+    this.groupChatService.getMessages(this.userId);
   }
 
   public closeForm() {

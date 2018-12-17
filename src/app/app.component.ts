@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
             .start()
             .then(() => console.log('Connection started!'))
             .catch(err => console.log('Error while establishing connection :('));
-          this.chat.connectToChat(this.userId);
+          
           this.hubConnection.on('Notify', () => {
             this.navbar.pullNotifications();
           });

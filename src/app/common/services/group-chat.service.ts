@@ -37,11 +37,13 @@ export class GroupChatService {
     this.http.get(`${this.url}chat/connect/${id}`).subscribe();
   }
 
+  getMessages(userId: number)
+  {
+    console.log("service to get messages");
+    this.http.get(`${this.url}chat/getmessages/${userId}`).subscribe();
+  }
+
   sendMessageToAll(id: number, message: string ){
-    var body = {}; 
-    console.log("group-chat.service works");
-    //this.http.get('https://localhost:44338/api/chat/message').subscribe();//(data:string) => this.idc = data); 
     this.http.get(`${this.url}chat/${id}/${message}`).subscribe();
-  } 
-  
+  }  
 }
