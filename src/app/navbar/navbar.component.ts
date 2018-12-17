@@ -10,8 +10,6 @@ import { UserService } from '../common/services/user.service';
 import { NotificationService } from '../common/services/notification.service';
 import { HttpStatusCodeService } from '../common/services/http-status-code.service';
 import { Image } from '../common/models/image';
-import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
-import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-navbar',
@@ -21,8 +19,6 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class NavbarComponent implements OnInit {
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
-
-  private _hubConnection: HubConnection;
   
   mainTag = 'Learn with mentor';
   isLogin = false;
@@ -30,8 +26,8 @@ export class NavbarComponent implements OnInit {
   fullName: string;
   userId: number;
   userImage = null;
-  notificationCounter = "";
-  notificationCounterLogic = 0;
+  notificationCounter = 0;
+  notificationCounterDisabled = true;
 
   administrationTooltip = "Admin tools";
   groupsTooltip = "Groups";
@@ -80,35 +76,29 @@ export class NavbarComponent implements OnInit {
             this.userImage = '../../../assets/images/user-default.png';
           }
         });
-
-        if (this._hubConnection == null) {
-          this._hubConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
-            .build();
-          this._hubConnection
-            .start()
-            .then(() => console.log('Connection started!'))
-            .catch(err => console.log('Error while establishing connection :('));
-          this._hubConnection.on('Notify', () => {
-            this.pushNotificationToArray();
-          });
-        }
       }
-    });    
-    
+    });
+
     this.authService.updateUserState();
   }
 
-  pushNotificationToArray(){
-  this.notificationService.getNotifications(this.userId).subscribe(response => {
-    this.notifications = [];
-    this.notificationCounterLogic = 0;
-    response.forEach(element => {
-      this.notifications.push(element);
-      this.notificationCounterLogic++;
-      this.notificationCounter = this.notificationCounterLogic.toString();
+  pullNotifications(){
+    this.notificationService.getNotifications(this.userId).subscribe(response => {
+      this.notifications = [];
+      this.notificationCounter = 0;
+      response.forEach(element => {
+        this.notifications.push(element);
+        if (!element.IsRead) {
+          this.notificationCounter++;
+        }
+      });
+      if (this.notificationCounter > 0) {
+        this.notificationCounterDisabled = false;
+      }
+      else {
+        this.notificationCounterDisabled = true;
+      }
     });
-  });
   }
 
   setUserPic(img: Image) {
@@ -118,9 +108,9 @@ export class NavbarComponent implements OnInit {
   }
   
   clearCounter() {
-    console.log(this.notificationCounter);
-    this.notificationCounter = "";
-    this.notificationCounterLogic = 0;
+    this.notificationCounter = 0;
+    this.notificationCounterDisabled = true;
+    this.notificationService.markNotificationsAsRead(this.userId).subscribe();
   }
 
   @HostListener('window:scroll', ['$event'])

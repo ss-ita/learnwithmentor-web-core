@@ -13,6 +13,7 @@ import { HttpStatusCodeService } from '../common/services/http-status-code.servi
 import { GroupChatService } from '../common/services/group-chat.service'
 import { User } from '../common/models/user';
 import { Group } from '../common/models/group';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-group-chat',
@@ -23,6 +24,7 @@ import { Group } from '../common/models/group';
 export class GroupChatComponent implements OnInit {
 
   public _hubConnection: HubConnection;
+  private url = `${environment.apiUrl}`;
 
   group: Group;
   userName = '';
@@ -61,30 +63,19 @@ export class GroupChatComponent implements OnInit {
             this.userImage = '../../../assets/images/user-default.png';
           }
         });
-        if (this._hubConnection == null) {
-          this._hubConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:44338/api/notifications', { accessTokenFactory: () => localStorage.getItem('userToken') })
-            .build();
-          this._hubConnection
-            .start()
-            .then(() => console.log('Connection started!'))
-            .catch(err => console.log('Error while establishing connection :('));
-
-            this.groupChatService.connectToGroup(this.userId);
-
-            this._hubConnection.on('SendMessage', (type: string, payload: string) => 
-            {
-              const text = `${type}:${payload}`
-              this.messages.push(text);
-              console.log(payload);
-            });
-        }
       }
-    }
     });
   
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
+  }
+
+  connectToChat(userId) {
+    this.groupChatService.connectToGroup(userId);
+  }
+
+  addMessage(message) {
+    this.messages.push(message);
   }
 
   setUserPic(img: Image) {
@@ -107,8 +98,10 @@ export class GroupChatComponent implements OnInit {
     this.groupChatService.sendMessageToGroup(this.userId, this.message);
   }
 
-  public openForm(){
+  public openForm(): void {
+    this.connectToChat(this.userId);    
     document.getElementById("groupChatForm").style.display = "block";
+    this.groupChatService.getMessages(this.userId);
   }
 
   public closeForm() {

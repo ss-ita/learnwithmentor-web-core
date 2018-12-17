@@ -41,20 +41,29 @@
       </button>
     </div>  
     <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}} matTooltipClass="tooltip">
-      <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" [(matBadge)]="notificationCounter">
-        <mat-icon>notifications</mat-icon>
+      <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" 
+              [(matBadge)]="notificationCounter" matBadgeColor="warn" [(matBadgeHidden)]="notificationCounterDisabled">
+        <mat-icon *ngIf="notificationCounter!=0;else simple_state" [class.notification-bell]="true">notifications</mat-icon>
+        <ng-template #simple_state>
+          <mat-icon>notifications</mat-icon>
+        </ng-template>
       </button>
     </div>
     <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
       <div class="notification-container">
-        <div *ngFor="let item of notifications; let i = index" style="margin-bottom: 1px; display: inline-block;">
-        <!--<div mat-menu-item  *ngFor="let item of notifications; let i = index" style="margin-bottom: 1px; display: inline-block;">-->
-         <div class = "notificationHover">
-          <mat-icon>error_outline</mat-icon>
-          <div>
-            <div style="font-size: 14px;">{{item.Text}}</div>
-            <div style="font-size: 12px;">{{item.DateTime | date}}<hr></div>
-          </div>
+        <div *ngFor="let item of notifications; let i = index" style="border:1px solid;border-color: #c5c7c9;font-family: Arial, Helvetica, sans-serif;">
+          <div class = "notificationHover" [ngSwitch]="item.Type">
+            <div class = "notification-icon">
+              <mat-icon *ngSwitchCase="0" [ngClass]={taskApproved:true}>check_circle_outline</mat-icon>
+              <mat-icon *ngSwitchCase="1" [ngClass]={taskCompleted:true}>check_circle_outline</mat-icon>
+              <mat-icon *ngSwitchCase="2" [ngClass]={taskRejected:true}>cancel</mat-icon>
+              <mat-icon *ngSwitchCase="3" [ngClass]={taskReset:true}>error_outline</mat-icon>
+              <mat-icon *ngSwitchCase="4" [ngClass]={newMessage:true}>error_outline</mat-icon>
+            </div>
+            <div class = "notification-body">
+              <div style="font-size: 14px;">{{item.Text}}</div>
+              <div style="font-size: 12px;">{{item.DateTime}}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -65,4 +74,4 @@
       </button>
     </div>
   </mat-toolbar>
-  </app-sticky-header>
+</app-sticky-header>
