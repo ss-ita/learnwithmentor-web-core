@@ -50,6 +50,12 @@ export class AppComponent implements OnInit {
           });
         }
       }
+      else {
+        if (this.hubConnection != null) {
+          this.hubConnection.stop();
+          this.hubConnection = null;
+        }
+      }
     });
   }
 }
