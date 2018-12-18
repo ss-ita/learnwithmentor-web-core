@@ -1,10 +1,10 @@
 <form class="example-form" #loginForm="ngForm" (ngSubmit)="OnSubmit(loginForm)">
   <h1>Sign In</h1>
   <mat-form-field class="example-full-width containerUpdate">
-    <input matInput type="email" placeholder="Your email" #Email ngModel name="Email" placeholder="Email" required>
+    <input matInput type="email" placeholder="Your email" #Email ngModel name="Email" placeholder="Email" autocomplete="email" required>
   </mat-form-field>
   <mat-form-field class="example-full-width containerUpdate">
-    <input matInput type="password" placeholder="Enter Password" #Password ngModel name="Password" placeholder="Password" required>
+    <input matInput type="password" placeholder="Enter Password" #Password ngModel name="Password" placeholder="Password" autocomplete="current-password" required>
   </mat-form-field>
   <div class="facebook">    
       <a (click)="launchFbLogin()"><img class="img-fluid" src="/assets/images/facebook.png"/></a>

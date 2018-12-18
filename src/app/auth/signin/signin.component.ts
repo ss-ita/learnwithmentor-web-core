@@ -18,20 +18,22 @@ export class SigninComponent implements OnInit {
   failed: boolean;
   errorDescription: string;
   private url = `${environment.uiUrl}`;
+  handlerState = 0;
 
   constructor(public thisDialogRef: MatDialogRef<SigninComponent>, private auth: AuthService,
     private userService: UserService, private router: Router,
     private  alertwindow: AlertWindowsComponent) {
+      this.handlerState = 0;
       if (window.addEventListener) {
         window.addEventListener("message", this.handleMessage.bind(this), false);
-      } else {
-         (<any>window).attachEvent("onmessage", this.handleMessage.bind(this));
-      } 
-     }
+      }
+      else {
+        (<any>window).attachEvent("onmessage", this.handleMessage.bind(this));
+      }
+  }
 
   launchFbLogin() {
     this.authWindow = window.open(`https://www.facebook.com/v3.2/dialog/oauth?&response_type=token&display=popup&client_id=318651702058203&display=popup&redirect_uri=${this.url}facebook-auth.html&scope=email`,null,'width=600,height=400,top=400,left=400'); 
-    //this.authWindow = window.open('https://www.facebook.com/v3.2/dialog/oauth?&response_type=token&display=popup&client_id=318651702058203&display=popup&redirect_uri=http://localhost:4200/facebook-auth.html&scope=email',null,'width=600,height=400,top=400,left=400'); 
   }
 
   closeSigninComponent(): void {
@@ -55,12 +57,30 @@ export class SigninComponent implements OnInit {
     });
   }
 
+  isJson(data: any){
+    if (/^[\],:{}\s]*$/.test(data.replace(/\\["\\\/bfnrtu]/g, '@').
+    replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+    replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   handleMessage(event: Event) {
     const message = event as MessageEvent;
+
+    if (this.handlerState != 0 || !this.isJson(message.data)) {
+      return;
+    }
+
+    //this.handlerState = 1;
+
     let url_ = this.url.substring(0, this.url.length - 1);
     if (message.origin !== url_) return;
 
-    this.authWindow.close();
+    //if(!this.authWindow.closed)
+    //  this.authWindow.close();
 
     const result = JSON.parse(message.data);
     if (!result.status)
@@ -74,8 +94,10 @@ export class SigninComponent implements OnInit {
       this.failed = false;
       this.userService.facebookLogin(result.accessToken).subscribe((data: string) => {
         this.auth.setUserData(data);
+        this.authWindow.close();
         this.closeSigninComponent();
       })
     }
+    this.handlerState = 1;
   }
 }
