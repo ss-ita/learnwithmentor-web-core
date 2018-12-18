@@ -76,41 +76,47 @@ export class NavbarComponent implements OnInit {
             this.userImage = '../../../assets/images/user-default.png';
           }
         });
+
+        this.pullNotifications();
       }
     });
 
     this.authService.updateUserState();
   }
 
-  pullNotifications(){
-    this.notificationService.getNotifications(this.userId).subscribe(response => {
-      this.notifications = [];
-      this.notificationCounter = 0;
-      response.forEach(element => {
-        this.notifications.push(element);
-        if (!element.IsRead) {
-          this.notificationCounter++;
+  pullNotifications() {
+    if (this.isLogin) {
+      this.notificationService.getNotifications(this.userId).subscribe(response => {
+        this.notifications = [];
+        this.notificationCounter = 0;
+        response.forEach(element => {
+          this.notifications.push(element);
+          if (!element.IsRead) {
+            this.notificationCounter++;
+          }
+        });
+        if (this.notificationCounter > 0) {
+          this.notificationCounterDisabled = false;
+        }
+        else {
+          this.notificationCounterDisabled = true;
         }
       });
-      if (this.notificationCounter > 0) {
-        this.notificationCounterDisabled = false;
-      }
-      else {
-        this.notificationCounterDisabled = true;
-      }
-    });
+    }
+  }
+
+  clearCounter() {
+    if (this.isLogin) {
+      this.notificationCounter = 0;
+      this.notificationCounterDisabled = true;
+      this.notificationService.markNotificationsAsRead(this.userId).subscribe();
+    }
   }
 
   setUserPic(img: Image) {
     const extension = img.Name.split('.').pop().toLowerCase();
     const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
     this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-  }
-  
-  clearCounter() {
-    this.notificationCounter = 0;
-    this.notificationCounterDisabled = true;
-    this.notificationService.markNotificationsAsRead(this.userId).subscribe();
   }
 
   @HostListener('window:scroll', ['$event'])
