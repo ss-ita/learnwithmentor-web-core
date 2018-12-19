@@ -39,8 +39,13 @@ export class GroupChatService {
 
   getMessages(userId: number)
   {
-    console.log("service to get messages");
     this.http.get(`${this.url}chat/getmessages/${userId}`).subscribe();
+  }
+
+  getLastMessages(userId: number)
+  {
+    var amount = 20;
+    this.http.get(`${this.url}chat/getmessages/${userId}/${amount}`).subscribe();
   }
 
   sendMessageToAll(id: number, message: string ){
