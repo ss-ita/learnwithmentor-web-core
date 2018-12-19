@@ -52,7 +52,7 @@
 
 .notification:hover
 {
-  background:cornflowerblue;
+  background:blue;
   -webkit-transition: all 0.5s ease;;
   -moz-transition: all 0.5s ease;;
   -o-transition: all 0.5s ease;;
@@ -61,10 +61,10 @@
 
 .notification-container
 {
-  background-color: #e9ebee;
+  background-color: white;
   display: table;
   position: relative;
-  height: 100%;
+  max-height: 15em;
 }
 
 .notification-icon{
@@ -75,27 +75,23 @@
   top: 0;
   height: 40%;
   text-align: center;
-  background-color: #c5c7c9;
+  background-color: white;
 }
 
-.notification-body{
+.notification-body {
   display: table-cell;
   vertical-align: middle;
   padding: 15px;
+  background-color: white;
+  color: #757575;
 }
 
-.notificationHover:hover
-{
-  background-color:#c5c7c9;
-  -webkit-transition: all 0.5s ease;;
-  -moz-transition: all 0.5s ease;;
-  -o-transition: all 0.5s ease;;
-  transition: all 0.5s ease;
-}
-
-.notificationBlock:hover
-{
-  background-color: #dee2e8
+.notification-body:hover {
+  color: black;
+  -webkit-transition: all 0.4s ease;;
+  -moz-transition: all 0.4s ease;;
+  -o-transition: all 0.4s ease;;
+  transition: all 0.4s ease;
 }
 
 .taskApproved {
@@ -111,7 +107,7 @@
 }
 
 .taskReset {
-  color:yellow;
+  color: black;
 }
 
 .newMessage {
