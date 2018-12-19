@@ -42,29 +42,6 @@
   margin-bottom: 10px;
 }
 
-.self .user-photo{
-  width:30px;
-  height: 30px;
-  /*background: lightgoldenrodyellow;
-  background: rgb(208, 207, 250);*/
-  background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(184, 181, 181);
-  border-radius: 50%;
-  margin-left: 5px;
-}
-
-.friend .user-photo{
-  width:30px;
-  height: 30px;
-  /*background: rgb(98, 255, 182);*/
-  background-color: rgb(250, 250, 250);
-  /*border: 1px solid #1ddced;*/
-  border: 1px solid rgb(184, 181, 181);
-  border-radius: 50%;
-  margin-right: 5px;
-  margin-left: -9px;
-}
-
 .chat .chat-message{
   width: 65%;
   padding: 5px; 
@@ -106,21 +83,41 @@
 
 
 .mybutton {
-  background-color: rgb(170, 170, 170); /* Green */
+  background-color: rgb(170, 170, 170); 
+
+  border-radius: 5px;
+  width: 100%;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+
+
+  font-size: 14px;
+
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;  
+  transition-duration: 0.4s;
+
+
+}
+
+.more-button {
+  background-color: rgb(170, 170, 170); 
   border: none;
   border-radius: 5px;
   width: 96%;
   color: white;
-  padding: 15px 32px;
+  padding: 5px 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
   margin: 4px 2px;
+  margin-bottom: 10px;
+  margin-top: 0;
   cursor: pointer;
-  -webkit-transition-duration: 0.4s;  /*Safari */
+  -webkit-transition-duration: 0.4s;  
   transition-duration: 0.4s;
-
   -webkit-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
 }
@@ -225,12 +222,13 @@
 
 /* Add styles to the form container */
 .form-container {
+  min-height: 250px;
   max-width: 250px;
   padding: 10px;
   background-color: white;
   margin-right: 10px;
   margin-left: 4px;
-  margin-top: -10px;
+  margin-top: 0px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.49);
 }
 
@@ -260,4 +258,91 @@
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+/* Chat containers */
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+  margin-top: 0;
+  max-width: 250px;
+  width: 90%;
+  height: auto;
+  display: block;
+  box-shadow: 2px 8px 5px #000;
+  position: relative;
+}
+
+/* Darker chat container */
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+  display: table;
+}
+
+/* Clear floats */
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Style images */
+.container img {
+  float: left;
+  max-width: 30px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+/* Style the right image */
+.container img.right {
+  vertical-align: middle;
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+/* Style time text */
+.time-right {
+  font-size: 8pt;
+  float: right;
+  color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+  font-size: 8pt;
+  float: left;
+  color: #999;
+}
+
+.name-message{
+  vertical-align: middle;
+  font-size: 10pt;
+  font-weight:bold;
+  float: left;
+  color: rgb(63, 59, 59);
+}
+
+.text-message{
+  font-size: 10pt;
+  float: justify;
+  text-align: left;
+  color: rgb(0, 0, 0);
+}
+
+.user-photo{
+  width:30px;
+  height: 30px;
+  background-color: rgb(250, 250, 250);
+  border: 1px solid rgb(184, 181, 181);
+  border-radius: 50%;
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
 }

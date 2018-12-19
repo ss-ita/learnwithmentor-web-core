@@ -3,30 +3,31 @@
         <span class="mt-name">Group chat</span>
         <i class="material-icons">group</i>
       </button>
-  <div class="form-popup" id="groupChatForm">
-      <button class="mybutton" (click)="closeForm()">
-          <span class="mt-name">Group chat</span>
-          <i class="material-icons">group</i>
-      </button>
-    <form action="/action_page.php" class="form-container">
-      <div id="main-container" style="text-align:center">   
-        <div class="container">
-          <form (ngSubmit)="sendMessageToGroup()" #chatForm="ngForm"> 
-            <div class="chatlogs">
-            <div *ngFor="let message of messages">
-                <div class="chat self">
-                    <img *ngIf="userImage" [src]="userImage" class="user-photo">
-                    <p class="chat-message">{{message}}</p>
+  <div class="form-popup" id="groupChatForm">   
+      <div id="main-container" style="text-align:center">        
+          <form #chatForm="ngForm"> 
+              <button class="mybutton" (click)="closeForm()">
+                  <span class="mt-name">Group chat</span>
+                  <i class="material-icons">group</i>
+              </button>
+            <div class="container">
+              <div class="chatlogs" #scrollMe [scrollTop]="scrollMe.scrollHeight" *ngIf="messages.length > 0">
+                <button id="getAllMessages-button" class="more-button" (click)="getAllMessages()">View older messages</button>
+                <div *ngFor="let message of messages">
+                  <div class="container darker">
+                    <p class="name-message">{{message.senderName}}:</p>
+                    <br>
+                    <p class="text-message">{{message.textMessage}}</p>
+                    <p class="time-right">{{message.timeSent}}</p>
+                  </div>
                 </div>
+              </div>
+              <div class="chat-form">
+                <input type="text" id="message" name="message" [(ngModel)]="message" required>
+                <button (click)="sendMessageToGroup()" class="send-btn">Send</button>
+              </div>
             </div>
-          </div>
-            <div class="chat-form">
-              <input type="text" id="message" name="message" [(ngModel)]="message" required>
-              <button type="submit" class="send-btn">Send</button>
-            </div>
-          </form>  
-        </div>
-      </div>
-    </form>
+          </form>         
+      </div>   
   </div>
 </div>
