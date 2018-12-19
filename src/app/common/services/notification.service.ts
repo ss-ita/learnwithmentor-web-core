@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { NgClass } from '@angular/common';
 
-
 @Injectable({
   providedIn: 'root'
 })
