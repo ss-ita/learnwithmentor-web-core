@@ -18,12 +18,12 @@ export class SigninComponent implements OnInit {
   failed: boolean;
   errorDescription: string;
   private url = `${environment.uiUrl}`;
-  handlerState = 0;
+  authState: number = 0;
 
   constructor(public thisDialogRef: MatDialogRef<SigninComponent>, private auth: AuthService,
     private userService: UserService, private router: Router,
     private  alertwindow: AlertWindowsComponent) {
-      this.handlerState = 0;
+      this.authState = 0;
       if (window.addEventListener) {
         window.addEventListener("message", this.handleMessage.bind(this), false);
       }
@@ -33,7 +33,7 @@ export class SigninComponent implements OnInit {
   }
 
   launchFbLogin() {
-    this.authWindow = window.open(`https://www.facebook.com/v3.2/dialog/oauth?&response_type=token&display=popup&client_id=318651702058203&display=popup&redirect_uri=${this.url}facebook-auth.html&scope=email`,null,'width=600,height=400,top=400,left=400'); 
+    this.authWindow = window.open(`https://www.facebook.com/v3.2/dialog/oauth?&response_type=token&display=popup&client_id=318651702058203&display=popup&redirect_uri=${this.url}facebook-auth&scope=email`,null,'width=600,height=400,top=400,left=400'); 
   }
 
   closeSigninComponent(): void {
@@ -58,11 +58,12 @@ export class SigninComponent implements OnInit {
   }
 
   isJson(data: any){
-    if (/^[\],:{}\s]*$/.test(data.replace(/\\["\\\/bfnrtu]/g, '@').
-    replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
-    replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+    if (/^[\],:{}\s]*$/.test(data.replace(/\\["\\\/bfnrtu]/g, '@')
+    .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+    .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
       return true;
-    }else{
+    }
+    else {
       return false;
     }
   }
@@ -70,17 +71,12 @@ export class SigninComponent implements OnInit {
   handleMessage(event: Event) {
     const message = event as MessageEvent;
 
-    if (this.handlerState != 0 || !this.isJson(message.data)) {
+    if (this.authState != 0 || !this.isJson(message.data)) {
       return;
     }
 
-    //this.handlerState = 1;
-
-    let url_ = this.url.substring(0, this.url.length - 1);
-    if (message.origin !== url_) return;
-
-    //if(!this.authWindow.closed)
-    //  this.authWindow.close();
+    this.url = this.url.substring(0, this.url.length - 1);
+    if (message.origin !== this.url) return;
 
     const result = JSON.parse(message.data);
     if (!result.status)
@@ -98,6 +94,6 @@ export class SigninComponent implements OnInit {
         this.closeSigninComponent();
       })
     }
-    this.handlerState = 1;
+    this.authState = 1;
   }
 }

@@ -15,7 +15,7 @@ export class UserEditComponent implements OnInit {
   @Input()
   newData = new User;
   userData: User;
-  oldpassword = '';
+  oldPassword = '';
   password = '';
   passwordRepeat = '';
   editPass = false;
@@ -58,7 +58,7 @@ export class UserEditComponent implements OnInit {
       );
     }
     if (this.editPass && this.password && this.password === this.passwordRepeat) {
-      this.userService.updatePassword(this.password, this.oldpassword).subscribe(
+      this.userService.updatePassword(this.password, this.oldPassword).subscribe(
         resp => {
           if (this.httpStatusCodeService.isOk(resp.status)) {
             this.alertwindow.openSnackBar(`Password ${message}successfully updated`, 'Ok');

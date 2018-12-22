@@ -28,6 +28,7 @@ import { BeginPasswordResetComponent } from './begin-password-reset/begin-passwo
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { EmailNotConfirmedComponent } from './email-not-confirmed/email-not-confirmed.component';
+import { FacebookAuthComponent } from './facebook/facebook-auth.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
@@ -50,6 +51,7 @@ const routes: Routes = [
   { path: 'password-reset/:token', component: PasswordResetComponent},
   { path: 'confirm-email/:token', component: ConfirmEmailComponent},
   { path: 'group/:id/plan/:id', component: SpecificPlanComponent, canActivate: [AuthGuard] },
+  { path: 'facebook-auth', component: FacebookAuthComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
