@@ -158,6 +158,14 @@ export class UserService {
     return this.http.post(`${this.url}/facebook`, body, { headers: reqHeader });
   }
 
+  googleLogin(accessToken: string) {
+    const body = {
+      AccessToken: accessToken
+    };
+    const reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.post(`${this.url}/google`, body, { headers: reqHeader });
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       this.alertWindow.openSnackBar(error.message, 'OK');

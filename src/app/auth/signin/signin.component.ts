@@ -36,6 +36,10 @@ export class SigninComponent implements OnInit {
     this.authWindow = window.open(`https://www.facebook.com/v3.2/dialog/oauth?&response_type=token&display=popup&client_id=318651702058203&display=popup&redirect_uri=${this.url}facebook-auth&scope=email`,null,'width=600,height=400,top=400,left=400'); 
   }
 
+  launchGoogleLogin() {
+    this.authWindow = window.open(`https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.email&client_id=289151810162-vch7l94sbd0jh3f2u5v3g0lnf3sfjqn5.apps.googleusercontent.com&redirect_uri=${this.url}signin-google&response_type=token`,null,'width=600,height=400,top=400,left=400'); 
+  }
+
   closeSigninComponent(): void {
     this.thisDialogRef.close();
   }
@@ -87,12 +91,22 @@ export class SigninComponent implements OnInit {
     }
     else
     {
-      this.failed = false;
-      this.userService.facebookLogin(result.accessToken).subscribe((data: string) => {
-        this.auth.setUserData(data);
-        this.authWindow.close();
-        this.closeSigninComponent();
-      })
+      if(result.provider == 'facebook'){
+        this.failed = false;
+        this.userService.facebookLogin(result.accessToken).subscribe((data: string) => {
+          this.auth.setUserData(data);
+          this.authWindow.close();
+          this.closeSigninComponent();
+        })
+      }
+      else if(result.provider == 'google'){
+        this.failed = false;
+        this.userService.googleLogin(result.accessToken).subscribe((data: string) => {
+          this.auth.setUserData(data);
+          this.authWindow.close();
+          this.closeSigninComponent();
+        })
+      }
     }
     this.authState = 1;
   }

@@ -85,7 +85,8 @@ import { CustomPaginatorComponent } from './custom-paginator/custom-paginator.co
 import { InViewportModule } from 'ng-in-viewport';
 import 'intersection-observer';
 import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
-import { FacebookAuthComponent } from './facebook/facebook-auth.component';
+import { FacebookAuthComponent } from './facebook-auth/facebook-auth.component';
+import { GoogleAuthComponent } from './google-auth/google-auth.component';
 
 
 
@@ -153,7 +154,8 @@ export class RavenErrorHandler implements ErrorHandler {
     ReviewSuggestedDeadlinesComponent,
     CustomPaginatorComponent,
     StickyHeaderComponent,
-    FacebookAuthComponent
+    FacebookAuthComponent,
+    GoogleAuthComponent
     ],
   imports: [
     AppRoutingModule,
