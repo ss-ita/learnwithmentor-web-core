@@ -48,7 +48,7 @@ export class PasswordResetComponent implements OnInit {
   resetPassword(form: NgForm) {
     if (form.value.Password === form.value.Password2) {
       this.progresSpinerActive = true;
-      this.emailService.resetPassword(this.userId, form.value.Password).subscribe(
+      this.emailService.resetPassword(this.userId, form.value.Password, form.value.OldPassword).subscribe(
         resp => {
           if (this.httpStatusCodeService.isOk(resp.status)) {
             this.alertwindow.openSnackBar('Password successfully changed', 'Ok');
