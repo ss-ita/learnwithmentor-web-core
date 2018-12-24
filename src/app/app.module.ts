@@ -83,7 +83,8 @@ import { ReviewSuggestedDeadlinesComponent } from './specific-group/review-sugge
 import { CustomPaginatorComponent } from './custom-paginator/custom-paginator.component';
 import { InViewportModule } from 'ng-in-viewport';
 import 'intersection-observer';
-import { FacebookAuthComponent } from './facebook/facebook-auth.component';
+import { FacebookAuthComponent } from './facebook-auth/facebook-auth.component';
+import { GoogleAuthComponent } from './google-auth/google-auth.component';
 
 
 import * as Raven from 'raven-js';
@@ -149,7 +150,8 @@ export class RavenErrorHandler implements ErrorHandler {
     SuggestDeadlineComponent,
     ReviewSuggestedDeadlinesComponent,
     CustomPaginatorComponent,
-    FacebookAuthComponent
+    FacebookAuthComponent,
+    GoogleAuthComponent
     ],
   imports: [
     AppRoutingModule,

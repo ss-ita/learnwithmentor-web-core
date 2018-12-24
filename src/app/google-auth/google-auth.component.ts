@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'facebook-auth',
-  templateUrl: './facebook-auth.component.html',
+  selector: 'google-auth',
+  templateUrl: './google-auth.component.html',
 })
-export class FacebookAuthComponent {
+export class GoogleAuthComponent {
   private url : string = `${environment.uiUrl}`;
   messageOk = { provider : '', status : true, accessToken : '' };
   messageError = { provider : '', status : true, errorDescription : '' };
@@ -16,14 +16,14 @@ export class FacebookAuthComponent {
     
     if(this.accessToken)
     {
-      this.messageOk.provider = 'facebook';
+      this.messageOk.provider = 'google';
       this.messageOk.status = true;
       this.messageOk.accessToken = this.accessToken;
       window.opener.postMessage(JSON.stringify(this.messageOk), this.url);
     }
     else
     {
-      this.messageError.provider = 'facebook';
+      this.messageError.provider = 'google';
       this.messageError.status = false;
       this.messageError.errorDescription = this.getParameterByName("error_description");
       window.opener.postMessage(JSON.stringify(this.messageError), this.url);

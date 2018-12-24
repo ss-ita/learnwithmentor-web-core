@@ -6,8 +6,13 @@
   <mat-form-field class="example-full-width containerUpdate">
     <input matInput type="password" placeholder="Enter Password" #Password ngModel name="Password" placeholder="Password" autocomplete="current-password" required>
   </mat-form-field>
-  <div class="facebook">    
+  <div id="auth-container">
+    <div id="facebook">  
       <a (click)="launchFbLogin()"><img class="img-fluid" src="/assets/images/facebook.png"/></a>
+    </div>
+    <div id="google">
+      <a (click)="launchGoogleLogin()"><img class="img-fluid" src="/assets/images/google.png"/></a>
+    </div>
   </div>
   <a routerLink="/begin-password-reset" class="forgot-password" (click)="hideDialog()">
     <div>Forgot password?</div>
