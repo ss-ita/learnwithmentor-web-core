@@ -28,6 +28,7 @@ import { TaskEditorComponent } from './task/task-editor/task-editor.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule, MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { SigninComponent } from './auth/signin/signin.component';
@@ -83,8 +84,10 @@ import { ReviewSuggestedDeadlinesComponent } from './specific-group/review-sugge
 import { CustomPaginatorComponent } from './custom-paginator/custom-paginator.component';
 import { InViewportModule } from 'ng-in-viewport';
 import 'intersection-observer';
+import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
 import { FacebookAuthComponent } from './facebook-auth/facebook-auth.component';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
+
 
 
 import * as Raven from 'raven-js';
@@ -150,6 +153,7 @@ export class RavenErrorHandler implements ErrorHandler {
     SuggestDeadlineComponent,
     ReviewSuggestedDeadlinesComponent,
     CustomPaginatorComponent,
+    StickyHeaderComponent,
     FacebookAuthComponent,
     GoogleAuthComponent
     ],
@@ -183,7 +187,8 @@ export class RavenErrorHandler implements ErrorHandler {
     MatNativeDateModule,
     ReactiveFormsModule,
     MatBadgeModule,
-    InViewportModule
+    InViewportModule,
+    NgbModule
     ],
 
   entryComponents: [TaskEditorComponent,

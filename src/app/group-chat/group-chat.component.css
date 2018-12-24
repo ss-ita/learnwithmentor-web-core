@@ -1,70 +1,263 @@
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button {
-    display: none;
-    background-color: #555;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    opacity: 0.8;
-    position: fixed;
-    bottom: 23px;
-    right: 28px;
-    width: 280px;
-  }
+  display: none;
+  background-color: rgb(184, 181, 181);
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 230px;
+  border-radius: 3px;
   
-  /* The popup chat - hidden by default */
-  .form-popup {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    right: 15px;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
-  }
+}
+
+.chatlogs{
+  color:lightgrey;
+  padding:10px;
+  width:100%;
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.chatlogs::-webkit-scrollbar{
+  width:10px;
+}
+
+.chatlogs::-webkit-scrollbar-thumb{
+  border-radius: 5px;
+  background: rgba(0, 0, 0, .1)
+}
+.con {
+  border: red;
+}
+.chat{
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.self .user-photo{
+  width:30px;
+  height: 30px;
+  /*background: lightgoldenrodyellow;
+  background: rgb(208, 207, 250);*/
+  background-color: rgb(250, 250, 250);
+  border: 1px solid rgb(184, 181, 181);
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.friend .user-photo{
+  width:30px;
+  height: 30px;
+  /*background: rgb(98, 255, 182);*/
+  background-color: rgb(250, 250, 250);
+  /*border: 1px solid #1ddced;*/
+  border: 1px solid rgb(184, 181, 181);
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-left: -9px;
+}
+
+.chat .chat-message{
+  width: 65%;
+  padding: 5px; 
+  margin: 5px, 10px, 0;
+  overflow-x: hidden;
+  background: #555;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.chatlogs .friend .chat-message{
+  /*background: rgb(230, 224, 224);*/
+  background-color: rgb(184, 181, 181); /* Green */
   
-  /* Add styles to the form container */
-  .form-container {
-    max-width: 300px;
-    padding: 10px;
-    background-color: white;
-  }
+}
+
+.chatlogs .self .chat-message{
+  /*background: rgb(114, 224, 247);*/
+  /*background: rgb(98, 255, 182);*/
+  /*background: rgb(18, 67, 175);*/
+  background: rgb(47, 47, 238);
+  margin-left: 50px;
+  order: -1;
+}
+
+
+
+.chat-form{
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+
+
+/*deductuka*/
+
+
+.mybutton {
+  background-color: rgb(170, 170, 170); /* Green */
+  border: none;
+  border-radius: 5px;
+  width: 96%;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;  /*Safari */
+  transition-duration: 0.4s;
+
+  -webkit-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+}
+
+.chat-form textarea::-webkit-scrollbar{
+  width: 3px;
+}
+
+.chat-form textarea::-webkit-scrollbar-thumb{
+  border-radius: 5px;
+  background: rgba(0, 0, 0, .1)
+}
+
+
+.chat-form input{
+  background: whitesmoke;
+  width: 100%;
+  height: 4px;
+  border: 2px solid grey;
+  border-radius: 3px;
+  resize: none;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: lightslategray;
+}
+.chat-form button{
+  /*background:#1ddced;*/
+  background: rgb(47, 47, 238);
+  padding: 2px 15px;
   
-  /* Full-width textarea */
-  .form-container textarea {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-    resize: none;
-    min-height: 200px;
-  }
+  font-size: 15px;
+  color:#fff;
+  border:none;
+  margin-left: 7px;
+  margin-right: -5px;
+  border-radius: 3px;
+  height: 28px;
+  cursor:pointer;
+  /*height: 25px;
+  box-shadow: 0 3px #0eb2c1;
+
+  -webkit-transition: background .2s ease;
+  -moz-transition: background .2s ease;
+  -o-transition: background .2s ease;*/
+}
+
+/*.chat-form button:hover{
+  background: rgb(65, 178, 248);
+
+}*/
+
+.mybutton .material-icons {
+  color: whitesmoke;
+  float: right;
   
-  /* When the textarea gets focus, do something */
-  .form-container textarea:focus {
-    background-color: #ddd;
-    outline: none;
-  }
+  font-size: 2em;
+  text-shadow: -4px -2px 5px rgba(0,0,0,0.5);
+}
+
+.open-button .material-icons{
+  color: whitesmoke;
+  float: right;
   
-  /* Set a style for the submit/login button */
-  .form-container .btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
-  }
-  
-  /* Add a red background color to the cancel button */
-  .form-container .cancel {
-    background-color: red;
-  }
-  
-  /* Add some hover effects to buttons */
-  .form-container .btn:hover, .open-button:hover {
-    opacity: 1;
-  }
+  font-size: 1.73em;
+  text-shadow: -4px -2px 5px rgba(0,0,0,0.5);
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+#sendmessage {
+  float: right;
+}
+
+.mt-name{
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  float: left;
+}
+
+.mt-icon{
+  color: white;
+  float: right;
+}
+
+.mat-toolbar {
+  background-color: grey;
+}
+/* The popup chat - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 250px;
+  padding: 10px;
+  background-color: white;
+  margin-right: 10px;
+  margin-left: 4px;
+  margin-top: -10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.49);
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: whitesmoke;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: rgb(126, 45, 58);
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
