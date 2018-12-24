@@ -126,7 +126,6 @@ export class TaskService {
     const link = `${this.url}task/return`;
     return this.http.post<Task>(link, task, httpOptions).pipe(
       catchError(this.handleError<Task>(`creating task`)));
-
   }
 
   getUserTask(planTaskId: number, userId: number): Observable<HttpResponse<UserTask>> {

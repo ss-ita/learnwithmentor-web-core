@@ -1,10 +1,19 @@
 import {Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { MatDialog } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../common/services/auth.service';
 import { GroupService } from '../common/services/group.service';
+import { UserService } from '../common/services/user.service';
+import { HttpBackend } from '@angular/common/http';
+import { Image } from '../common/models/image';
+import { HttpStatusCodeService } from '../common/services/http-status-code.service';
+import { GroupChatService } from '../common/services/group-chat.service'
+import { User } from '../common/models/user';
+import { Group } from '../common/models/group';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-group-chat',
@@ -13,59 +22,88 @@ import { GroupService } from '../common/services/group.service';
 })
 
 export class GroupChatComponent implements OnInit {
-  public _hubConnection: HubConnection;
 
-  groupid = '';
+  public _hubConnection: HubConnection;
+  private url = `${environment.apiUrl}`;
+
+  group: Group;
   userName = '';
+  groupName = '';
+  userId = 0;
+  userImage = null;
   message = '';
   messages: string[] = [];
+  user: User;
 
   isLogin = false;
+
   constructor(private dialog: MatDialog,
     private router: Router,
     private authService: AuthService,
-    private groupService: GroupService) {
-  }
-
-  public sendMessage(): void {
-      this._hubConnection
-      .invoke('sendToAll', this.userName, this.message)
-      .then(() => this.message = '')
-      .catch(err => console.error(err));
+    private groupService: GroupService,
+    private sanitizer: DomSanitizer,
+    private userService: UserService,
+    private httpStatusCodeService: HttpStatusCodeService,
+    private groupChatService: GroupChatService) {
   }
 
   ngOnInit() {
 
     const jwt = new JwtHelperService();
+
     this.authService.isAuthenticated().subscribe(val => {
       this.isLogin = val;
+      this.userId = this.authService.getUserId();
+      this.isVisible();
+      if (this.isLogin) {
+        this.userService.getImage(this.userId).subscribe(response => {
+          if (this.httpStatusCodeService.isOk(response.status)) {
+            this.setUserPic(response.body);
+          } else {
+            this.userImage = '../../../assets/images/user-default.png';
+          }
+        });
+      }
     });
+  
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
-    
-    this.isVisible();
-      
-    this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44338/chat').build();
+  }
 
-    this._hubConnection
-      .start()
-      .then(() => console.log('Connection started!'))
-      .catch(err => console.log('Error while establishing connection :('));
+  connectToChat(userId) {
+    this.groupChatService.connectToGroup(userId);
+  }
 
-      this._hubConnection.on('sendToAll', (userName: string, receivedMessage: string) => {
-        const text = `${userName}: ${receivedMessage}`;
-        this.messages.push(text);
-     });
+  addMessage(message) {
+    this.messages.push(message);
+  }
+
+  setUserPic(img: Image) {
+    const extension = img.Name.split('.').pop().toLowerCase();
+    const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
+    this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+  }
+  
+  public isVisible(){
+    if(this.isLogin) {
+      document.getElementById("chatBlock").style.display = "block";
     }
-    public isVisible(){
-      if(this.isLogin) {
-        document.getElementById("chatBlock").style.display = "block";
-      }
-    }
-    public openForm(){
-      document.getElementById("groupChatForm").style.display = "block";
-    }
-    public closeForm() {
-      document.getElementById("groupChatForm").style.display = "none";
-    }
+  }  
+   
+  public sendMessage(): void {    
+    this.groupChatService.sendMessageToAll(this.userId, this.message);
+  }
+
+  public sendMessageToGroup(): void {
+    this.groupChatService.sendMessageToGroup(this.userId, this.message);
+  }
+
+  public openForm(){
+    document.getElementById("groupChatForm").style.display = "block";
+  }
+
+  public closeForm() {
+    document.getElementById("groupChatForm").style.display = "none";
+  }  
+  
 }

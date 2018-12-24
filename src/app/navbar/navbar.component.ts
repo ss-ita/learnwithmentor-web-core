@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../common/services/auth.service';
 import { UserService } from '../common/services/user.service';
+import { NotificationService } from '../common/services/notification.service';
 import { HttpStatusCodeService } from '../common/services/http-status-code.service';
 import { Image } from '../common/models/image';
-import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 
 @Component({
   selector: 'app-navbar',
@@ -19,8 +19,6 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 })
 export class NavbarComponent implements OnInit {
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
-
-  private _hubConnection: HubConnection;
   
   mainTag = 'Learn with mentor';
   isLogin = false;
@@ -28,8 +26,8 @@ export class NavbarComponent implements OnInit {
   fullName: string;
   userId: number;
   userImage = null;
-  notificationCounter = "";
-  notifitcationLogicAdd = 0;
+  notificationCounter = 0;
+  notificationCounterDisabled = true;
 
   administrationTooltip = "Admin tools";
   groupsTooltip = "Groups";
@@ -44,6 +42,7 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private userService: UserService,
+    private notificationService: NotificationService,
     private httpStatusCodeService: HttpStatusCodeService,
     public elementRef: ElementRef) {
   }
@@ -78,39 +77,46 @@ export class NavbarComponent implements OnInit {
           }
         });
 
-        if (this._hubConnection == null) {
-          this._hubConnection = new HubConnectionBuilder().withUrl('https://localhost:44339/api/notify').build();
-          this._hubConnection
-            .start()
-            .then(() => console.log('Connection started!'))
-            .catch(err => console.log('Error while establishing connection :('));
-
-            this._hubConnection.on('BroadcastMessage', (type: string, payload: string) => 
-            {
-              const text = `${type}:${payload}`
-
-              this.notifications.push(text);
-              console.log(payload);
-
-              this.notifitcationLogicAdd++;
-              this.notificationCounter=this.notifitcationLogicAdd.toString();
-            });
-        }
+        this.pullNotifications();
       }
-    });    
-    
+    });
+
     this.authService.updateUserState();
+  }
+
+  pullNotifications() {
+    if (this.isLogin) {
+      this.notificationService.getNotifications(this.userId).subscribe(response => {
+        this.notifications = [];
+        this.notificationCounter = 0;
+        response.forEach(element => {
+          this.notifications.push(element);
+          if (!element.IsRead) {
+            this.notificationCounter++;
+          }
+        });
+        if (this.notificationCounter > 0) {
+          this.notificationCounterDisabled = false;
+        }
+        else {
+          this.notificationCounterDisabled = true;
+        }
+      });
+    }
+  }
+
+  clearCounter() {
+    if (this.isLogin) {
+      this.notificationCounter = 0;
+      this.notificationCounterDisabled = true;
+      this.notificationService.markNotificationsAsRead(this.userId).subscribe();
+    }
   }
 
   setUserPic(img: Image) {
     const extension = img.Name.split('.').pop().toLowerCase();
     const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
     this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-  }
-  clearCounter() {
-    console.log(this.notificationCounter);
-    this.notificationCounter = "";
-    this.notifitcationLogicAdd = 0;
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -125,4 +131,3 @@ export class NavbarComponent implements OnInit {
       }
     }
 }
-

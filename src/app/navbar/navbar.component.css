@@ -1,11 +1,16 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .toolbar {
   padding-left: 20px;
   padding-right: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 .ordItem {
@@ -15,11 +20,6 @@
 
 .spacer {
   flex: 1 1 auto;
-}
-
-.notification-container {
-  height: 15em; 
-  width: 15em;
 }
 
 .tooltip {
@@ -36,3 +36,94 @@
   padding: 0; 
   height: 40px;
 }
+
+.content {
+  padding-top: 45px;
+}
+
+.toolbar {
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow: hidden;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+}
+
+.notification:hover
+{
+  background:blue;
+  -webkit-transition: all 0.5s ease;;
+  -moz-transition: all 0.5s ease;;
+  -o-transition: all 0.5s ease;;
+  transition: all 0.5s ease;
+}
+
+.notification-container
+{
+  background-color: white;
+  display: table;
+  position: relative;
+  max-height: 15em;
+}
+
+.notification-icon{
+  display: table-cell;
+  vertical-align: middle;
+  padding: 10px;
+  width: 20px;
+  top: 0;
+  height: 40%;
+  text-align: center;
+  background-color: white;
+}
+
+.notification-body {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 15px;
+  background-color: white;
+  color: #757575;
+}
+
+.notification-body:hover {
+  color: black;
+  -webkit-transition: all 0.4s ease;;
+  -moz-transition: all 0.4s ease;;
+  -o-transition: all 0.4s ease;;
+  transition: all 0.4s ease;
+}
+
+.taskApproved {
+  color:green;
+}
+
+.taskCompleted {
+  color:green;
+}
+
+.taskRejected {
+  color:red;
+}
+
+.taskReset {
+  color: black;
+}
+
+.newMessage {
+  color:blue;
+}
+
+.notification-bell{
+  animation: bell 1s 1s both infinite;
+}
+
+@keyframes bell {
+  0% { transform: rotate(0); }
+  10% { transform: rotate(30deg); }
+  20% { transform: rotate(0); }
+  80% { transform: rotate(0); }
+  90% { transform: rotate(-30deg); }
+  100% { transform: rotate(0); }
+}
+
