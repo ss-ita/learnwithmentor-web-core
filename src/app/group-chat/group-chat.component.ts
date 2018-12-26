@@ -32,7 +32,7 @@ export class GroupChatComponent implements OnInit {
   userId = 0;
   userImage = null;
   message = '';
-  messages: string[] = [];
+  messages = [];
   user: User;
 
   isLogin = false;
@@ -78,8 +78,9 @@ export class GroupChatComponent implements OnInit {
     this.groupChatService.connectToGroup(userId);
   }
 
-  addMessage(message) {
-    this.messages.push(message);
+  addMessage(senderId, name, message, time) 
+  {    
+    this.messages.push({senderName: name, textMessage: message, timeSent: time});
   }
 
   setUserPic(img: Image) {
@@ -100,14 +101,25 @@ export class GroupChatComponent implements OnInit {
 
   public sendMessageToGroup(): void {
     this.groupChatService.sendMessageToGroup(this.userId, this.message);
+    document.getElementById("message").nodeValue='';
   }
 
-  public openForm(){
+  public openForm(): void {
+    this.connectToChat(this.userId);    
     document.getElementById("groupChatForm").style.display = "block";
+    this.groupChatService.getLastMessages(this.userId);
   }
 
   public closeForm() {
     document.getElementById("groupChatForm").style.display = "none";
+    this.messages = [];
   }  
-  
+ 
+  public getAllMessages(): void
+  {
+    document.getElementById("getAllMessages-button").style.display = "none";
+    this.messages = [];
+    this.groupChatService.getMessages(this.userId);
+  }
+
 }

@@ -38,14 +38,12 @@ export class AppComponent implements OnInit {
           this.hubConnection
             .start()
             .then(() => console.log('Connection started!'))
-            .catch(err => console.log('Error while establishing connection :('));
-          this.chat.connectToChat(this.userId);
+            .catch(err => console.log('Error while establishing connection :('));         
           this.hubConnection.on('Notify', () => {
             this.navbar.pullNotifications();
           });
-          this.hubConnection.on('SendMessage', (senderId: number, name: string, message: string, timeSent: string) => {
-            const text = `${name}: ${message}`;
-            this.chat.addMessage(text);
+          this.hubConnection.on('SendMessage', (senderId: number, name: string, message: string, time: string) => {
+            this.chat.addMessage(senderId, name, message, time);
           });
         }
       }
