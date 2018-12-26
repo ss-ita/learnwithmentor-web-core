@@ -7,8 +7,6 @@ build_script:
 
     npm run build
 
-    npm run lint
-
 artifacts:
  - path: '\dist\learnwithmentor-web'
    name: WebDeployPackage
