@@ -311,7 +311,7 @@ export class SpecificPlanComponent implements OnInit {
 
   setUserPic(img: Image) {
     let image;
-    if (typeof img.Base64Data !== 'undefined' && typeof img.Name !== 'undefined') {
+    if (typeof img.Base64Data !== 'undefined' && typeof img.Name !== 'undefined' &&  img.Base64Data !== null) {
       const extension = img.Name.split('.').pop().toLowerCase();
       const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
       image = this.sanitizer.bypassSecurityTrustUrl(imgUrl);

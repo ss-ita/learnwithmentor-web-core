@@ -64,6 +64,10 @@ export class GroupChatComponent implements OnInit {
           }
         });
       }
+      else {
+        document.getElementById("chatBlock").style.display = "none";
+        document.getElementById("groupChatForm").style.display = "none";
+      }
     });
   
     this.authService.updateUserState();

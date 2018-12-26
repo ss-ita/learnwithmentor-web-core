@@ -43,10 +43,9 @@ export class AppComponent implements OnInit {
           this.hubConnection.on('Notify', () => {
             this.navbar.pullNotifications();
           });
-          this.hubConnection.on('SendMessage', (type: string, payload: string) => {
-            const text = `${type}:${payload}`
+          this.hubConnection.on('SendMessage', (senderId: number, name: string, message: string, timeSent: string) => {
+            const text = `${name}: ${message}`;
             this.chat.addMessage(text);
-            console.log(payload);
           });
         }
       }

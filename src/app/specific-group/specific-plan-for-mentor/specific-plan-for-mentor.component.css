@@ -13,6 +13,7 @@ input {
   height: 40px;
   border-radius: 100%;
   margin: 5px 2.5px;
+  background-color: rgba(0, 0, 255, 0.281);
 }
 
 .state {
