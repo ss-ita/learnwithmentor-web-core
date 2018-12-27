@@ -92,7 +92,6 @@ export class NavbarComponent implements OnInit {
   pullNotifications() {
     if (this.isLogin) {
       this.notificationService.getNotifications(this.userId).subscribe(response => {
-        console.log("PULLING NOTIFICATIONS!");
         this.notifications = [];
         this.notificationCounter = 0;
         response.forEach(element => {
