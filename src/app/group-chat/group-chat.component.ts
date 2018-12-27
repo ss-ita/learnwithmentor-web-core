@@ -34,6 +34,7 @@ export class GroupChatComponent implements OnInit {
   message = '';
   messages = [];
   user: User;
+  isStudent: boolean;
 
   isLogin = false;
 
@@ -51,11 +52,13 @@ export class GroupChatComponent implements OnInit {
 
     const jwt = new JwtHelperService();
 
+    
     this.authService.isAuthenticated().subscribe(val => {
+      this.isStudent = this.authService.isStudent();
       this.isLogin = val;
       this.userId = this.authService.getUserId();
       this.isVisible();
-      if (this.isLogin) {
+      if (this.isLogin && this.isStudent) {
         this.userService.getImage(this.userId).subscribe(response => {
           if (this.httpStatusCodeService.isOk(response.status)) {
             this.setUserPic(response.body);
@@ -90,7 +93,7 @@ export class GroupChatComponent implements OnInit {
   }
   
   public isVisible(){
-    if(this.isLogin) {
+    if(this.isLogin && this.isStudent) {
       document.getElementById("chatBlock").style.display = "block";
     }
   }  
@@ -101,18 +104,19 @@ export class GroupChatComponent implements OnInit {
 
   public sendMessageToGroup(): void {
     this.groupChatService.sendMessageToGroup(this.userId, this.message);
-    document.getElementById("message").nodeValue='';
+    document.getElementById("messageInput").nodeValue="";
   }
 
   public openForm(): void {
+    this.messages = [];
     this.connectToChat(this.userId);    
     document.getElementById("groupChatForm").style.display = "block";
+    document.getElementById("messageInput").focus();
     this.groupChatService.getLastMessages(this.userId);
   }
 
   public closeForm() {
     document.getElementById("groupChatForm").style.display = "none";
-    this.messages = [];
   }  
  
   public getAllMessages(): void
@@ -121,5 +125,5 @@ export class GroupChatComponent implements OnInit {
     this.messages = [];
     this.groupChatService.getMessages(this.userId);
   }
-
+  
 }

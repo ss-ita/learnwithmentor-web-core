@@ -6,13 +6,13 @@
 <div class="form-popup" id="groupChatForm">   
     <div id="main-container" style="text-align:center">        
         <form #chatForm="ngForm"> 
-            <button class="mybutton" (click)="closeForm()">
+            <button type="button" class="mybutton" (click)="closeForm()">
                 <span class="mt-name">Group chat</span>
                 <i class="material-icons">group</i>
             </button>
           <div class="container">
             <div class="chatlogs" #scrollMe [scrollTop]="scrollMe.scrollHeight" *ngIf="messages.length > 0">
-              <button id="getAllMessages-button" class="more-button" (click)="getAllMessages()">View older messages</button>
+              <button type="button" id="getAllMessages-button" class="more-button" (click)="getAllMessages()">View older messages</button>
               <div *ngFor="let message of messages">
                 <div class="container darker">
                   <p class="name-message">{{message.senderName}}:</p>
@@ -23,8 +23,8 @@
               </div>
             </div>
             <div class="chat-form">
-              <input type="text" id="message" name="message" [(ngModel)]="message" required>
-              <button (click)="sendMessageToGroup()" class="send-btn">Send</button>
+              <input autofocus type="text" id="messageInput" name="message" [(ngModel)]="message" required #reference>
+              <button type="submit" class="send-btn" (click)="sendMessageToGroup()" (click)="reference.value=''">Send</button>
             </div>
           </div>
         </form>         
