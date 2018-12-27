@@ -26,32 +26,34 @@
   font-size: 12px;
 }
 
-.profile-image {
+.profile-button {
+  padding: 0; 
+  height: 70px;
+}
+
+.profile-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-button-image {
+  height: 26px;
   width: 26px;
   border-radius: 100%;
   margin-right: 10px;
-}
-
-.profile-button {
-  padding: 0; 
-  height: 40px;
-}
-
-.content {
-  padding-top: 45px;
 }
 
 .toolbar {
   padding-left: 20px;
   padding-right: 20px;
   overflow: hidden;
-  position: fixed; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
+  position: fixed;
+  top: 0;
   width: 100%;
 }
 
-.notification:hover
-{
+.notification:hover {
   background:blue;
   -webkit-transition: all 0.5s ease;;
   -moz-transition: all 0.5s ease;;
@@ -59,15 +61,14 @@
   transition: all 0.5s ease;
 }
 
-.notification-container
-{
+.notification-container {
   background-color: white;
   display: table;
   position: relative;
   max-height: 15em;
 }
 
-.notification-icon{
+.notification-icon {
   display: table-cell;
   vertical-align: middle;
   padding: 10px;
@@ -114,7 +115,7 @@
   color:blue;
 }
 
-.notification-bell{
+.notification-bell {
   animation: bell 1s 1s both infinite;
 }
 
@@ -126,4 +127,3 @@
   90% { transform: rotate(-30deg); }
   100% { transform: rotate(0); }
 }
-

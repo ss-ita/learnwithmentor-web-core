@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '../../common/models/user';
+import { AuthService } from '../../common/services/auth.service';
 import { UserService } from '../../common/services/user.service';
 import { AlertWindowsComponent } from '../../components/alert-windows/alert-windows.component';
 import { HttpStatusCodeService } from '../../common/services/http-status-code.service';
@@ -10,8 +11,8 @@ import { HttpStatusCodeService } from '../../common/services/http-status-code.se
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
-export class UserEditComponent implements OnInit {
 
+export class UserEditComponent implements OnInit {
   @Input()
   newData = new User;
   userData: User;
@@ -22,7 +23,9 @@ export class UserEditComponent implements OnInit {
   namePattern = '[a-zA-Z0-9]{1,20}$';
   passwordPattern = '.{3,20}$';
 
-  constructor(private userService: UserService,
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
     private alertwindow: AlertWindowsComponent,
     public dialogRef: MatDialogRef<UserEditComponent>,
     private httpStatusCodeService: HttpStatusCodeService,
@@ -76,5 +79,4 @@ export class UserEditComponent implements OnInit {
       this.dialogRef.close();
     }
   }
-
 }

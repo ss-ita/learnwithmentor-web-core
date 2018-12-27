@@ -37,13 +37,22 @@
   color: #9e9e9e;
 }
 
-.buttons {
+.button-container {
   text-align: center;
+  padding-top: 10px;
+}
+
+.edit-button {
+  background-color: #303F9F;
+  color: white;
 }
 
 .save-button {
   display: inline;
   position: absolute;
+  margin-left: 5px;
+  background-color: #303F9F;
+  color: white;
 }
 
 .image-wrap:hover {
