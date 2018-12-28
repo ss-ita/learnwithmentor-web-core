@@ -129,7 +129,6 @@ export class NavbarComponent implements OnInit {
       if (this.isLogin){
         const componentPosition = this.elementRef.nativeElement.offsetTop
         const scrollPosition = window.pageYOffset
-
         if (scrollPosition >= componentPosition) {
           this.menuTrigger.closeMenu();
         }
