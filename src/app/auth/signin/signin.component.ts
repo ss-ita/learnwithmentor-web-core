@@ -37,7 +37,7 @@ export class SigninComponent implements OnInit {
   }
 
   launchGoogleLogin() {
-    this.authWindow = window.open(`https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.email&client_id=289151810162-vch7l94sbd0jh3f2u5v3g0lnf3sfjqn5.apps.googleusercontent.com&redirect_uri=${this.url}signin-google&response_type=token`,null,'width=600,height=400,top=400,left=400'); 
+    this.authWindow = window.open(`https://accounts.google.com/o/oauth2/auth?scope=openid%20email%20profile&client_id=289151810162-vch7l94sbd0jh3f2u5v3g0lnf3sfjqn5.apps.googleusercontent.com&redirect_uri=${this.url}signin-google&response_type=token`,null,'width=600,height=400,top=400,left=400'); 
   }
 
   closeSigninComponent(): void {
