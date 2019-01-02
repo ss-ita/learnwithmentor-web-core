@@ -118,7 +118,7 @@
 <thead>
         <tr>
           <th>Title</th>
-          <th>Primary color</th>
+          <th>Color</th>
           <th>Starts at</th>
           <th>Ends at</th>
           <th>Remove</th>
@@ -164,7 +164,7 @@
                              class="form-control"
                              type="text"
                              mwlFlatpickr
-                             [(ngModel)]="event.start"
+                             [(ngModel)]="event.end"
                              (ngModelChange)="refresh.next()"
                              [altInput]="true"
                              [convertModelValue]="true"
