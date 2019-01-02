@@ -2,9 +2,8 @@ version: 1.0.{build}
 build_script:
 - cmd: >-
     npm i
-
     npm audit fix
-
+    npm run lint
     npm run build
 
 artifacts:

@@ -10,7 +10,7 @@ import { UserService } from '../common/services/user.service';
 import { HttpBackend } from '@angular/common/http';
 import { Image } from '../common/models/image';
 import { HttpStatusCodeService } from '../common/services/http-status-code.service';
-import { GroupChatService } from '../common/services/group-chat.service'
+import { GroupChatService } from '../common/services/group-chat.service';
 import { User } from '../common/models/user';
 import { Group } from '../common/models/group';
 import { environment } from '../../environments/environment';
@@ -65,7 +65,7 @@ export class GroupChatComponent implements OnInit {
         });
       }
     });
-  
+
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
   }
@@ -74,8 +74,7 @@ export class GroupChatComponent implements OnInit {
     this.groupChatService.connectToGroup(userId);
   }
 
-  addMessage(senderId, name, message, time) 
-  {    
+  addMessage(senderId, name, message, time) {
     this.messages.push({senderName: name, textMessage: message, timeSent: time});
   }
 
@@ -84,36 +83,35 @@ export class GroupChatComponent implements OnInit {
     const imgUrl = `data:image/${extension};base64,${img.Base64Data}`;
     this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
   }
-  
-  public isVisible(){
-    if(this.isLogin) {
-      document.getElementById("chatBlock").style.display = "block";
+
+  public isVisible() {
+    if (this.isLogin) {
+      document.getElementById('chatBlock').style.display = 'block';
     }
-  }  
-   
-  public sendMessage(): void {    
+  }
+
+  public sendMessage(): void {
     this.groupChatService.sendMessageToAll(this.userId, this.message);
   }
 
   public sendMessageToGroup(): void {
     this.groupChatService.sendMessageToGroup(this.userId, this.message);
-    document.getElementById("message").nodeValue='';
+    document.getElementById('message').nodeValue = '';
   }
 
   public openForm(): void {
-    this.connectToChat(this.userId);    
-    document.getElementById("groupChatForm").style.display = "block";
+    this.connectToChat(this.userId);
+    document.getElementById('groupChatForm').style.display = 'block';
     this.groupChatService.getLastMessages(this.userId);
   }
 
   public closeForm() {
-    document.getElementById("groupChatForm").style.display = "none";
+    document.getElementById('groupChatForm').style.display = 'none';
     this.messages = [];
-  }  
- 
-  public getAllMessages(): void
-  {
-    document.getElementById("getAllMessages-button").style.display = "none";
+  }
+
+  public getAllMessages(): void {
+    document.getElementById('getAllMessages-button').style.display = 'none';
     this.messages = [];
     this.groupChatService.getMessages(this.userId);
   }

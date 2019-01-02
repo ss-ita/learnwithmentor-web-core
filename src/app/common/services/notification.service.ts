@@ -11,7 +11,7 @@ import { NgClass } from '@angular/common';
 
 export class NotificationService  {
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
   private url = `${environment.apiUrl}`;
   private httpOptions = {
@@ -19,11 +19,11 @@ export class NotificationService  {
   };
   private reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  getNotifications(userId : number): Observable<Notification[]> {
+  getNotifications(userId: number): Observable<Notification[]> {
     return this.http.get<Notification[]>(`${this.url}notifications/${userId}`, { headers: this.reqHeader }).pipe();
   }
 
-  markNotificationsAsRead(userId : number): Observable<Notification[]> {
+  markNotificationsAsRead(userId: number): Observable<Notification[]> {
     return this.http.post<Notification[]>(`${this.url}notifications/${userId}`, { headers: this.reqHeader }).pipe();
   }
 }
