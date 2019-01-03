@@ -37,7 +37,7 @@ export class UserPageComponent implements OnInit {
     private authService: AuthService,
     private httpStatusCodeService: HttpStatusCodeService,
     public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute) { 
+    private activatedRoute: ActivatedRoute) {
 
     }
 

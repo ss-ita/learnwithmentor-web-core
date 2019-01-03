@@ -52,7 +52,7 @@ export class GroupChatComponent implements OnInit {
 
     const jwt = new JwtHelperService();
 
-    
+
     this.authService.isAuthenticated().subscribe(val => {
       this.isStudent = this.authService.isStudent();
       this.isLogin = val;
@@ -66,10 +66,9 @@ export class GroupChatComponent implements OnInit {
             this.userImage = '../../../assets/images/user-default.png';
           }
         });
-      }
-      else {
-        document.getElementById("chatBlock").style.display = "none";
-        document.getElementById("groupChatForm").style.display = "none";
+      } else {
+        document.getElementById('chatBlock').style.display = 'none';
+        document.getElementById('groupChatForm').style.display = 'none';
       }
     });
 
@@ -91,8 +90,8 @@ export class GroupChatComponent implements OnInit {
     this.userImage = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
   }
 
-  public isVisible(){
-    if(this.isLogin && this.isStudent) {
+  public isVisible() {
+    if (this.isLogin && this.isStudent) {
       document.getElementById('chatBlock').style.display = 'block';
     }
   }
@@ -123,5 +122,5 @@ export class GroupChatComponent implements OnInit {
     document.getElementById('getAllMessages-button').style.display = 'none';
     this.messages = [];
     this.groupChatService.getMessages(this.userId);
-  }   
+  }
 }

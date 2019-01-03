@@ -74,16 +74,16 @@ export class NavbarComponent implements OnInit {
         this.userService.getImage(this.userId).subscribe(userResponse => {
           if (this.httpStatusCodeService.isOk(userResponse.status)) {
             this.setUserPic(userResponse.body);
-          } 
+          }
         });
         if (this.notificationInitialPull) {
           this.pullNotifications();
           this.notificationInitialPull = false;
-        }        
+        }
       } else {
         this.notificationInitialPull = true;
         this.userImage = null;
-      }      
+      }
     });
 
     this.authService.updateUserState();
