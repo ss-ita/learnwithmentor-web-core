@@ -1,8 +1,8 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
-import { NavbarComponent } from './navbar/navbar.component'
+import { NavbarComponent } from './navbar/navbar.component';
 import { GroupChatComponent } from './group-chat/group-chat.component';
-import { AuthService } from './common/services/auth.service'
+import { AuthService } from './common/services/auth.service';
 import { environment } from '../environments/environment';
 
 @Component({
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
           this.hubConnection
             .start()
             .then(() => console.log('Connection started!'))
-            .catch(err => console.log('Error while establishing connection :('));         
+            .catch(err => console.log('Error while establishing connection :('));
           this.hubConnection.on('Notify', () => {
             this.navbar.pullNotifications();
           });
@@ -44,10 +44,11 @@ export class AppComponent implements OnInit {
             this.chat.addMessage(senderId, name, message, time);
           });
         }
-      }
-      else if (this.hubConnection != null) {
-        this.hubConnection.stop();
-        this.hubConnection = null;
+      } else {
+        if (this.hubConnection != null) {
+          this.hubConnection.stop();
+          this.hubConnection = null;
+        }
       }
     });
   }

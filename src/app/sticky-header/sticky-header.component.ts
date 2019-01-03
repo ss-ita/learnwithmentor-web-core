@@ -15,17 +15,17 @@ import {
     share,
     throttleTime
   } from 'rxjs/operators';
-  
-  enum VisibilityState {
+
+  export enum VisibilityState {
     Visible = 'visible',
     Hidden = 'hidden'
   }
-  
-  enum Direction {
+
+  export enum Direction {
     Up = 'Up',
     Down = 'Down'
   }
-  
+
   @Component({
     selector: 'app-sticky-header',
     template: `<ng-content></ng-content>`,
@@ -46,12 +46,12 @@ import {
   })
   export class StickyHeaderComponent implements AfterViewInit {
     private isVisible = true;
-  
+
     @HostBinding('@toggle')
     get toggle(): VisibilityState {
       return this.isVisible ? VisibilityState.Visible : VisibilityState.Hidden;
     }
-  
+
     ngAfterViewInit() {
       const scroll$ = fromEvent(window, 'scroll').pipe(
         throttleTime(10),
@@ -61,17 +61,17 @@ import {
         distinctUntilChanged(),
         share()
       );
-  
+
       const goingUp$ = scroll$.pipe(
         filter(direction => direction === Direction.Up)
       );
-  
+
       const goingDown$ = scroll$.pipe(
         filter(direction => direction === Direction.Down)
       );
-  
+
       goingUp$.subscribe(() => (this.isVisible = true));
       goingDown$.subscribe(() => (this.isVisible = false));
     }
   }
-  
+

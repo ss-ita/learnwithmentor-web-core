@@ -7,10 +7,10 @@ import { catchError } from 'rxjs/operators';
 import { User } from '../models/user';
 import { Group } from '../models/group';
 import { Plan } from '../models/plan';
-import { Message } from '../models/message'
+import { Message } from '../models/message';
 import { UserWithImage } from '../models/userWithImage';
 import { AlertWindowsComponent } from './../../components/alert-windows/alert-windows.component';
-  
+
 import { Email } from '../models/email';
 import { DateTime } from 'date-time-js';
 
@@ -30,27 +30,25 @@ export class GroupChatService {
 
   private reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  sendMessageToGroup(id:number, message:string){
-    console.log("group-chat.service works");
+  sendMessageToGroup(id: number, message: string) {
+    console.log('group-chat.service works');
       this.http.get(`${this.url}chat/${id}/${message}/group`).subscribe();
   }
 
-  connectToGroup(id: number){
+  connectToGroup(id: number) {
     this.http.get(`${this.url}chat/connect/${id}`, { headers: this.reqHeader }).subscribe();
   }
 
-  getMessages(userId: number)
-  {
+  getMessages(userId: number) {
     this.http.get(`${this.url}chat/getmessages/${userId}`).subscribe();
   }
 
-  getLastMessages(userId: number)
-  {
-    var amount = 20;
+  getLastMessages(userId: number) {
+    const amount = 20;
     this.http.get(`${this.url}chat/getmessages/${userId}/${amount}`).subscribe();
   }
 
-  sendMessageToAll(id: number, message: string ){
+  sendMessageToAll(id: number, message: string ) {
     this.http.get(`${this.url}chat/${id}/${message}`).subscribe();
-  }  
+  }
 }
