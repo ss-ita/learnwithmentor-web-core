@@ -3,52 +3,60 @@
     <a routerLink="/" class="ordItem">{{mainTag}}</a>
   </span>
   <span class="spacer"></span>
-
   <div *ngIf="!isLogin">
     <a class="ordItem" (click)="openSignInDialog()">
-      <button mat-button>
-        Sign In
-      </button>
+      <button mat-button>Sign In</button>
     </a>
   </div>
   <div *ngIf="!isLogin">
     <a class="ordItem" (click)="openSignUpDialog()">
-      <button mat-button>
-        Sign Up
-      </button>
+      <button mat-button>Sign Up</button>
     </a>
   </div>
-  
   <div *ngIf="isLogin">
-    <button  mat-button routerLink="profile" class="profile-button">
-      <div style="display: flex;
-      justify-content: center;
-      align-items: center;">
-          <img *ngIf="userImage" [src]="userImage" class="profile-image">
-          {{fullName}}
+    <button mat-button routerLink="profile" class="profile-button">
+      <div class="profile-button-container">
+        <img *ngIf="userImage" [src]="userImage" class="profile-button-image">
+        <div>{{fullName}}</div>
       </div>
     </button>
   </div>
-  <div *ngIf="isLogin && isAdmin" routerLink="users" style="margin-left:15px;" matTooltip={{administrationTooltip}} matTooltipClass="tooltip">
-    <button mat-icon-button >
+  <div *ngIf="isLogin && isAdmin" routerLink="users" style="margin-left:15px;" matTooltip={{administrationTooltip}}
+    matTooltipClass="tooltip">
+    <button mat-icon-button>
       <mat-icon>settings</mat-icon>
     </button>
-  </div>  
+  </div>
   <div *ngIf="isLogin" routerLink="mygroups" style="margin-left:15px;" matTooltip={{groupsTooltip}} matTooltipClass="tooltip">
     <button mat-icon-button>
       <mat-icon>group</mat-icon>
     </button>
-  </div>  
+  </div>
   <div *ngIf="isLogin" style="margin-left:15px;" matTooltip={{notificationsTooltip}} matTooltipClass="tooltip">
-    <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" [(matBadge)]="notificationCounter">
-      <mat-icon>notifications</mat-icon>
+    <button (click)="clearCounter()" mat-icon-button [matMenuTriggerFor]="menu" [(matBadge)]="notificationCounter"
+      matBadgeColor="warn" [(matBadgeHidden)]="notificationCounterDisabled">
+      <mat-icon *ngIf="notificationCounter!=0;else simple_state" [class.notification-bell]="true">notifications</mat-icon>
+      <ng-template #simple_state>
+        <mat-icon>notifications</mat-icon>
+      </ng-template>
     </button>
   </div>
   <mat-menu #menu="matMenu" overlapTrigger="false" hasBackdrop="true">
     <div class="notification-container">
-      <div mat-menu-item *ngFor="let item of notifications; let i = index" style="background-color: aquamarine;margin-bottom: 1px">
-        <mat-icon>error_outline</mat-icon>
-        <span style="font-size: 12px;">{{item}}</span>
+      <div *ngFor="let item of notifications; let i = index" style="border:1px solid; border-color:#c5c7c9; font-family:Arial, Helvetica, sans-serif;">
+        <div class="notificationHover" [ngSwitch]="item.Type">
+          <div class="notification-icon">
+            <mat-icon *ngSwitchCase="0" [ngClass]={taskApproved:true}>check_circle_outline</mat-icon>
+            <mat-icon *ngSwitchCase="1" [ngClass]={taskCompleted:true}>check_circle_outline</mat-icon>
+            <mat-icon *ngSwitchCase="2" [ngClass]={taskRejected:true}>cancel</mat-icon>
+            <mat-icon *ngSwitchCase="3" [ngClass]={taskReset:true}>error_outline</mat-icon>
+            <mat-icon *ngSwitchCase="4" [ngClass]={newMessage:true}>error_outline</mat-icon>
+          </div>
+          <div class="notification-body">
+            <div style="font-size: 14px;">{{item.Text}}</div>
+            <div style="font-size: 12px;">{{item.DateTime}}</div>
+          </div>
+        </div>
       </div>
     </div>
   </mat-menu>

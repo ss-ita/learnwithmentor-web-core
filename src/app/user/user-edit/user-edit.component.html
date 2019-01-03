@@ -12,6 +12,13 @@
     </div>
     <button mat-button *ngIf="!editPass" (click)="onEditPassClick()">Change Password</button>
     <div *ngIf="editPass">
+        <div class="editor">
+          <mat-form-field hintLabel="3 to 20 characters">
+            <input matInput type="text" type="password" name="OldPassword" maxlength="20" placeholder="Your old password" [pattern]="passwordPattern" [(ngModel)]="oldPassword" required>
+          </mat-form-field>
+        </div>
+      </div>
+    <div *ngIf="editPass">
       <div class="editor">
         <mat-form-field hintLabel="3 to 20 characters">
           <input matInput type="text" type="password" name="Password" maxlength="20" placeholder="Your new password" [pattern]="passwordPattern" [(ngModel)]="password" required>

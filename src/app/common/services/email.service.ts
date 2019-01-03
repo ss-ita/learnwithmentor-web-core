@@ -35,7 +35,11 @@ export class EmailService {
     return this.http.get<string>(`${this.url}/confirm-email?token=${token}`, { headers: this.reqHeader }).pipe();
   }
 
-  resetPassword(id: number, password: string): Observable<HttpResponse<any>> {
-    return this.http.put(`${this.url}/resetpasswotd?id=${id}`, password, { observe: 'response', headers: this.reqHeader });
+  resetPassword(id: number, NewPassword: string, OldPassword: string): Observable<HttpResponse<any>> {
+    const body = {
+      NewPassword: NewPassword,
+      OldPassword: OldPassword
+    };
+    return this.http.put(`${this.url}/resetpasswotd?id=${id}`, body, { observe: 'response', headers: this.reqHeader });
   }
 }

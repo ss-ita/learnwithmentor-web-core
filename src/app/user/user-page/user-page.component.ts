@@ -27,16 +27,19 @@ export class UserPageComponent implements OnInit {
   selectedFile: File = null;
   imageLoading = false;
   statisticsLoading = false;
-  private maxImageSize = 1024 * 1024;
+  maxImageSize = 1024 * 1024;
   imageData = null;
 
-  constructor(private userService: UserService,
+  constructor(
+    private userService: UserService,
     private sanitizer: DomSanitizer,
     private alertWindow: AlertWindowsComponent,
     private authService: AuthService,
     private httpStatusCodeService: HttpStatusCodeService,
     public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute) { 
+
+    }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -45,7 +48,6 @@ export class UserPageComponent implements OnInit {
       if (!this.userId) {
         this.userId = this.authService.getUserId();
       }
-
 
       this.userService.getUser(this.userId).subscribe(
         resp => {
@@ -63,7 +65,7 @@ export class UserPageComponent implements OnInit {
             }
           );
 
-          if  (this.userData.Role === 'Admin' || this.userData.Role === 'Mentor') {
+          if (this.userData.Role === 'Admin' || this.userData.Role === 'Mentor') {
             this.statisticsLoading = false;
           } else {
             this.userService.getStatistics().subscribe(
@@ -89,11 +91,8 @@ export class UserPageComponent implements OnInit {
       this.alertWindow.openSnackBar(`Image size must be less then ${this.maxImageSize / (1024 * 1024)} mb, please select another`, 'Ok');
     } else {
       this.selectedFile = selected;
-      const preview = document.getElementById('newImage') as HTMLImageElement;
       const reader = new FileReader();
-      reader.onloadend = function () {
-        preview.src = reader.result;
-      };
+      reader.onloadend = () => this.imageData = reader.result;
       reader.readAsDataURL(this.selectedFile);
     }
   }

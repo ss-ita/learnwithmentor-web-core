@@ -3,28 +3,19 @@
         <div *ngIf="imageLoading" class="spinner-container">
             <mat-spinner class="spinner-margins"></mat-spinner>
         </div>
-        <img *ngIf="imageData"
-        [src]="imageData"
-        (click)="fileInput.click()"
-        id="newImage"
-        alt="User image"
-        matTooltip="Upload new picture"
-        matTooltipPosition="after">
+        <img *ngIf="imageData" [src]="imageData" (click)="fileInput.click()" alt="User image" matTooltip="Upload new picture"
+            matTooltipPosition="after">
     </div>
     <input class="fileInput" type="file" (change)="onFileSelected($event)" accept="image/jpeg, image/jpg, image/png" #fileInput/>
     <h3 *ngIf="userData">{{userData.FirstName}} {{userData.LastName}}</h3>
-    <h3 *ngIf="userData">{{userData.Email}}</h3>
+    <h4 *ngIf="userData">{{userData.Email}}</h4>
     <h4 *ngIf="userData">{{userData.Role}}</h4>
-    
-    
-    <div class="buttons">
-        <button mat-button (click)="onEditClick()">Edit</button>
-        <div class="save-button">
-            <button *ngIf="selectedFile" mat-button (click)="onSaveClick()">Save new photo</button>
-        </div>
+    <div *ngIf="userData" class="button-container">
+        <button mat-button (click)="onEditClick()" class="edit-button">Edit</button>
+        <button *ngIf="selectedFile" mat-button (click)="onSaveClick()" class="save-button">Save new photo</button>
     </div>
 </div>
-<div *ngIf="userData && userData.Role!='Admin' && userData.Role!='Mentor'" >
+<div *ngIf="userData && userData.Role!='Admin' && userData.Role!='Mentor'">
     <h2>Tasks statistics</h2>
     <div *ngIf="statisticsLoading" class="tasks-spinner-container">
         <mat-spinner class="spinner-margins"></mat-spinner>

@@ -12,6 +12,7 @@ import { UserWithImage } from '../models/userWithImage';
 import { AlertWindowsComponent } from './../../components/alert-windows/alert-windows.component';
   
 import { Email } from '../models/email';
+import { DateTime } from 'date-time-js';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,16 +24,33 @@ const httpOptions = {
 
 export class GroupChatService {
 
-  private idc: string;
   constructor(private http: HttpClient) { }
 
   private url = `${environment.apiUrl}`;
 
-  sendMessageToAll(){
-    var body = {}; 
+  private reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+  sendMessageToGroup(id:number, message:string){
     console.log("group-chat.service works");
-    this.http.get('https://localhost:44338/api/chat/message').subscribe();//(data:string) => this.idc = data); 
-    
-    console.log(this.idc);
-  } 
+      this.http.get(`${this.url}chat/${id}/${message}/group`).subscribe();
+  }
+
+  connectToGroup(id: number){
+    this.http.get(`${this.url}chat/connect/${id}`, { headers: this.reqHeader }).subscribe();
+  }
+
+  getMessages(userId: number)
+  {
+    this.http.get(`${this.url}chat/getmessages/${userId}`).subscribe();
+  }
+
+  getLastMessages(userId: number)
+  {
+    var amount = 20;
+    this.http.get(`${this.url}chat/getmessages/${userId}/${amount}`).subscribe();
+  }
+
+  sendMessageToAll(id: number, message: string ){
+    this.http.get(`${this.url}chat/${id}/${message}`).subscribe();
+  }  
 }
