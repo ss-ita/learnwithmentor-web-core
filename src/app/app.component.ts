@@ -5,7 +5,6 @@ import { GroupChatComponent } from './group-chat/group-chat.component';
 import { AuthService } from './common/services/auth.service';
 import { environment } from '../environments/environment';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -30,7 +29,6 @@ export class AppComponent implements OnInit {
       this.isLogin = val;
       this.userId = this.authService.getUserId();
       if (this.isLogin) {
-        this.navbar.pullNotifications();
         if (this.hubConnection == null) {
           this.hubConnection = new HubConnectionBuilder()
             .withUrl(`${this.url}notifications`, { accessTokenFactory: () => localStorage.getItem('userToken') })

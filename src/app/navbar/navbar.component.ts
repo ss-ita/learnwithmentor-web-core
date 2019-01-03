@@ -4,7 +4,6 @@ import { MatDialog, MatMenu, MatMenuTrigger } from '@angular/material';
 import { SigninComponent } from '../auth/signin/signin.component';
 import { SignupComponent } from '../auth/signup/signup.component';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../common/services/auth.service';
 import { UserService } from '../common/services/user.service';
 import { NotificationService } from '../common/services/notification.service';
@@ -28,6 +27,7 @@ export class NavbarComponent implements OnInit {
   userImage = null;
   notificationCounter = 0;
   notificationCounterDisabled = true;
+  notificationInitialPull = true;
 
   administrationTooltip = 'Admin tools';
   groupsTooltip = 'Groups';
@@ -48,11 +48,11 @@ export class NavbarComponent implements OnInit {
   }
 
   openSignInDialog() {
-    const dialogRef = this.dialog.open(SigninComponent, {});
+    this.dialog.open(SigninComponent, {});
   }
 
   openSignUpDialog() {
-    const dialogRef = this.dialog.open(SignupComponent, {});
+    this.dialog.open(SignupComponent, {});
   }
 
   logout() {
@@ -62,23 +62,28 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    const jwt = new JwtHelperService();
-    this.authService.isAuthenticated().subscribe(val => {
-      this.isLogin = val;
-      this.fullName = this.authService.getUserFullName();
-      this.isAdmin = this.authService.isAdmin();
-      this.userId = this.authService.getUserId();
+    this.authService.isAuthenticated().subscribe(authResponse => {
+      this.isLogin = authResponse;
       if (this.isLogin) {
-        this.userService.getImage(this.userId).subscribe(response => {
-          if (this.httpStatusCodeService.isOk(response.status)) {
-            this.setUserPic(response.body);
-          } else {
-            this.userImage = '../../../assets/images/user-default.png';
-          }
+        this.isAdmin = this.authService.isAdmin();
+        this.userId = this.authService.getUserId();
+        this.fullName = this.authService.getUserFullName();
+        if (this.userImage == null) {
+          this.userImage = '../../../assets/images/user-default.png';
+        }
+        this.userService.getImage(this.userId).subscribe(userResponse => {
+          if (this.httpStatusCodeService.isOk(userResponse.status)) {
+            this.setUserPic(userResponse.body);
+          } 
         });
-
-        this.pullNotifications();
-      }
+        if (this.notificationInitialPull) {
+          this.pullNotifications();
+          this.notificationInitialPull = false;
+        }        
+      } else {
+        this.notificationInitialPull = true;
+        this.userImage = null;
+      }      
     });
 
     this.authService.updateUserState();

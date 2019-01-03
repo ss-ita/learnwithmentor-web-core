@@ -27,16 +27,19 @@ export class UserPageComponent implements OnInit {
   selectedFile: File = null;
   imageLoading = false;
   statisticsLoading = false;
-  private maxImageSize = 1024 * 1024;
+  maxImageSize = 1024 * 1024;
   imageData = null;
 
-  constructor(private userService: UserService,
+  constructor(
+    private userService: UserService,
     private sanitizer: DomSanitizer,
     private alertWindow: AlertWindowsComponent,
     private authService: AuthService,
     private httpStatusCodeService: HttpStatusCodeService,
     public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute) { 
+
+    }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -45,7 +48,6 @@ export class UserPageComponent implements OnInit {
       if (!this.userId) {
         this.userId = this.authService.getUserId();
       }
-
 
       this.userService.getUser(this.userId).subscribe(
         resp => {
@@ -63,7 +65,7 @@ export class UserPageComponent implements OnInit {
             }
           );
 
-          if  (this.userData.Role === 'Admin' || this.userData.Role === 'Mentor') {
+          if (this.userData.Role === 'Admin' || this.userData.Role === 'Mentor') {
             this.statisticsLoading = false;
           } else {
             this.userService.getStatistics().subscribe(
