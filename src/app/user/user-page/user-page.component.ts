@@ -23,7 +23,8 @@ export class UserPageComponent implements OnInit {
   userId: number;
   userEmail: string;
   userData: User;
-  userStats = null;
+  userStats: Statistics[];
+  users: string[];
   selectedFile: File = null;
   imageLoading = false;
   statisticsLoading = false;
@@ -68,10 +69,11 @@ export class UserPageComponent implements OnInit {
           if (this.userData.Role === 'Admin' || this.userData.Role === 'Mentor') {
             this.statisticsLoading = false;
           } else {
-            this.userService.getStatistics().subscribe(
+            this.userService.getRating().subscribe(
               r => {
                 if (this.httpStatusCodeService.isOk(r.status)) {
-                  this.userStats = r.body;
+                  this.userStats = Object.values(r.body);
+                  this.users = Object.keys(r.body);
                 }
                 this.statisticsLoading = false;
               }
