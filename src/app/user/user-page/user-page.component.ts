@@ -89,11 +89,8 @@ export class UserPageComponent implements OnInit {
       this.alertWindow.openSnackBar(`Image size must be less then ${this.maxImageSize / (1024 * 1024)} mb, please select another`, 'Ok');
     } else {
       this.selectedFile = selected;
-      const preview = document.getElementById('newImage') as HTMLImageElement;
       const reader = new FileReader();
-      reader.onloadend = function () {
-        preview.src = reader.result;
-      };
+      reader.onloadend = () => this.imageData = reader.result;
       reader.readAsDataURL(this.selectedFile);
     }
   }

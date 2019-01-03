@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    /*this.authService.isAuthenticated().subscribe(val => {
+    this.authService.isAuthenticated().subscribe(val => {
       this.isLogin = val;
       this.userId = this.authService.getUserId();
       if (this.isLogin) {
@@ -52,6 +52,6 @@ export class AppComponent implements OnInit {
           this.hubConnection = null;
         }
       }
-    });*/
+    });
   }
 }
