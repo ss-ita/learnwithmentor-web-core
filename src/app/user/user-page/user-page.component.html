@@ -16,32 +16,29 @@
     </div>
 </div>
 <div *ngIf="userData && userData.Role!='Admin' && userData.Role!='Mentor'">
-    <h2>Tasks statistics</h2>
+    <br>
+    <h2>Group Rating</h2>
+    <br>
+    <table id="statistic">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Done</th>
+            <th>In progress</th>
+            <th>Approved</th>
+            <th>Rejected</th>
+        </tr>
+        <tr *ngFor="let userStat of userStats; let i=index">
+            <td>{{i+1}}</td>
+            <td>{{users[i]}}</td>
+            <td>{{userStat.DoneNumber}}</td>
+            <td>{{userStat.InProgressNumber}}</td>
+            <td>{{userStat.ApprovedNumber}}</td>
+            <td>{{userStat.RejectedNumber}}</td>
+        </tr>
+    </table>  
     <div *ngIf="statisticsLoading" class="tasks-spinner-container">
-        <mat-spinner class="spinner-margins"></mat-spinner>
-    </div>
-
-    
-    <div class="stats" *ngFor="let userStat of userStats; let i=index">
-        <div class="states-first">
-            <h3>Name</h3>
-            <p>{{users[i]}}</p>
-        </div>
-        <div class="states-first">
-            <h3>In progress</h3>
-            <p>{{userStat.InProgressNumber}}</p>
-        </div>
-        <div class=states>
-            <h3>Done</h3>
-            <p>{{userStat.DoneNumber}}</p>
-        </div>
-        <div class=states>
-            <h3>Approved</h3>
-            <p>{{userStat.ApprovedNumber}}</p>
-        </div>
-        <div class=states>
-            <h3>Rejected</h3>
-            <p>{{userStat.RejectedNumber}}</p>
-        </div>
-    </div>
+            <mat-spinner class="spinner-margins"></mat-spinner>
+    </div> 
+    <br><br><br>
 </div>
