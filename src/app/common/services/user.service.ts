@@ -141,6 +141,11 @@ export class UserService {
       catchError(val => of(val)));
   }
 
+  getRating(): Observable<HttpResponse<any>>{
+    return this.http.get(`${this.url}/rating`, { observe: 'response' }).pipe(
+      catchError(val => of(val)));
+  }
+
   updatePassword(newPass: string, oldPass: string) {
     const body = {
       NewPassword: newPass,

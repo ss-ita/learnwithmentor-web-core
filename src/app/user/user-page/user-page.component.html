@@ -20,22 +20,28 @@
     <div *ngIf="statisticsLoading" class="tasks-spinner-container">
         <mat-spinner class="spinner-margins"></mat-spinner>
     </div>
-    <div class="stats" *ngIf="userStats">
+
+    
+    <div class="stats" *ngFor="let userStat of userStats; let i=index">
+        <div class="states-first">
+            <h3>Name</h3>
+            <p>{{users[i]}}</p>
+        </div>
         <div class="states-first">
             <h3>In progress</h3>
-            <p>{{userStats.InProgressNumber}}</p>
+            <p>{{userStat.InProgressNumber}}</p>
         </div>
         <div class=states>
             <h3>Done</h3>
-            <p>{{userStats.DoneNumber}}</p>
+            <p>{{userStat.DoneNumber}}</p>
         </div>
         <div class=states>
             <h3>Approved</h3>
-            <p>{{userStats.ApprovedNumber}}</p>
+            <p>{{userStat.ApprovedNumber}}</p>
         </div>
         <div class=states>
             <h3>Rejected</h3>
-            <p>{{userStats.RejectedNumber}}</p>
+            <p>{{userStat.RejectedNumber}}</p>
         </div>
     </div>
 </div>
