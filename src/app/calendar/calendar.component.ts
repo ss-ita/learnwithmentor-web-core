@@ -22,6 +22,7 @@ import {
     CalendarEventTimesChangedEvent,
     CalendarView
   } from 'angular-calendar';
+  import { AuthService } from '../common/services/auth.service';
 
   const colors: any = {
     red: {
@@ -60,11 +61,24 @@ import {
     events: CalendarEvent[] = [];
   
     activeDayIsOpen: boolean = true;
+    isLogin = false;
+    isMentor = false;
 
     constructor(
-      private modal: NgbModal
+      private modal: NgbModal,
+      private authService: AuthService
       ) {}
     
+      ngOnInit() {
+        this.authService.isAuthenticated().subscribe(authResponse => {
+          this.isLogin = authResponse;
+          if (this.isLogin) {
+            this.isMentor = this.authService.isMentor();
+          }
+        })
+      this.authService.updateUserState();
+    };
+
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
       if (isSameMonth(date, this.viewDate)) {
         this.viewDate = date;
