@@ -44,6 +44,7 @@ import {
     templateUrl: 'calendar.component.html',
   styleUrls: ['./calendar.component.css']
   })
+  
   export class CalendarComponent {
     @ViewChild('modalContent')
     modalContent: TemplateRef<any>;
