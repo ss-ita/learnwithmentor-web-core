@@ -22,7 +22,7 @@ import {
     CalendarEventTimesChangedEvent,
     CalendarView
   } from 'angular-calendar';
-  
+
   const colors: any = {
     red: {
       primary: '#ad2121',
@@ -39,7 +39,7 @@ import {
   };
   
   @Component({
-    selector: 'mwl-demo-component',
+    selector: 'app-calendar',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'calendar.component.html',
   styleUrls: ['./calendar.component.css']
@@ -80,9 +80,11 @@ import {
     events: CalendarEvent[] = [];
   
     activeDayIsOpen: boolean = true;
-  
-    constructor(private modal: NgbModal) {}
-  
+
+    constructor(
+      private modal: NgbModal
+      ) {}
+    
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
       if (isSameMonth(date, this.viewDate)) {
         this.viewDate = date;
