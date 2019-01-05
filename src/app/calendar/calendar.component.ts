@@ -64,6 +64,8 @@ import {
     isLogin = false;
     isMentor = false;
 
+    counterForEvent = false;
+
     constructor(
       private modal: NgbModal,
       private authService: AuthService
@@ -115,6 +117,12 @@ import {
           afterEnd: true
         }
       });
+      if(this.events.length > 0){
+        this.counterForEvent = true;
+      }
+      else{
+        this.counterForEvent = false;
+      }
       this.refresh.next();
     }
   }

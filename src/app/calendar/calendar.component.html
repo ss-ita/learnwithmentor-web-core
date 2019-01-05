@@ -3,6 +3,7 @@
 <link href="https://unpkg.com/angular-calendar@0.26.4/css/angular-calendar.css" rel="stylesheet">
 <link href="https://unpkg.com/flatpickr@4.5.2/dist/flatpickr.css" rel="stylesheet">
 
+<div class="all">
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
@@ -98,7 +99,7 @@
   </h3>
   <table class="table table-bordered">
    <thead>
-    <tr>
+    <tr *ngIf="switchForEvent">
       <th>Title</th>
       <th>Color</th>
       <th>Starts at</th>
@@ -159,4 +160,5 @@
     </tr>
   </tbody>
 </table>
+</div>
 </div>
