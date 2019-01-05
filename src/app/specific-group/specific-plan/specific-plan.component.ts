@@ -25,6 +25,8 @@ import { MatDialog } from '@angular/material';
 import { DateTime } from 'date-time-js';
 import { States } from './states';
 import { TaskReaderComponent } from '../../task/task-reader/task-reader.component';
+import { TaskDiscussion } from 'src/app/common/models/taskDiscussion';
+import { TaskDiscussionService } from 'src/app/common/services/task-discussion.service'
 
 export class UsersWithTasks {
   user: UserWithImage;
@@ -53,6 +55,8 @@ export class SpecificPlanComponent implements OnInit {
   selectedUser = 0;
   info: string;
   buttonName: string;
+  taskDiscussion: TaskDiscussion[] = null;
+  isDiscussionLoaded = false;
 
   constructor(public taskService: TaskService,
     private userService: UserService,
@@ -62,7 +66,8 @@ export class SpecificPlanComponent implements OnInit {
     private planService: PlanService,
     private groupservice: GroupService,
     private auth: AuthService,
-    private router: Router) {
+    private router: Router,
+    private taskDiscussionService: TaskDiscussionService) {
     this.users = new Array;
     this.planTasks = new Array;
     this.user = new UsersWithTasks;
@@ -381,5 +386,15 @@ export class SpecificPlanComponent implements OnInit {
     userWithImage.Email = user.Email;
     userWithImage.Blocked = user.Blocked;
     return userWithImage;
+  }
+
+  public GetTaskDiscussion()
+  {
+    this.taskDiscussionService.getTaskdiscussion(1).subscribe(
+      responce => {
+        this.taskDiscussion = responce;
+        this.isDiscussionLoaded = true;
+      }
+    )     
   }
 }
