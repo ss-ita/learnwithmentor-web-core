@@ -18,7 +18,7 @@ import { Image } from '../common/models/image';
 })
 export class NavbarComponent implements OnInit {
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
-  
+
   mainTag = 'Learn with mentor';
   isLogin = false;
   isAdmin = false;
@@ -29,10 +29,10 @@ export class NavbarComponent implements OnInit {
   notificationCounterDisabled = true;
   notificationInitialPull = true;
 
-  administrationTooltip = "Admin tools";
-  groupsTooltip = "Groups";
-  notificationsTooltip = "Notifications";
-  logOutTooltip = "Log out";
+  administrationTooltip = 'Admin tools';
+  groupsTooltip = 'Groups';
+  notificationsTooltip = 'Notifications';
+  logOutTooltip = 'Log out';
 
   notifications = [];
 
@@ -74,16 +74,16 @@ export class NavbarComponent implements OnInit {
         this.userService.getImage(this.userId).subscribe(userResponse => {
           if (this.httpStatusCodeService.isOk(userResponse.status)) {
             this.setUserPic(userResponse.body);
-          } 
+          }
         });
         if (this.notificationInitialPull) {
           this.pullNotifications();
           this.notificationInitialPull = false;
-        }        
+        }
       } else {
         this.notificationInitialPull = true;
         this.userImage = null;
-      }      
+      }
     });
 
     this.authService.updateUserState();
@@ -102,8 +102,7 @@ export class NavbarComponent implements OnInit {
         });
         if (this.notificationCounter > 0) {
           this.notificationCounterDisabled = false;
-        }
-        else {
+        } else {
           this.notificationCounterDisabled = true;
         }
       });
@@ -126,9 +125,10 @@ export class NavbarComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
     checkScroll() {
-      if (this.isLogin){
-        const componentPosition = this.elementRef.nativeElement.offsetTop
-        const scrollPosition = window.pageYOffset
+      if (this.isLogin) {
+        const componentPosition = this.elementRef.nativeElement.offsetTop;
+        const scrollPosition = window.pageYOffset;
+
         if (scrollPosition >= componentPosition) {
           this.menuTrigger.closeMenu();
         }

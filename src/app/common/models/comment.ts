@@ -4,7 +4,7 @@ export class Comment {
     CreatorId: number;
     CreatorFirstName: string;
     CreatorLastName: string;
-    CreateDate: DateTimeFormat;
-    ModDate: DateTimeFormat;
+    CreateDate: Date;
+    ModDate: Date;
     isRead: boolean;
 }

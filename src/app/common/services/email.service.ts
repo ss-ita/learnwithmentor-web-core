@@ -40,6 +40,6 @@ export class EmailService {
       NewPassword: NewPassword,
       OldPassword: OldPassword
     };
-    return this.http.put(`${this.url}/resetpasswotd?id=${id}`, body, { observe: 'response', headers: this.reqHeader });
+    return this.http.put(`${this.url}/resetpassword?id=${id}`, body, { observe: 'response', headers: this.reqHeader });
   }
 }

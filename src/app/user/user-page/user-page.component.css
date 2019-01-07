@@ -110,3 +110,26 @@ h2 {
   display: flex;
   justify-content: center;
 }
+
+#statistic {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#statistic td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#statistic tr:nth-child(even){background-color: #f2f2f2;}
+
+#statistic tr:hover {background-color: #ddd;}
+
+#statistic th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #303F9F;
+  color: white;
+}
