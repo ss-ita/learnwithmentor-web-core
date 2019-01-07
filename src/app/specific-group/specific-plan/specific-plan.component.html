@@ -49,17 +49,8 @@
                 <button mat-raised-button class="button-change" (click)="onConversationClick(section.Content.UsersTasks[i].UserTasks[selectedUser], section.Content.Tasks[i])">Conversation</button>
               </div>
 
-              <mat-expansion-panel  (click)="GetTaskDiscussion()">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Open Task Discussion
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div *ngFor="let message of taskDiscussion">
-                  <div>{{message.text}}</div>
-                </div>
-              </mat-expansion-panel>
-
+              <button mat-raised-button class="button-change" (click)="getTaskDiscussion(section.Content.Tasks[i].Id)">Open Task Discussion</button>
+              <app-task-discussion></app-task-discussion>
 
               <div>
                 <mat-form-field>

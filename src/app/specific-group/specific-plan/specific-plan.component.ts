@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Directive } from '@angular/core';
+import { Component, OnInit, HostListener, Directive, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { TaskService } from '../../common/services/task.service';
@@ -25,8 +25,7 @@ import { MatDialog } from '@angular/material';
 import { DateTime } from 'date-time-js';
 import { States } from './states';
 import { TaskReaderComponent } from '../../task/task-reader/task-reader.component';
-import { TaskDiscussion } from 'src/app/common/models/taskDiscussion';
-import { TaskDiscussionService } from 'src/app/common/services/task-discussion.service'
+import { TaskDiscussionComponent } from 'src/app/task/task-discussion/task-discussion.component';
 
 export class UsersWithTasks {
   user: UserWithImage;
@@ -41,6 +40,8 @@ export class UsersWithTasks {
 })
 
 export class SpecificPlanComponent implements OnInit {
+  @ViewChild(TaskDiscussionComponent)
+  private taskDiscussion: TaskDiscussionComponent;
   panelOpenState = false;
   is_student = true;
   sections: Section[];
@@ -55,8 +56,6 @@ export class SpecificPlanComponent implements OnInit {
   selectedUser = 0;
   info: string;
   buttonName: string;
-  taskDiscussion: TaskDiscussion[] = null;
-  isDiscussionLoaded = false;
 
   constructor(public taskService: TaskService,
     private userService: UserService,
@@ -66,8 +65,7 @@ export class SpecificPlanComponent implements OnInit {
     private planService: PlanService,
     private groupservice: GroupService,
     private auth: AuthService,
-    private router: Router,
-    private taskDiscussionService: TaskDiscussionService) {
+    private router: Router) {
     this.users = new Array;
     this.planTasks = new Array;
     this.user = new UsersWithTasks;
@@ -388,13 +386,8 @@ export class SpecificPlanComponent implements OnInit {
     return userWithImage;
   }
 
-  public GetTaskDiscussion()
+  public getTaskDiscussion(taskId:number)
   {
-    this.taskDiscussionService.getTaskdiscussion(1).subscribe(
-      responce => {
-        this.taskDiscussion = responce;
-        this.isDiscussionLoaded = true;
-      }
-    )     
+    this.taskDiscussion.GetTaskDiscussion(taskId);  
   }
 }
