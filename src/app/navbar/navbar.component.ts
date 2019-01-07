@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
   mainTag = 'Learn with mentor';
   isLogin = false;
   isAdmin = false;
+  isMentor = false;
   fullName: string;
   userId: number;
   userImage = null;
@@ -66,6 +67,7 @@ export class NavbarComponent implements OnInit {
       this.isLogin = authResponse;
       if (this.isLogin) {
         this.isAdmin = this.authService.isAdmin();
+        this.isMentor = this.authService.isMentor();
         this.userId = this.authService.getUserId();
         this.fullName = this.authService.getUserFullName();
         if (this.userImage == null) {

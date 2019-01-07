@@ -30,12 +30,14 @@ import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { EmailNotConfirmedComponent } from './email-not-confirmed/email-not-confirmed.component';
 import { FacebookAuthComponent } from './facebook-auth/facebook-auth.component';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'comment', component: CommentComponent, canActivate: [AuthGuard] },
   { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
   { path: 'about-page', component: AboutPageComponent },
   { path: 'contact-page', component: ContactPageComponent },
   { path: 'plan/:id/edit', component: SpecificGroupComponent, canActivate: [AuthGuard, MentorGuard] },
