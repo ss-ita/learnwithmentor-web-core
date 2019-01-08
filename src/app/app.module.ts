@@ -87,6 +87,7 @@ import 'intersection-observer';
 import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
 import { FacebookAuthComponent } from './facebook-auth/facebook-auth.component';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
+import { TaskDiscussionComponent } from 'src/app/task/task-discussion/task-discussion.component';
 
 import { CalendarComponent } from './calendar/calendar.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
@@ -160,7 +161,8 @@ export class RavenErrorHandler implements ErrorHandler {
     CustomPaginatorComponent,
     StickyHeaderComponent,
     FacebookAuthComponent,
-    GoogleAuthComponent
+    GoogleAuthComponent,
+    TaskDiscussionComponent
     ],
   imports: [
     NgbModalModule,
@@ -219,7 +221,8 @@ export class RavenErrorHandler implements ErrorHandler {
     AddTasksComponent,
     AddGroupComponent,
     UserEditComponent,
-    ReviewSuggestedDeadlinesComponent
+    ReviewSuggestedDeadlinesComponent,
+    TaskDiscussionComponent
   ],
   providers: [UserService,
     AuthGuard,
