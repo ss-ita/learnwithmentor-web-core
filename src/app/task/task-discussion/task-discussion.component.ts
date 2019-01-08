@@ -30,40 +30,37 @@ export class TaskDiscussionComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  GetTaskDiscussion(taskId:number)
-  {
+  GetTaskDiscussion(taskId: number) {
     this.isDiscussionLoaded = false;
     this.taskDiscussionService.getTaskdiscussion(taskId).subscribe(
-      responce => {               
+      responce => {
           this.taskDiscussion = responce;
           this.isDiscussionLoaded = true;
-          if(this.taskDiscussion.length == 0) this.isMessages = false; else this.isMessages = true;
+          if(this.taskDiscussion.length === 0) {
+            this.isMessages = false; } else {
+              this.isMessages = true; }
         });           
   }
 
-  onSendClick()
-  {
-    if(this.message.length > 0)
-    {
+  onSendClick() {
+    if(this.message.length > 0) {
       this.isUpdated = false;
       this.taskDiscussionService.postTaskDiscussionMessage(this.task.Id, this.message).subscribe(
-        responce =>{
+        responce => {
           this.updateTaskDiscussion();
-        }
-      );     
+        });     
       this.message = '';     
     }
   }
 
-  updateTaskDiscussion()
-  {
+  updateTaskDiscussion() {
     this.isUpdated = false;
     this.taskDiscussionService.getTaskdiscussion(this.task.Id).subscribe(
       responce => {               
-          this.taskDiscussion = responce; 
-          this.isMessages = true;   
-          this.isUpdated = true;      
-        }); 
+        this.taskDiscussion = responce;
+        this.isMessages = true;
+        this.isUpdated = true;
+    }); 
   }
 
   ngOnInit() {

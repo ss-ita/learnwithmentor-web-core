@@ -19,8 +19,8 @@ export class TaskDiscussionService {
     return this.http.get<TaskDiscussion[]>(`${this.url}task/discussion/${taskId}`, { headers: this.reqHeader }).pipe();
   }
 
-  postTaskDiscussionMessage(taskId: number, text: string){
-    var body = {text};
+  postTaskDiscussionMessage(taskId: number, text: string) {
+    const body = {text};
     return this.http.post(`${this.url}task/discussion/${taskId}`, body).pipe();
   }
 }

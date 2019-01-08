@@ -164,13 +164,11 @@ export class SpecificPlanComponent implements OnInit {
     const data = { taskName: taskName, userTask: userTask, studentName };
     const dialogRef = this.dialog.open(ReviewSuggestedDeadlinesComponent, {
       data: data,
-      width: '500px'
-    });
+      width: '500px'});
   }
   
-  public onDiscussionClick(task:Task)
-  {
-    const data = {task: task };
+  public onDiscussionClick(task: Task) {
+    const data = { task: task };
     const dialogRef = this.dialog.open(TaskDiscussionComponent, {
       data: data,
       width: '80%'
