@@ -36,31 +36,31 @@ export class TaskDiscussionComponent implements OnInit {
       responce => {
           this.taskDiscussion = responce;
           this.isDiscussionLoaded = true;
-          if(this.taskDiscussion.length === 0) {
+          if (this.taskDiscussion.length === 0) {
             this.isMessages = false; } else {
               this.isMessages = true; }
-        });           
+        });
   }
 
   onSendClick() {
-    if(this.message.length > 0) {
+    if (this.message.length > 0) {
       this.isUpdated = false;
       this.taskDiscussionService.postTaskDiscussionMessage(this.task.Id, this.message).subscribe(
         responce => {
           this.updateTaskDiscussion();
-        });     
-      this.message = '';     
+        });
+      this.message = '';
     }
   }
 
   updateTaskDiscussion() {
     this.isUpdated = false;
     this.taskDiscussionService.getTaskdiscussion(this.task.Id).subscribe(
-      responce => {               
+      responce => {
         this.taskDiscussion = responce;
         this.isMessages = true;
         this.isUpdated = true;
-    }); 
+    });
   }
 
   ngOnInit() {

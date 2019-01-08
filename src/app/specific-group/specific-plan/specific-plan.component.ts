@@ -166,7 +166,7 @@ export class SpecificPlanComponent implements OnInit {
       data: data,
       width: '500px'});
   }
-  
+
   public onDiscussionClick(task: Task) {
     const data = { task: task };
     const dialogRef = this.dialog.open(TaskDiscussionComponent, {
