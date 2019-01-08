@@ -2,7 +2,8 @@ import {
     Component,
     ChangeDetectionStrategy,
     ViewChild,
-    TemplateRef
+    TemplateRef,
+    OnInit
   } from '@angular/core';
   import {
     startOfDay,
@@ -38,29 +39,29 @@ import {
       secondary: '#FDF1BA'
     }
   };
-  
+
   @Component({
     selector: 'app-calendar',
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'calendar.component.html',
   styleUrls: ['./calendar.component.css']
   })
-  
-  export class CalendarComponent {
+
+  export class CalendarComponent implements OnInit {
     @ViewChild('modalContent')
     modalContent: TemplateRef<any>;
-  
+
     view: CalendarView = CalendarView.Month;
-  
+
     CalendarView = CalendarView;
-  
+
     viewDate: Date = new Date();
-  
+
     refresh: Subject<any> = new Subject();
-  
+
     events: CalendarEvent[] = [];
-  
-    activeDayIsOpen: boolean = true;
+
+    activeDayIsOpen = true;
     isLogin = false;
     isMentor = false;
 
@@ -70,16 +71,16 @@ import {
       private modal: NgbModal,
       private authService: AuthService
       ) {}
-    
+
       ngOnInit() {
         this.authService.isAuthenticated().subscribe(authResponse => {
           this.isLogin = authResponse;
           if (this.isLogin) {
             this.isMentor = this.authService.isMentor();
           }
-        })
+        });
       this.authService.updateUserState();
-    };
+    }
 
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
       if (isSameMonth(date, this.viewDate)) {
@@ -94,7 +95,7 @@ import {
         }
       }
     }
-  
+
     eventTimesChanged({
       event,
       newStart,
@@ -104,7 +105,7 @@ import {
       event.end = newEnd;
       this.refresh.next();
     }
-  
+
     addEvent(): void {
       this.events.push({
         title: 'New event',
@@ -117,13 +118,12 @@ import {
           afterEnd: true
         }
       });
-      if(this.events.length > 0){
+      if (this.events.length > 0) {
         this.counterForEvent = true;
-      }
-      else{
+      } else {
         this.counterForEvent = false;
       }
       this.refresh.next();
     }
   }
-  
+
