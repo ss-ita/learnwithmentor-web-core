@@ -210,7 +210,8 @@ export class RavenErrorHandler implements ErrorHandler {
     AddTasksComponent,
     AddGroupComponent,
     UserEditComponent,
-    ReviewSuggestedDeadlinesComponent
+    ReviewSuggestedDeadlinesComponent,
+    TaskDiscussionComponent
   ],
   providers: [UserService,
     AuthGuard,

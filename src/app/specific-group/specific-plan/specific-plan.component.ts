@@ -40,8 +40,6 @@ export class UsersWithTasks {
 })
 
 export class SpecificPlanComponent implements OnInit {
-  @ViewChild(TaskDiscussionComponent)
-  private taskDiscussion: TaskDiscussionComponent;
   panelOpenState = false;
   is_student = true;
   sections: Section[];
@@ -167,6 +165,15 @@ export class SpecificPlanComponent implements OnInit {
     const dialogRef = this.dialog.open(ReviewSuggestedDeadlinesComponent, {
       data: data,
       width: '500px'
+    });
+  }
+  
+  public onDiscussionClick(task:Task)
+  {
+    const data = {task: task };
+    const dialogRef = this.dialog.open(TaskDiscussionComponent, {
+      data: data,
+      width: '80%'
     });
   }
 
@@ -384,10 +391,5 @@ export class SpecificPlanComponent implements OnInit {
     userWithImage.Email = user.Email;
     userWithImage.Blocked = user.Blocked;
     return userWithImage;
-  }
-
-  public getTaskDiscussion(taskId:number)
-  {
-    this.taskDiscussion.GetTaskDiscussion(taskId);  
   }
 }

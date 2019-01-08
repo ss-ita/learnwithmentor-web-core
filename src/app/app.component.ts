@@ -43,6 +43,9 @@ export class AppComponent implements OnInit {
           this.hubConnection.on('SendMessage', (senderId: number, name: string, message: string, time: string) => {
             this.chat.addMessage(senderId, name, message, time);
           });
+          this.hubConnection.on('TaskDiscussionMessage', () => {
+             
+          });
         }
       } else {
         if (this.hubConnection != null) {
