@@ -118,8 +118,8 @@ export class UserService {
     );
   }
   searchPage(param: string, roleName: string, pageSize: number, pageNumber: number): Observable<Pagination<User>> {
-    return this.http.get<Pagination<User>>(`${this.url}/search?key=${param}&role=${roleName}
-    &pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(
+    return this.http.get<Pagination<User>>(`${this.url}/search/page?key=${param}&role=${roleName}
+      &pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(
       catchError(this.handleError<Pagination<User>>(`searchUsers`))
       );
   }
@@ -138,6 +138,11 @@ export class UserService {
 
   getStatistics(): Observable<HttpResponse<Statistics>> {
     return this.http.get(`${this.url}/statistics`, { observe: 'response' }).pipe(
+      catchError(val => of(val)));
+  }
+
+  getRating(): Observable<HttpResponse<any>> {
+    return this.http.get(`${this.url}/rating`, { observe: 'response' }).pipe(
       catchError(val => of(val)));
   }
 

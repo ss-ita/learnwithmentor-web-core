@@ -1,7 +1,6 @@
-import { DateTime } from "date-time-js";
+import { DateTime } from 'date-time-js';
 
-export class Notification
-{
+export class Notification {
     Id: number;
     UserId: number;
     IsRead: boolean;
