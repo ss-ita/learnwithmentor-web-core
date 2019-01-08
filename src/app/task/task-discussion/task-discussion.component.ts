@@ -36,9 +36,7 @@ export class TaskDiscussionComponent implements OnInit {
       responce => {
           this.taskDiscussion = responce;
           this.isDiscussionLoaded = true;
-          if (this.taskDiscussion.length === 0) {
-            this.isMessages = false; } else {
-              this.isMessages = true; }
+          this.isMessages = this.taskDiscussion.length !== 0;
         });
   }
 
