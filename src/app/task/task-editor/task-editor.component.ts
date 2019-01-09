@@ -11,6 +11,8 @@ import { AuthService } from '../../common/services/auth.service';
 })
 export class TaskEditorComponent implements OnInit {
 
+  is_student = true;
+
   @Input()
   task: Task;
   constructor(public dialogRef: MatDialogRef<TaskEditorComponent>,
@@ -21,16 +23,19 @@ export class TaskEditorComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  onSaveClick(description: string) {
+  
+  onSaveClick(description: string, youtubeUrl: string) {
     this.task.Description = description;
+    this.task.Youtube_Url = youtubeUrl;
     /// you need to change to real user Id
     this.task.ModifierId = this.authService.getUserId(); // here
     this.taskService.updateTask(this.task).subscribe();
   }
+
   onDeleteClick() {
     this.taskService.deleteTask(this.task).subscribe();
   }
-  ngOnInit() {
-  }
 
+  ngOnInit() {}
+  
 }

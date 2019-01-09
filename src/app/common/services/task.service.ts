@@ -66,6 +66,8 @@ export class TaskService {
 
   updateTask(task: Task): Observable<any> {
     const link = `${this.url}task/${task.Id}`;
+    console.log(httpOptions);
+    console.log(task);
     return this.http.put<Task>(link, task, httpOptions).pipe(
       catchError(this.handleError<Task>(`updating task id=${task.Id}`)));
   }

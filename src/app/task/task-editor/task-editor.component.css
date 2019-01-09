@@ -1,3 +1,9 @@
 .deleteButton {
   float: right;
 }
+
+.text-area{
+  padding: 5px;
+  border: 1px solid black;
+  height: 150px;
+}

@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject} from '@angular/core';
 import { Task } from '../../common/models/task';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AuthService } from '../../common/services/auth.service';
 import { TaskEditorComponent } from '../task-editor/task-editor.component';
 import { TaskSubmitorComponent } from '../task-submitor/task-submitor.component';
@@ -17,7 +17,11 @@ export class TaskDetailComponent implements OnInit {
   task: Task;
   hasPermisionsToComment = false;
   hasPermisionsToEdit = false;
-  constructor(public dialog: MatDialog, private authService: AuthService) { }
+
+  constructor(public dialogRef: MatDialogRef<TaskDetailComponent>,
+    public dialog: MatDialog, 
+    private authService: AuthService,
+  @Inject(MAT_DIALOG_DATA) public data: Task) { this.task = data; }
 
   ngOnInit() {
     if (this.authService.isAdmin() || this.authService.isMentor() || this.authService.isStudent()) {

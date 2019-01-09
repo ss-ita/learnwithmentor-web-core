@@ -25,6 +25,8 @@ import { MatDialog } from '@angular/material';
 import { DateTime } from 'date-time-js';
 import { States } from './states';
 import { TaskReaderComponent } from '../../task/task-reader/task-reader.component';
+import { TaskEditorComponent } from '../../task/task-editor/task-editor.component';
+import { TaskDetailComponent } from '../../task/task-detail/task-detail.component';
 
 export class UsersWithTasks {
   user: UserWithImage;
@@ -166,6 +168,20 @@ export class SpecificPlanComponent implements OnInit {
       width: '500px'
     });
   }
+
+  onTaskEditClick(task: Task){
+    this.dialog.open(TaskEditorComponent, {
+      data : task
+    });
+  }
+
+
+  onTaskDetailClick(task: Task){
+    this.dialog.open(TaskDetailComponent, {
+      data: task
+    });
+  }
+  
 
   ngOnInit() {
     this.isLoadedUser = false;

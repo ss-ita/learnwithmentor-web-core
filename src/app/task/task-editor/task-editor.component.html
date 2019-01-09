@@ -1,10 +1,13 @@
 <h2 mat-dialog-title>{{task.Name}} 
-  <button class="deleteButton" mat-button mat-dialog-close (click)="onDeleteClick()">Delete</button>
+  
 </h2>
 <mat-dialog-content>
   <h3>Task description:</h3>
+  <br>
   <textarea matInput placeholder="Task description"
-  #descriptionTbx>{{task.Description}}</textarea>
+  #descriptionTbx class="text-area">{{task.Description}}</textarea>
+  <br>
+  <!--<h3>Task section:</h3>
     <mat-form-field>
       <mat-label>Task section</mat-label>
       <mat-select #TaskSection>
@@ -13,6 +16,8 @@
           <mat-option value="push">Push</mat-option>
         </mat-select>
     </mat-form-field>
+    <br>
+    <h3>Task priority:</h3>
     <mat-form-field>
       <mat-label>Task priority</mat-label>
       <mat-select #TaskPriority>
@@ -20,9 +25,14 @@
           <mat-option [value]="true">True</mat-option>
           <mat-option [value]="false">False</mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field>-->
+    <br>
+    <h3>Youtube URL:</h3>
+    <br>
+    <textarea placeholder="Enter URL" #urlyoutubeTbx >{{task.Youtube_Url}}</textarea>
 </mat-dialog-content>
 <mat-dialog-actions>  
-  <button mat-button mat-dialog-close (click)="onSaveClick(descriptionTbx.value)">Save</button>
+  <button mat-button mat-dialog-close (click)="onSaveClick(descriptionTbx.value, urlyoutubeTbx.value)">Save</button>
   <button mat-button mat-dialog-close>Cancel</button>
+  <button class="deleteButton" mat-button mat-dialog-close (click)="onDeleteClick()">Delete</button>
 </mat-dialog-actions>
