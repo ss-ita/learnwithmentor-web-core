@@ -3,6 +3,7 @@ import { Task } from '../../common/models/task';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AuthService } from '../../common/services/auth.service';
 import { TaskEditorComponent } from '../task-editor/task-editor.component';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TaskSubmitorComponent } from '../task-submitor/task-submitor.component';
 import { ConversationComponent } from '../conversation/conversation.component';
 
@@ -13,6 +14,7 @@ import { ConversationComponent } from '../conversation/conversation.component';
 })
 export class TaskDetailComponent implements OnInit {
 
+  safeURL;
   @Input()
   task: Task;
   hasPermisionsToComment = false;
@@ -21,8 +23,11 @@ export class TaskDetailComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<TaskDetailComponent>,
     public dialog: MatDialog, 
     private authService: AuthService,
-  @Inject(MAT_DIALOG_DATA) public data: Task) { this.task = data; }
-
+    private _sanitizer: DomSanitizer,
+    @Inject(MAT_DIALOG_DATA) public data: Task) { 
+      this.task = data; 
+      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(data.Youtube_Url);
+    }
   ngOnInit() {
     if (this.authService.isAdmin() || this.authService.isMentor() || this.authService.isStudent()) {
       this.hasPermisionsToComment = true;
@@ -43,5 +48,9 @@ export class TaskDetailComponent implements OnInit {
       width: '600px',
       data: { task: this.task, userTask: this }
     });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

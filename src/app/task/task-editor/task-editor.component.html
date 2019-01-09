@@ -3,10 +3,7 @@
 </h2>
 <mat-dialog-content>
   <h3>Task description:</h3>
-  <br>
-  <textarea matInput placeholder="Task description"
-  #descriptionTbx class="text-area">{{task.Description}}</textarea>
-  <br>
+  <textarea matInput placeholder="Task description" #descriptionTbx class="text-area">{{task.Description}}</textarea>
   <!--<h3>Task section:</h3>
     <mat-form-field>
       <mat-label>Task section</mat-label>
@@ -26,10 +23,9 @@
           <mat-option [value]="false">False</mat-option>
         </mat-select>
     </mat-form-field>-->
-    <br>
-    <h3>Youtube URL:</h3>
-    <br>
-    <textarea placeholder="Enter URL" #urlyoutubeTbx >{{task.Youtube_Url}}</textarea>
+    <mat-form-field>
+      <input matInput type="text" class ="text-input" value="{{task.Youtube_Url}}" name="LastName" placeholder="Youtube URL" #urlyoutubeTbx required>
+    </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>  
   <button mat-button mat-dialog-close (click)="onSaveClick(descriptionTbx.value, urlyoutubeTbx.value)">Save</button>

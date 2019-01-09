@@ -12,13 +12,14 @@ import { AuthService } from '../../common/services/auth.service';
 export class TaskEditorComponent implements OnInit {
 
   is_student = true;
-
   @Input()
   task: Task;
   constructor(public dialogRef: MatDialogRef<TaskEditorComponent>,
     private taskService: TaskService,
     private authService: AuthService,
-    @Inject(MAT_DIALOG_DATA) public data: Task) { this.task = data; }
+    @Inject(MAT_DIALOG_DATA) public data: Task) { 
+      this.task = data; 
+    }
 
   onNoClick(): void {
     this.dialogRef.close();
