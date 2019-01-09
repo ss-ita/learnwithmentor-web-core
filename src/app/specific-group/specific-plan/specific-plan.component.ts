@@ -169,19 +169,17 @@ export class SpecificPlanComponent implements OnInit {
     });
   }
 
-  onTaskEditClick(task: Task){
+  onTaskEditClick(task: Task) {
     this.dialog.open(TaskEditorComponent, {
       data : task
     });
   }
 
-
-  onTaskDetailClick(task: Task){
+  onTaskDetailClick(task: Task) {
     this.dialog.open(TaskDetailComponent, {
       data: task
     });
   }
-  
 
   ngOnInit() {
     this.isLoadedUser = false;

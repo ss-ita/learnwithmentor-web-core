@@ -21,11 +21,11 @@ export class TaskDetailComponent implements OnInit {
   hasPermisionsToEdit = false;
 
   constructor(public dialogRef: MatDialogRef<TaskDetailComponent>,
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     private authService: AuthService,
     private _sanitizer: DomSanitizer,
-    @Inject(MAT_DIALOG_DATA) public data: Task) { 
-      this.task = data; 
+    @Inject(MAT_DIALOG_DATA) public data: Task) {
+      this.task = data;
       this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(data.Youtube_Url);
     }
   ngOnInit() {
