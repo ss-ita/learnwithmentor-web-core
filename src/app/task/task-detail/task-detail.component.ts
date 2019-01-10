@@ -47,8 +47,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   createUrl(url: string) {
-    if(url.length > 28) {
+    if(url.length > 43) {
       return url.slice(url.indexOf('=')+1, url.indexOf('&'));
+    } else if(url.length > 28) {
+      return url.slice(url.indexOf('=')+1);
     } else {
       return url.slice(url.indexOf('e')+2);
     }

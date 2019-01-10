@@ -27,11 +27,6 @@
                   <mat-checkbox [disabled]="isTaskApproved(section.Content.UsersTasks[i].UserTasks[0].State) || isUserTaskExpiration(section.Content.UsersTasks[i].UserTasks[0])"
                     id="{{section.Content.UsersTasks[i].UserTasks[0].Id}}" (change)="sendState(j, i, $event)" [checked]="isChecked(section.Content.UsersTasks[i].UserTasks[0].State)"></mat-checkbox>
                 </div>
-                <div style="float:left" *ngIf="!is_student">
-                    <button mat-button class="editbutton" (click)="onTaskEditClick(section.Content.Tasks[i])">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                </div>
                 <span class="title">
                   {{t.Name}}
                 </span>
@@ -52,6 +47,7 @@
               <div class="result">
                 <button mat-raised-button class="button-change" (click)="onResultClick(section.Content.UsersTasks[i].UserTasks[selectedUser], section.Content.Tasks[i])">{{buttonName}}</button>
                 <button mat-raised-button class="button-change" (click)="onConversationClick(section.Content.UsersTasks[i].UserTasks[selectedUser], section.Content.Tasks[i])">Conversation</button>
+                <button mat-raised-button class="button-change" (click)="onTaskDetailClick(section.Content.Tasks[i])">Detail</button>
               </div>
               <div>
                 <mat-form-field>
@@ -62,7 +58,11 @@
                   mat-raised-button (click)="onSuggestedDeadlineClick(t.Name, section.Content.UsersTasks[i].UserTasks[selectedUser], getFullName(selectedUser))">Suggested end date</button>
                 <button *ngIf="!is_student && !section.Content.UsersTasks[i].UserTasks[selectedUser].ProposeEndDate" mat-raised-button (click)="onSuggestedDeadlineClick(t.Name, section.Content.UsersTasks[i].UserTasks[selectedUser], getFullName(selectedUser))">Suggested end date</button>
                 <button *ngIf="is_student" mat-raised-button (click)="onSuggestDeadlineClick(t.Name, section.Content.UsersTasks[i].UserTasks[selectedUser])">Suggest end date</button>
-                <button mat-raised-button style="margin-left: 15px;" (click)="onTaskDetailClick(section.Content.Tasks[i])">Detail</button>
+                <div style="float:left" *ngIf="!is_student">
+                  <button mat-raised-button class="button-change" (click)="onTaskEditClick(section.Content.Tasks[i])">
+                      <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
               </div>
               <div class="review" *ngIf="!is_student">
                 <button mat-raised-button class="button-change" [disabled]="!isTaskDone(section.Content.UsersTasks[i].UserTasks[selectedUser].State)"

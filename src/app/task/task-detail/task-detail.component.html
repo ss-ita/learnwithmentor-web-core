@@ -29,9 +29,6 @@
     </mat-expansion-panel>    
     <div>
       <mat-card-actions>
-        <button *ngIf="hasPermisionsToEdit"  mat-button (click)="openEditDialog()">
-          Edit
-        </button>
         <button *ngIf="hasPermisionsToComment" mat-button (click)="openConversationDialog()">
           Conversation
         </button>
