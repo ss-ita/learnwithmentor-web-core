@@ -35,9 +35,10 @@ export class GroupChatComponent implements OnInit {
   messages = [];
   user: User;
   isStudent: boolean;
-
   isLogin = false;
+  isCurrentUser: boolean = false;
 
+  
   constructor(private dialog: MatDialog,
     private router: Router,
     private authService: AuthService,
@@ -81,7 +82,11 @@ export class GroupChatComponent implements OnInit {
   }
 
   addMessage(senderId, name, message, time) {
+    if(senderId === this.userId){
+      this.isCurrentUser = true;
+    }
     this.messages.push({senderName: name, textMessage: message, timeSent: time});
+    console.log(this.isCurrentUser);
   }
 
   setUserPic(img: Image) {

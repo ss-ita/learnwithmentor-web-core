@@ -14,7 +14,7 @@
             <div class="chatlogs" #scrollMe [scrollTop]="scrollMe.scrollHeight" *ngIf="messages.length > 0">
               <button type="button" id="getAllMessages-button" class="more-button" (click)="getAllMessages()">View older messages</button>
               <div *ngFor="let message of messages">
-                <div class="container darker">
+                <div *ngIf = "isCurrentUser" [ngStyle]="{'color':'red', 'background-color':'green'}">
                   <p class="name-message">{{message.senderName}}:</p>
                   <br>
                   <p class="text-message">{{message.textMessage}}</p>

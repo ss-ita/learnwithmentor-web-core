@@ -9,6 +9,7 @@ import { UserService } from '../common/services/user.service';
 import { NotificationService } from '../common/services/notification.service';
 import { HttpStatusCodeService } from '../common/services/http-status-code.service';
 import { Image } from '../common/models/image';
+import { GroupChatComponent } from '../group-chat/group-chat.component';
 
 @Component({
   selector: 'app-navbar',
@@ -35,6 +36,8 @@ export class NavbarComponent implements OnInit {
   notificationsTooltip = 'Notifications';
   logOutTooltip = 'Log out';
 
+  groupChat:GroupChatComponent;
+   
   notifications = [];
 
   constructor(
@@ -60,6 +63,7 @@ export class NavbarComponent implements OnInit {
     this.authService.removeUserData();
     this.isLogin = false;
     this.router.navigate(['/']);
+    this.groupChat.isCurrentUser = false;
   }
 
   ngOnInit() {
@@ -86,6 +90,7 @@ export class NavbarComponent implements OnInit {
         this.notificationInitialPull = true;
         this.userImage = null;
       }
+      console.log(this.isCurrentUser);
     });
 
     this.authService.updateUserState();
