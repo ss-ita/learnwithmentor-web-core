@@ -5,8 +5,9 @@
       <p>
         <h3>{{task.Description}}</h3>
     </mat-card-content>
-    <br>
-    <iframe width="560" height="315" [src] = 'safeURL' frameborder="0" allowfullscreen></iframe>
+    <div *ngIf="this.isUrl">
+      <iframe width="560" height="315" [src] = 'safeURL' frameborder="0" allowfullscreen></iframe>
+    </div>
     <br>
     <mat-expansion-panel>
       <mat-expansion-panel-header>Show details</mat-expansion-panel-header>

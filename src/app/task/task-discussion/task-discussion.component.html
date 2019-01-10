@@ -20,11 +20,15 @@
   </mat-card-content>
 </mat-card>              
 <mat-card class="message-block" *ngFor="let message of taskDiscussion; let i=index">
-<mat-card-content>
-  <p class="name-message">{{message.FullName}}</p>
-  <br>
-  <p class="text-message">{{message.DiscussionMessage.Text}}</p>
-  <p class="time-right">{{message.DiscussionMessage.DatePosted}}</p> 
+  <mat-card-content>
+    <div class="message-header">
+      {{message.FullName}}
+      <hr/>
+    </div>
+    <div class="message-body">
+      <p class="text-message">{{message.DiscussionMessage.Text}}</p>
+      <p class="time-right">{{message.DiscussionMessage.DatePosted}}</p> 
+  </div>
 </mat-card-content>
 </mat-card>
 <div class="send-block">
