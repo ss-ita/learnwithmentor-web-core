@@ -31,7 +31,7 @@
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>  
-  <button mat-button mat-dialog-close (click)="onSaveClick(descriptionTbx.value, urlyoutubeTbx.value)" [disabled]="urlyoutubeTbx.errors?.pattern">Save</button>
+  <button mat-button mat-dialog-close (click)="onSaveClick(descriptionTbx.value, urlyoutubeTbx.value)" >Save</button>
   <button mat-button mat-dialog-close>Cancel</button>
   <button class="deleteButton" mat-button mat-dialog-close (click)="onDeleteClick()">Delete</button>
 </mat-dialog-actions>

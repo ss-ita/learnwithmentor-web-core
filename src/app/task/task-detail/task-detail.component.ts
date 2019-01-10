@@ -6,6 +6,7 @@ import { TaskEditorComponent } from '../task-editor/task-editor.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TaskSubmitorComponent } from '../task-submitor/task-submitor.component';
 import { ConversationComponent } from '../conversation/conversation.component';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-task-detail',
@@ -17,6 +18,7 @@ export class TaskDetailComponent implements OnInit {
   safeURL;
   @Input()
   task: Task;
+  url="";
   hasPermisionsToComment = false;
   hasPermisionsToEdit = false;
 
@@ -26,7 +28,8 @@ export class TaskDetailComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: Task) {
       this.task = data;
-      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(data.Youtube_Url);
+      this.url = this.createUrl(data.Youtube_Url);
+      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.url);
     }
   ngOnInit() {
     if (this.authService.isAdmin() || this.authService.isMentor() || this.authService.isStudent()) {
@@ -41,6 +44,14 @@ export class TaskDetailComponent implements OnInit {
     const dialogRef = this.dialog.open(TaskEditorComponent, {
       data: this.task
     });
+  }
+
+  createUrl(url: string) {
+    if(url.length > 28) {
+      return url.slice(url.indexOf('=')+1, url.indexOf('&'));
+    } else {
+      return url.slice(url.indexOf('e')+2);
+    }
   }
 
   openConversationDialog(): void {

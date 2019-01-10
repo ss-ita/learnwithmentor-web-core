@@ -12,7 +12,8 @@ import { AuthService } from '../../common/services/auth.service';
 export class TaskEditorComponent implements OnInit {
 
   is_student = true;
-  url_pattern = '^(http[s]?:\/\/){0,1}(www\.youtube\.com\/embed\/)[a-zA-Z0-9]{1,15}$';
+  url_pattern = '^(http[s]?:\/\/){0,1}(((www\.youtube\.com\/watch[?]v=)([a-zA-Z0-9]*[?&_=]{0,1})*)|((youtu\.be\/)[a-zA-Z0-9]{1,20}))$';
+  //https://youtu.be/6JYd2vqbwCY
   @Input()
   task: Task;
   constructor(public dialogRef: MatDialogRef<TaskEditorComponent>,
