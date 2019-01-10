@@ -13,7 +13,7 @@ import { AlertWindowsComponent } from '../.././components/alert-windows/alert-wi
 export class TaskEditorComponent implements OnInit {
 
   is_student = true;
-  url_pattern = '^((\s)|(http[s]?:\/\/){0,1}(((www\.youtube\.com\/watch[?]v=)([a-zA-Z0-9]*[?&_=]{0,1})*)|((youtu\.be\/)[a-zA-Z0-9]{1,20})))$';
+  url_pattern = '^((\s)|(http[s]?:\/\/){0,1}(((www\.youtube\.com\/watch[?]v=)([a-zA-Z0-9]*[-?&_=]{0,1})*)|((youtu\.be\/)[a-zA-Z0-9]{1,20})))$';
   @Input()
   task: Task;
   constructor(public dialogRef: MatDialogRef<TaskEditorComponent>,

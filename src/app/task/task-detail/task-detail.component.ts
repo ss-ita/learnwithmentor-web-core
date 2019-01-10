@@ -19,6 +19,7 @@ export class TaskDetailComponent implements OnInit {
   @Input()
   task: Task;
   url = '';
+  isUrl = false;
   hasPermisionsToComment = false;
   hasPermisionsToEdit = false;
 
@@ -28,15 +29,19 @@ export class TaskDetailComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: Task) {
       this.task = data;
-      this.url = this.createUrl(data.Youtube_Url);
-      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.url);
-    }
+  }
+
   ngOnInit() {
     if (this.authService.isAdmin() || this.authService.isMentor() || this.authService.isStudent()) {
       this.hasPermisionsToComment = true;
     }
     if (this.authService.isAdmin() || this.authService.isMentor()) {
       this.hasPermisionsToEdit = true;
+    }
+    if(this.task.Youtube_Url != null && this.task.Youtube_Url != "") {
+      this.isUrl = true;
+      this.url = this.createUrl(this.task.Youtube_Url);
+      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.url);
     }
   }
 
