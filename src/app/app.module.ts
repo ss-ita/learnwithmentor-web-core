@@ -87,8 +87,13 @@ import 'intersection-observer';
 import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
 import { FacebookAuthComponent } from './facebook-auth/facebook-auth.component';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
+import { TaskDiscussionComponent } from 'src/app/task/task-discussion/task-discussion.component';
 
-
+import { CalendarComponent } from './calendar/calendar.component';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as Raven from 'raven-js';
 Raven
@@ -106,6 +111,7 @@ export class RavenErrorHandler implements ErrorHandler {
   declarations: [
     AppComponent,
     UsersComponent,
+    CalendarComponent,
     NavbarComponent,
     GroupChatComponent,
     TasksComponent, TaskDetailComponent, TaskEditorComponent,
@@ -155,13 +161,20 @@ export class RavenErrorHandler implements ErrorHandler {
     CustomPaginatorComponent,
     StickyHeaderComponent,
     FacebookAuthComponent,
-    GoogleAuthComponent
+    GoogleAuthComponent,
+    TaskDiscussionComponent
     ],
   imports: [
+    NgbModalModule,
     AppRoutingModule,
     MatIconModule,
     BrowserModule,
     HttpClientModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     MatPaginatorModule,
     MatToolbarModule,
     BrowserAnimationsModule,
@@ -209,7 +222,8 @@ export class RavenErrorHandler implements ErrorHandler {
     AddTasksComponent,
     AddGroupComponent,
     UserEditComponent,
-    ReviewSuggestedDeadlinesComponent
+    ReviewSuggestedDeadlinesComponent,
+    TaskDiscussionComponent
   ],
   providers: [UserService,
     AuthGuard,

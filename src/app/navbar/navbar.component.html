@@ -27,6 +27,11 @@
       <mat-icon>settings</mat-icon>
     </button>
   </div>
+  <div *ngIf="isLogin && !isAdmin" routerLink="calendar" style="margin-left:15px;" matTooltip=Calendar matTooltipClass="tooltip">
+    <button mat-icon-button>
+      <mat-icon>date_range</mat-icon>
+    </button>
+  </div>
   <div *ngIf="isLogin" routerLink="mygroups" style="margin-left:15px;" matTooltip={{groupsTooltip}} matTooltipClass="tooltip">
     <button mat-icon-button>
       <mat-icon>group</mat-icon>

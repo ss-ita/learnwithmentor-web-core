@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Directive } from '@angular/core';
+import { Component, OnInit, HostListener, Directive, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { TaskService } from '../../common/services/task.service';
@@ -27,6 +27,7 @@ import { States } from './states';
 import { TaskReaderComponent } from '../../task/task-reader/task-reader.component';
 import { TaskEditorComponent } from '../../task/task-editor/task-editor.component';
 import { TaskDetailComponent } from '../../task/task-detail/task-detail.component';
+import { TaskDiscussionComponent } from 'src/app/task/task-discussion/task-discussion.component';
 
 export class UsersWithTasks {
   user: UserWithImage;
@@ -165,7 +166,14 @@ export class SpecificPlanComponent implements OnInit {
     const data = { taskName: taskName, userTask: userTask, studentName };
     const dialogRef = this.dialog.open(ReviewSuggestedDeadlinesComponent, {
       data: data,
-      width: '500px'
+      width: '500px'});
+  }
+
+  public onDiscussionClick(task: Task) {
+    const data = { task: task };
+    const dialogRef = this.dialog.open(TaskDiscussionComponent, {
+      data: data,
+      width: '80%'
     });
   }
 

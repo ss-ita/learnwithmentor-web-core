@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Discussion of task: {{task.Name}}</h2>
+<mat-dialog-content class="main-block">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Task description:</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{task.Description}}</p>
+    </mat-card-content>
+  </mat-card>
+  <hr/>
+  <div class="center-spinner">
+      <mat-spinner *ngIf = "!isDiscussionLoaded" class="spiner-margins"></mat-spinner>
+  </div>
+<mat-card class="message-block" *ngIf="!isMessages">
+  <mat-card-content>
+    <p class="no-messages">
+      There is no messages.
+    </p>
+  </mat-card-content>
+</mat-card>              
+<mat-card class="message-block" *ngFor="let message of taskDiscussion; let i=index">
+<mat-card-content>
+  <p class="name-message">{{message.FullName}}</p>
+  <br>
+  <p class="text-message">{{message.DiscussionMessage.Text}}</p>
+  <p class="time-right">{{message.DiscussionMessage.DatePosted}}</p> 
+</mat-card-content>
+</mat-card>
+<div class="send-block">
+  <div class="spinner-block">
+<mat-spinner *ngIf = "!isUpdated" class="spiner-update"></mat-spinner>
+</div>
+<textarea class="message-input" [(ngModel)]="message" id="textMessage" placeholder="Your message" (keyup.enter)="onSendClick();" (keydown.enter)="false" required #reference></textarea>
+<button class="send-btn" mat-raised-button type="submit" class="send-btn" (click)="onSendClick()" (click)="reference.value=''">Send</button>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions>  
+  <button mat-raised-button (click)="onCloseClick()">Close</button>
+</mat-dialog-actions>
