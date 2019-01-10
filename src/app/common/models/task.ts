@@ -12,4 +12,5 @@ export class Task {
     Priority: number;
     SectionId: number;
     PlanTaskId: number;
+    Youtube_Url: string;
 }

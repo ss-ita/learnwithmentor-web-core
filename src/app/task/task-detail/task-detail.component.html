@@ -5,6 +5,9 @@
       <p>
         <h3>{{task.Description}}</h3>
     </mat-card-content>
+    <br>
+    <iframe width="560" height="315" [src] = 'safeURL' frameborder="0" allowfullscreen></iframe>
+    <br>
     <mat-expansion-panel>
       <mat-expansion-panel-header>Show details</mat-expansion-panel-header>
       <mat-card-content>
@@ -26,12 +29,10 @@
     </mat-expansion-panel>    
     <div>
       <mat-card-actions>
-        <button *ngIf="hasPermisionsToEdit"  mat-button (click)="openEditDialog()">
-          Edit
-        </button>
         <button *ngIf="hasPermisionsToComment" mat-button (click)="openConversationDialog()">
           Conversation
         </button>
+        <button mat-button mat-dialog-close>Cancel</button>
       </mat-card-actions>
     </div>
   </mat-card>

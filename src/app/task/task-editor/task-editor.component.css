@@ -1,3 +1,19 @@
 .deleteButton {
   float: right;
 }
+
+.text-area{
+  padding: 5px;
+  border: 1px solid black;
+  min-height: 150px;
+}
+
+.text-input{
+  border: 1px solid black;
+  height: 30px;
+}
+
+mat-form-field{
+  width: 100%;
+  margin-top: 15px;
+}

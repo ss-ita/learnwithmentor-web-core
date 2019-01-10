@@ -205,6 +205,7 @@ export class RavenErrorHandler implements ErrorHandler {
     ],
 
   entryComponents: [TaskEditorComponent,
+    TaskDetailComponent,
     TaskCreatorComponent,
     ConfirmDialogComponent,
     TaskSubmitorComponent,
