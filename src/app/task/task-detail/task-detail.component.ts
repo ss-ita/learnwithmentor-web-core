@@ -18,7 +18,7 @@ export class TaskDetailComponent implements OnInit {
   safeURL;
   @Input()
   task: Task;
-  url="";
+  url = '';
   hasPermisionsToComment = false;
   hasPermisionsToEdit = false;
 
@@ -47,12 +47,12 @@ export class TaskDetailComponent implements OnInit {
   }
 
   createUrl(url: string) {
-    if(url.length > 43) {
-      return url.slice(url.indexOf('=')+1, url.indexOf('&'));
-    } else if(url.length > 28) {
-      return url.slice(url.indexOf('=')+1);
+    if (url.length > 43) {
+      return url.slice(url.indexOf('=') + 1, url.indexOf('&'));
+    } else if (url.length > 28) {
+      return url.slice(url.indexOf('=') + 1);
     } else {
-      return url.slice(url.indexOf('e')+2);
+      return url.slice(url.indexOf('e') + 2);
     }
   }
 
