@@ -56,6 +56,11 @@ button {
   margin-bottom: 20px;
 }
 
+.editbutton{
+  margin-bottom: 5px;
+  width: 50%;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
