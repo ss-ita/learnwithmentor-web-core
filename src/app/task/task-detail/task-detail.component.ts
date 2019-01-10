@@ -38,7 +38,7 @@ export class TaskDetailComponent implements OnInit {
     if (this.authService.isAdmin() || this.authService.isMentor()) {
       this.hasPermisionsToEdit = true;
     }
-    if(this.task.Youtube_Url != null && this.task.Youtube_Url != "") {
+    if (this.task.Youtube_Url != null && this.task.Youtube_Url !== '') {
       this.isUrl = true;
       this.url = this.createUrl(this.task.Youtube_Url);
       this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.url);
