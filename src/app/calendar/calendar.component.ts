@@ -24,6 +24,7 @@ import {
     CalendarView
   } from 'angular-calendar';
   import { AuthService } from '../common/services/auth.service';
+  import { CalendarService } from '../common/services/calendar.service';
 
   const colors: any = {
     red: {
@@ -60,7 +61,8 @@ import {
     refresh: Subject<any> = new Subject();
 
     events: CalendarEvent[] = [];
-
+    nameOfEvent: string = 'justForTest';
+    
     activeDayIsOpen = true;
     isLogin = false;
     isMentor = false;
@@ -69,7 +71,8 @@ import {
 
     constructor(
       private modal: NgbModal,
-      private authService: AuthService
+      private authService: AuthService,
+      private calendarService: CalendarService
       ) {}
 
       ngOnInit() {
@@ -117,7 +120,8 @@ import {
           beforeStart: true,
           afterEnd: true
         }
-      });
+      })
+      this.calendarService.sendCalendarEvent(this.nameOfEvent);
       if (this.events.length > 0) {
         this.counterForEvent = true;
       } else {
