@@ -48,6 +48,7 @@
                 <button mat-raised-button class="button-change" (click)="onResultClick(section.Content.UsersTasks[i].UserTasks[selectedUser], section.Content.Tasks[i])">{{buttonName}}</button>
                 <button mat-raised-button class="button-change" (click)="onConversationClick(section.Content.UsersTasks[i].UserTasks[selectedUser], section.Content.Tasks[i])">Conversation</button>
                 <button mat-raised-button class="button-change" (click)="onTaskDetailClick(section.Content.Tasks[i])">Detail</button>
+                <button mat-raised-button class="button-change" (click)="onDiscussionClick(section.Content.Tasks[i])">Task Discussion</button>
               </div>
               <div>
                 <mat-form-field>

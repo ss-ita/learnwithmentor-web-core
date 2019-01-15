@@ -1,12 +1,10 @@
-import { Component, OnInit, Input, Inject} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../../common/models/task';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { AuthService } from '../../common/services/auth.service';
 import { TaskEditorComponent } from '../task-editor/task-editor.component';
-import { DomSanitizer } from '@angular/platform-browser';
 import { TaskSubmitorComponent } from '../task-submitor/task-submitor.component';
 import { ConversationComponent } from '../conversation/conversation.component';
-import { A11yModule } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-task-detail',
@@ -15,22 +13,12 @@ import { A11yModule } from '@angular/cdk/a11y';
 })
 export class TaskDetailComponent implements OnInit {
 
-  safeURL;
   @Input()
   task: Task;
-  url = '';
   hasPermisionsToComment = false;
   hasPermisionsToEdit = false;
+  constructor(public dialog: MatDialog, private authService: AuthService) { }
 
-  constructor(public dialogRef: MatDialogRef<TaskDetailComponent>,
-    public dialog: MatDialog,
-    private authService: AuthService,
-    private _sanitizer: DomSanitizer,
-    @Inject(MAT_DIALOG_DATA) public data: Task) {
-      this.task = data;
-      this.url = this.createUrl(data.Youtube_Url);
-      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.url);
-    }
   ngOnInit() {
     if (this.authService.isAdmin() || this.authService.isMentor() || this.authService.isStudent()) {
       this.hasPermisionsToComment = true;
@@ -46,24 +34,10 @@ export class TaskDetailComponent implements OnInit {
     });
   }
 
-  createUrl(url: string) {
-    if (url.length > 43) {
-      return url.slice(url.indexOf('=') + 1, url.indexOf('&'));
-    } else if (url.length > 28) {
-      return url.slice(url.indexOf('=') + 1);
-    } else {
-      return url.slice(url.indexOf('e') + 2);
-    }
-  }
-
   openConversationDialog(): void {
     const dialogRef = this.dialog.open(ConversationComponent, {
       width: '600px',
       data: { task: this.task, userTask: this }
     });
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }

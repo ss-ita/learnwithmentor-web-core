@@ -1,25 +1,43 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit, Input } from '@angular/core';
+import { Task } from '../../common/models/task';
+import { MatDialog } from '@angular/material';
+import { AuthService } from '../../common/services/auth.service';
+import { TaskEditorComponent } from '../task-editor/task-editor.component';
+import { TaskSubmitorComponent } from '../task-submitor/task-submitor.component';
+import { ConversationComponent } from '../conversation/conversation.component';
 
-import { TaskDetailComponent } from './task-detail.component';
+@Component({
+  selector: 'app-task-detail',
+  templateUrl: './task-detail.component.html',
+  styleUrls: ['./task-detail.component.css']
+})
+export class TaskDetailComponent implements OnInit {
 
-describe('TaskDetailComponent', () => {
-  let component: TaskDetailComponent;
-  let fixture: ComponentFixture<TaskDetailComponent>;
+  @Input()
+  task: Task;
+  hasPermisionsToComment = false;
+  hasPermisionsToEdit = false;
+  constructor(public dialog: MatDialog, private authService: AuthService) { }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TaskDetailComponent ]
-    })
-    .compileComponents();
-  }));
+  ngOnInit() {
+    if (this.authService.isAdmin() || this.authService.isMentor() || this.authService.isStudent()) {
+      this.hasPermisionsToComment = true;
+    }
+    if (this.authService.isAdmin() || this.authService.isMentor()) {
+      this.hasPermisionsToEdit = true;
+    }
+  }
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TaskDetailComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  openEditDialog(): void {
+    const dialogRef = this.dialog.open(TaskEditorComponent, {
+      data: this.task
+    });
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  openConversationDialog(): void {
+    const dialogRef = this.dialog.open(ConversationComponent, {
+      width: '600px',
+      data: { task: this.task, userTask: this }
+    });
+  }
+}

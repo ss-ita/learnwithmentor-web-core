@@ -56,6 +56,7 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
 import { PlanEditorComponent } from './plan/plan-editor/plan-editor.component';
 import { TasksListEditorComponent } from './task/tasks-list-editor/tasks-list-editor.component';
 import { TaskCreatorComponent } from './task/task-creator/task-creator.component';
+import {TaskDetailWindowComponent} from './task/task-detail-window/task-detail-window.component';
 import { CreatePlanComponent } from './create-plan/create-plan.component';
 import { AddTasksComponent } from './add-tasks/add-tasks.component';
 import { UserPageComponent } from './user/user-page/user-page.component';
@@ -87,8 +88,13 @@ import 'intersection-observer';
 import { StickyHeaderComponent } from './sticky-header/sticky-header.component';
 import { FacebookAuthComponent } from './facebook-auth/facebook-auth.component';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
+import { TaskDiscussionComponent } from 'src/app/task/task-discussion/task-discussion.component';
 
-
+import { CalendarComponent } from './calendar/calendar.component';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as Raven from 'raven-js';
 Raven
@@ -106,6 +112,7 @@ export class RavenErrorHandler implements ErrorHandler {
   declarations: [
     AppComponent,
     UsersComponent,
+    CalendarComponent,
     NavbarComponent,
     GroupChatComponent,
     TasksComponent, TaskDetailComponent, TaskEditorComponent,
@@ -155,13 +162,21 @@ export class RavenErrorHandler implements ErrorHandler {
     CustomPaginatorComponent,
     StickyHeaderComponent,
     FacebookAuthComponent,
-    GoogleAuthComponent
+    GoogleAuthComponent,
+    TaskDiscussionComponent,
+    TaskDetailWindowComponent
     ],
   imports: [
+    NgbModalModule,
     AppRoutingModule,
     MatIconModule,
     BrowserModule,
     HttpClientModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     MatPaginatorModule,
     MatToolbarModule,
     BrowserAnimationsModule,
@@ -192,7 +207,7 @@ export class RavenErrorHandler implements ErrorHandler {
     ],
 
   entryComponents: [TaskEditorComponent,
-    TaskDetailComponent,
+    TaskDetailWindowComponent,
     TaskCreatorComponent,
     ConfirmDialogComponent,
     TaskSubmitorComponent,
@@ -209,7 +224,8 @@ export class RavenErrorHandler implements ErrorHandler {
     AddTasksComponent,
     AddGroupComponent,
     UserEditComponent,
-    ReviewSuggestedDeadlinesComponent
+    ReviewSuggestedDeadlinesComponent,
+    TaskDiscussionComponent
   ],
   providers: [UserService,
     AuthGuard,
