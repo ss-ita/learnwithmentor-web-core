@@ -30,7 +30,6 @@ export class TaskDetailWindowComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Task) {
       this.task = data;
       console.log(this.task);
-      //this.checkUrl(data.Youtube_Url);
   }
 
   ngOnInit() {
@@ -40,10 +39,9 @@ export class TaskDetailWindowComponent implements OnInit {
     if (this.authService.isAdmin() || this.authService.isMentor()) {
       this.hasPermisionsToEdit = true;
     }
-    if(this.task.Youtube_Url != null && this.task.Youtube_Url != "") {
+    if (this.task.Youtube_Url !== null && this.task.Youtube_Url !== '') {
       this.isUrl = true;
       this.url = this.createUrl(this.task.Youtube_Url);
-      console.log(this.url);
       this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.url);
     }
   }
