@@ -20,9 +20,13 @@ export class TaskDiscussionComponent implements OnInit {
   isMessages = true;
   isUpdated = true;
   message = '';
+  url = '';
+  safeURL;
+  isUrl = false;
 
   constructor(public dialogRef: MatDialogRef<TaskDiscussionComponent>,
     private taskDiscussionService: TaskDiscussionService,
+    private _sanitizer: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: any) { this.task = data.task || {}; }
 
   onCloseClick(): void {
@@ -60,7 +64,22 @@ export class TaskDiscussionComponent implements OnInit {
     });
   }
 
+  createUrl(url: string) {
+    if (url.length > 43) {
+      return url.slice(url.indexOf('=') + 1, url.indexOf('&'));
+    } else if (url.length > 28) {
+      return url.slice(url.indexOf('=') + 1);
+    } else {
+      return url.slice(url.indexOf('e') + 2);
+    }
+  }
+
   ngOnInit() {
     this.GetTaskDiscussion(this.task.Id);
+    if (this.task.Youtube_Url != null && this.task.Youtube_Url !== '') {
+      this.isUrl = true;
+      this.url = this.createUrl(this.task.Youtube_Url);
+      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.url);
+    }
   }
 }
