@@ -3,7 +3,7 @@ import { TaskDiscussion } from 'src/app/common/models/taskDiscussion';
 import { TaskDiscussionService } from 'src/app/common/services/task-discussion.service';
 import { Task } from '../../common/models/task';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { reference } from '@angular/core/src/render3';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-task-discussion',
@@ -21,9 +21,13 @@ export class TaskDiscussionComponent implements OnInit {
   isMessages = true;
   isUpdated = true;
   message = '';
+  url = '';
+  safeURL;
+  isUrl = false;
 
   constructor(public dialogRef: MatDialogRef<TaskDiscussionComponent>,
     private taskDiscussionService: TaskDiscussionService,
+    private _sanitizer: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: any) { this.task = data.task || {}; }
 
   onCloseClick(): void {
@@ -61,7 +65,22 @@ export class TaskDiscussionComponent implements OnInit {
     });
   }
 
+  createUrl(url: string) {
+    if (url.length > 43) {
+      return url.slice(url.indexOf('=') + 1, url.indexOf('&'));
+    } else if (url.length > 28) {
+      return url.slice(url.indexOf('=') + 1);
+    } else {
+      return url.slice(url.indexOf('e') + 2);
+    }
+  }
+
   ngOnInit() {
     this.GetTaskDiscussion(this.task.Id);
+    if (this.task.Youtube_Url != null && this.task.Youtube_Url !== '') {
+      this.isUrl = true;
+      this.url = this.createUrl(this.task.Youtube_Url);
+      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.url);
+    }
   }
 }
