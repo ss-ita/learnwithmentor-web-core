@@ -102,7 +102,6 @@ export class GroupChatComponent implements OnInit {
 
   public sendMessageToGroup(): void {
     this.groupChatService.sendMessageToGroup(this.userId, this.message);
-    document.getElementById('message').nodeValue = '';
   }
 
   public openForm(): void {
