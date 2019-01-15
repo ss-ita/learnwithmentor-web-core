@@ -121,7 +121,7 @@ import {
           afterEnd: true
         }
       })
-      this.calendarService.sendCalendarEvent(this.nameOfEvent);
+      this.calendarService.sendCalendarEvent("ForFun4ik");
       if (this.events.length > 0) {
         this.counterForEvent = true;
       } else {
