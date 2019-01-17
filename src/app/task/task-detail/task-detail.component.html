@@ -1,40 +1,38 @@
 <div *ngIf="task">
-  <mat-card>
-    <mat-card-title>{{task.Name}}</mat-card-title>
-    <mat-card-content>
-      <p>
-        <h3>{{task.Description}}</h3>
-    </mat-card-content>
-    <div *ngIf="this.isUrl">
-      <iframe width="560" height="315" [src] = 'safeURL' frameborder="0" allowfullscreen></iframe>
-    </div>
-    <br>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>Show details</mat-expansion-panel-header>
+    <mat-card>
+      <mat-card-title>{{task.Name}}</mat-card-title>
       <mat-card-content>
         <p>
-          Create by: {{task.CreatorName}}
-        </p>
-        <p>
-          Create date: {{task.CreateDate}}
-        </p>
-        <div *ngIf="task.ModifierName">
-          <p>
-            Modify by: {{task.ModifierName}}
-          </p>
-          <p>
-            Modify date: {{task.ModDate}}
-          </p>
-        </div>
+          <h3>{{task.Description}}</h3>
       </mat-card-content>
-    </mat-expansion-panel>    
-    <div>
-      <mat-card-actions>
-        <button *ngIf="hasPermisionsToComment" mat-button (click)="openConversationDialog()">
-          Conversation
-        </button>
-        <button mat-button mat-dialog-close>Cancel</button>
-      </mat-card-actions>
-    </div>
-  </mat-card>
-</div>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>Show details</mat-expansion-panel-header>
+        <mat-card-content>
+          <p>
+            Create by: {{task.CreatorName}}
+          </p>
+          <p>
+            Create date: {{task.CreateDate}}
+          </p>
+          <div *ngIf="task.ModifierName">
+            <p>
+              Modify by: {{task.ModifierName}}
+            </p>
+            <p>
+              Modify date: {{task.ModDate}}
+            </p>
+          </div>
+        </mat-card-content>
+      </mat-expansion-panel>    
+      <div>
+        <mat-card-actions>
+          <button *ngIf="hasPermisionsToEdit"  mat-button (click)="openEditDialog()">
+            Edit
+          </button>
+          <button *ngIf="hasPermisionsToComment" mat-button (click)="openConversationDialog()">
+            Conversation
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
+  </div>

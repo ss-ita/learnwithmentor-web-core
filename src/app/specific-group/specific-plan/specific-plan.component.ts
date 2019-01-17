@@ -26,7 +26,7 @@ import { DateTime } from 'date-time-js';
 import { States } from './states';
 import { TaskReaderComponent } from '../../task/task-reader/task-reader.component';
 import { TaskEditorComponent } from '../../task/task-editor/task-editor.component';
-import { TaskDetailComponent } from '../../task/task-detail/task-detail.component';
+import { TaskDetailWindowComponent } from '../../task/task-detail-window/task-detail-window.component';
 import { TaskDiscussionComponent } from 'src/app/task/task-discussion/task-discussion.component';
 
 export class UsersWithTasks {
@@ -184,7 +184,7 @@ export class SpecificPlanComponent implements OnInit {
   }
 
   onTaskDetailClick(task: Task) {
-    this.dialog.open(TaskDetailComponent, {
+    this.dialog.open(TaskDetailWindowComponent, {
       data: task
     });
   }

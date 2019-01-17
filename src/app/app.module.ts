@@ -56,6 +56,7 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
 import { PlanEditorComponent } from './plan/plan-editor/plan-editor.component';
 import { TasksListEditorComponent } from './task/tasks-list-editor/tasks-list-editor.component';
 import { TaskCreatorComponent } from './task/task-creator/task-creator.component';
+import {TaskDetailWindowComponent} from './task/task-detail-window/task-detail-window.component';
 import { CreatePlanComponent } from './create-plan/create-plan.component';
 import { AddTasksComponent } from './add-tasks/add-tasks.component';
 import { UserPageComponent } from './user/user-page/user-page.component';
@@ -162,7 +163,8 @@ export class RavenErrorHandler implements ErrorHandler {
     StickyHeaderComponent,
     FacebookAuthComponent,
     GoogleAuthComponent,
-    TaskDiscussionComponent
+    TaskDiscussionComponent,
+    TaskDetailWindowComponent
     ],
   imports: [
     NgbModalModule,
@@ -205,7 +207,7 @@ export class RavenErrorHandler implements ErrorHandler {
     ],
 
   entryComponents: [TaskEditorComponent,
-    TaskDetailComponent,
+    TaskDetailWindowComponent,
     TaskCreatorComponent,
     ConfirmDialogComponent,
     TaskSubmitorComponent,
