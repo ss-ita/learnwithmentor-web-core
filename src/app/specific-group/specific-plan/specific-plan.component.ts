@@ -56,6 +56,7 @@ export class SpecificPlanComponent implements OnInit {
   selectedUser = 0;
   info: string;
   buttonName: string;
+  isEmpty = false;
 
   constructor(public taskService: TaskService,
     private userService: UserService,
@@ -266,19 +267,24 @@ export class SpecificPlanComponent implements OnInit {
     for (const user of groupUsers) {
       userids.push(user.Id);
     }
-    this.getUsersTasks(userids, this.planTasks).subscribe(
-      result_allUsertaskState => {
-        for (let i = 0; i < groupUsers.length; i++) {
-          const temp = new UsersWithTasks;
-          temp.user = groupUsers[i];
-          temp.image = this.setUserPic(groupUsers[i].Image);
-          temp.usertasks = this.getPicturesState(result_allUsertaskState[i].UserTasks);
-          this.users.push(temp);
+    if (userids.length === 0) {
+      this.isEmpty = true;
+      this.isLoadedUsers = true;
+    } else {
+      this.getUsersTasks(userids, this.planTasks).subscribe(
+        result_allUsertaskState => {
+          for (let i = 0; i < groupUsers.length; i++) {
+            const temp = new UsersWithTasks;
+            temp.user = groupUsers[i];
+            temp.image = this.setUserPic(groupUsers[i].Image);
+            temp.usertasks = this.getPicturesState(result_allUsertaskState[i].UserTasks);
+            this.users.push(temp);
+          }
+          this.setAllUserTasks(result_allUsertaskState);
+          this.isLoadedUsers = true;
         }
-        this.setAllUserTasks(result_allUsertaskState);
-        this.isLoadedUsers = true;
-      }
-    );
+      );
+    }
   }
 
   getFullName(index: number): string {
