@@ -106,9 +106,9 @@ export class UserPageComponent implements OnInit {
   }
 
   onSaveClick() {
-    this.userService.updateImage(this.userData.Id, this.selectedFile).subscribe(responce =>{
+    this.userService.updateImage(this.userData.Id, this.selectedFile).subscribe(responce => {
       this.selectedFile = null;
-      if (this.httpStatusCodeService.isOk(responce.status)){
+      if (this.httpStatusCodeService.isOk(responce.status)) {
       this.alertWindow.openSnackBar('User image updated.', 'Ok');
       }
     });
