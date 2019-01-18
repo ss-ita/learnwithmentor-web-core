@@ -85,6 +85,8 @@ export class SigninComponent implements OnInit {
       this.failed = true;
       this.errorDescription = result.errorDescription;
       this.alertwindow.openSnackBar('Error! ' + this.errorDescription, '');
+      this.authWindow.close();
+      this.closeSigninComponent();
     } else {
       if (result.provider === 'facebook') {
         this.failed = false;
