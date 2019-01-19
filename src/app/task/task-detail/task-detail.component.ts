@@ -5,6 +5,9 @@ import { AuthService } from '../../common/services/auth.service';
 import { TaskEditorComponent } from '../task-editor/task-editor.component';
 import { TaskSubmitorComponent } from '../task-submitor/task-submitor.component';
 import { ConversationComponent } from '../conversation/conversation.component';
+import { Section } from '../../common/models/sections';
+import { TasksComponent } from '../../task/tasks/tasks.component';
+import { TaskService } from 'src/app/common/services/task.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -15,9 +18,13 @@ export class TaskDetailComponent implements OnInit {
 
   @Input()
   task: Task;
+  sections: Section[];
   hasPermisionsToComment = false;
   hasPermisionsToEdit = false;
-  constructor(public dialog: MatDialog, private authService: AuthService) { }
+  constructor(public dialog: MatDialog, 
+    private authService: AuthService, 
+    private tasksComponent: TasksComponent, 
+    private taskService: TaskService) { }
 
   ngOnInit() {
     if (this.authService.isAdmin() || this.authService.isMentor() || this.authService.isStudent()) {
@@ -30,7 +37,7 @@ export class TaskDetailComponent implements OnInit {
 
   openEditDialog(): void {
     const dialogRef = this.dialog.open(TaskEditorComponent, {
-      data: this.task
+      data: { task: this.task, tasks: this.tasksComponent.tasks }
     });
   }
 

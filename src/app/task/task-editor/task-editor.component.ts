@@ -20,6 +20,7 @@ export class TaskEditorComponent implements OnInit {
   @Input()
   task: Task;
   sections: Section[];
+  tasks: Task[];
   constructor(public dialogRef: MatDialogRef<TaskEditorComponent>,
     private httpStatusCodeService: HttpStatusCodeService,
     private taskService: TaskService,
@@ -28,6 +29,7 @@ export class TaskEditorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data) {
       this.task = data.task;
       this.sections = data.sections;
+      this.tasks = data.tasks;
     }
 
   onNoClick(): void {
@@ -45,16 +47,21 @@ export class TaskEditorComponent implements OnInit {
   onDeleteClick() {
     this.taskService.deleteTask(this.task).subscribe(
       resp => {
-        console.log(resp);
-        if(this.httpStatusCodeService.isOk(resp.status)){
-          console.log(resp.status);
-          this.alertWindow.openSnackBar('Task "' + this.task.Name + '" deleted', 'Ok');
-          for (let i = 0; i < this.sections.length; i++){
-            for (let j = 0; j < this.sections[i].Content.Tasks.length; j++) {
-              if(this.sections[i].Content.Tasks[j].PlanTaskId === this.task.Id){
-                this.sections[i].Content.Tasks.splice(j, 1);
+        if(this.sections != undefined){
+          if(this.httpStatusCodeService.isOk(resp.status)){
+            this.alertWindow.openSnackBar('Task "' + this.task.Name + '" deleted', 'Ok');
+            for (let i = 0; i < this.sections.length; i++){
+              for (let j = 0; j < this.sections[i].Content.Tasks.length; j++) {
+                if(this.sections[i].Content.Tasks[j].PlanTaskId === this.task.Id){
+                  this.sections[i].Content.Tasks.splice(j, 1);
+                }
               }
             }
+          }
+        } else {
+          if(this.httpStatusCodeService.isOk(resp.status)){
+            this.alertWindow.openSnackBar('Task "' + this.task.Name + '" deleted', 'Ok');
+            this.tasks.splice(this.tasks.indexOf(this.task), 1);
           }
         }
       },
