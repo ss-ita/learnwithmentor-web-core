@@ -47,19 +47,19 @@ export class TaskEditorComponent implements OnInit {
   onDeleteClick() {
     this.taskService.deleteTask(this.task).subscribe(
       resp => {
-        if(this.sections != undefined){
-          if(this.httpStatusCodeService.isOk(resp.status)){
+        if (this.sections !== undefined) {
+          if (this.httpStatusCodeService.isOk(resp.status)) {
             this.alertWindow.openSnackBar('Task "' + this.task.Name + '" deleted', 'Ok');
-            for (let i = 0; i < this.sections.length; i++){
+            for (let i = 0; i < this.sections.length; i++) {
               for (let j = 0; j < this.sections[i].Content.Tasks.length; j++) {
-                if(this.sections[i].Content.Tasks[j].PlanTaskId === this.task.Id){
+                if (this.sections[i].Content.Tasks[j].PlanTaskId === this.task.Id) {
                   this.sections[i].Content.Tasks.splice(j, 1);
                 }
               }
             }
           }
         } else {
-          if(this.httpStatusCodeService.isOk(resp.status)){
+          if (this.httpStatusCodeService.isOk(resp.status)) {
             this.alertWindow.openSnackBar('Task "' + this.task.Name + '" deleted', 'Ok');
             this.tasks.splice(this.tasks.indexOf(this.task), 1);
           }

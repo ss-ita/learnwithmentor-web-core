@@ -29,7 +29,6 @@ export class TaskCreatorComponent implements OnInit {
     this.task.PlanTaskId = this.planId;
     this.task.CreateDate = new Date(Date.now());
     this.task.Private = false;
-    
     if (this.planId == null) {
       this.taskService.createTask(this.task).subscribe();
     } else {
@@ -40,6 +39,6 @@ export class TaskCreatorComponent implements OnInit {
   ngOnInit() {
     this.taskService.getTasksInSections(this.planId).subscribe(resp => {
       this.sections = resp;
-    })
+    });
   }
 }

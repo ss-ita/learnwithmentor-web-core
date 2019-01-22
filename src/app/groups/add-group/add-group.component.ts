@@ -55,14 +55,14 @@ export class AddGroupComponent implements OnInit {
       resp => {
         if (this.httpStatusCodeService.isOk(resp.status)) {
           this.someGroupCreated = true;
-          this.alertwindow.openSnackBar("Succesfully created group: \"" + group.Name + "\".", 'Ok');
+          this.alertwindow.openSnackBar('Succesfully created group: "' + group.Name + '".', 'Ok');
 
           this.group = {
             Id : resp.body,
             Name : group.Name,
             MentorId : group.MentorId,
             MentorName : group.MentorName
-          }
+          };
           this.groups.push(this.group);
           this.thisDialogRef.close();
         }

@@ -112,7 +112,7 @@ export class TaskService {
   }
 
   createTask(task: Task, selectedPriority?: number, selectedSection?: number): Observable<any> {
-    let link = `${this.url}task/newTask?selectedPriority=${selectedPriority}&selectedSection=${selectedSection}`;
+    const link = `${this.url}task/newTask?selectedPriority=${selectedPriority}&selectedSection=${selectedSection}`;
     return this.http.post<Task>(link, task, httpOptions).pipe(
       catchError(this.handleError<Task>(`creating task`)));
   }

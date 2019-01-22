@@ -21,10 +21,7 @@ export class TaskDetailComponent implements OnInit {
   sections: Section[];
   hasPermisionsToComment = false;
   hasPermisionsToEdit = false;
-  constructor(public dialog: MatDialog, 
-    private authService: AuthService, 
-    private tasksComponent: TasksComponent, 
-    private taskService: TaskService) { }
+  constructor(public dialog: MatDialog, private authService: AuthService, private tasksComponent: TasksComponent, private taskService: TaskService) { }
 
   ngOnInit() {
     if (this.authService.isAdmin() || this.authService.isMentor() || this.authService.isStudent()) {
