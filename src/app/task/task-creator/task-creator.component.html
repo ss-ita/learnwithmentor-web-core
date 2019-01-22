@@ -6,18 +6,16 @@
   <textarea matInput placeholder="Task description" #descriptionTbx></textarea>
     <mat-form-field>
       <mat-label>Task section</mat-label>
-      <mat-select #TaskSection>
-          <mat-option value="side">Side</mat-option>
-          <mat-option value="over">Over</mat-option>
-          <mat-option value="push">Push</mat-option>
+      <mat-select [(value)]="selectedSection">
+          <mat-option *ngFor="let section of sections" [value]="section.Id">{{section.Name}}</mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Task priority</mat-label>
-      <mat-select #TaskPriority>
-          <mat-option>Unset</mat-option>
-          <mat-option [value]="true">True</mat-option>
-          <mat-option [value]="false">False</mat-option>
+      <mat-select [(value)]="selectedPriority">
+          <mat-option value=1>High</mat-option>
+          <mat-option value=2>Medium</mat-option>
+          <mat-option value=3>Low</mat-option>
         </mat-select>
     </mat-form-field>
 </mat-dialog-content>
