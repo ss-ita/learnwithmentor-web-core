@@ -72,7 +72,7 @@ export class TaskService {
 
   deleteTask(task: Task): Observable<any> {
     const link = `${this.url}task/${task.Id}`;
-    return this.http.delete<Task>(link, httpOptions).pipe(
+    return this.http.delete<Task>(link, { observe: 'response', headers: { 'Content-Type': 'application/json' }}).pipe(
       catchError(this.handleError<Task>(`deleting task id=${task.Id}`)));
   }
   getAllTasksStateForAllGroupUsers(userIds: number[], planTaskIds: number[]): Observable<any> {
@@ -111,13 +111,8 @@ export class TaskService {
       catchError(val => of(val)));
   }
 
-  createTask(task: Task, planId?: number): Observable<any> {
-    let link = '';
-    if (planId == null) {
-      link = `${this.url}task`;
-    } else {
-      link = `${this.url}plan/${planId}/newTask`;
-    }
+  createTask(task: Task, selectedPriority?: number, selectedSection?: number): Observable<any> {
+    const link = `${this.url}task/newTask?selectedPriority=${selectedPriority}&selectedSection=${selectedSection}`;
     return this.http.post<Task>(link, task, httpOptions).pipe(
       catchError(this.handleError<Task>(`creating task`)));
   }

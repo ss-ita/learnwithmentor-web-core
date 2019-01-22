@@ -98,7 +98,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as Raven from 'raven-js';
 Raven
-  .config('https://351205e7df8743abbfbf6a26e31848b4@sentry.io/1283915')
+  .config('https://aedcaa7c925f4a88a172cf0a16ca85e5@sentry.io/1372057')
   .install();
 
 export class RavenErrorHandler implements ErrorHandler {

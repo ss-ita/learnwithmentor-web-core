@@ -40,6 +40,7 @@ export class GroupsComponent implements OnInit {
 
   openGroupCreateDialog(): void {
     const dialogRef = this.dialog.open(AddGroupComponent, {
+      data: this.groups,
       width: '500px'
     });
     dialogRef.afterClosed().subscribe(result => {

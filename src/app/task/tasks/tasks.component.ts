@@ -10,10 +10,11 @@ import { PlanService } from '../../common/services/plan.service';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
+  @Input()
+  planId: number;
   tasks: Task[];
   selectedTask: Task;
   plan: Plan;
-  @Input() planId: number;
   constructor(private taskService: TaskService, private planService: PlanService) {
   }
   ngOnInit() {
