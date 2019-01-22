@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 import { EventColor, CalendarEvent } from 'calendar-utils';
+import { Observable } from 'rxjs/internal/Observable';
+
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,6 +24,6 @@ export class CalendarService {
         this.http.get(`${this.url}calendar/${calendarId}/${title}/${start}/${end}/${color}`).subscribe();
     }*/
     sendCalendarEvent(currentEvent: string){
-        this.http.get(`${this.url}calendar/${currentEvent}`).subscribe();
+       this.http.get(`${this.url}calendar/${currentEvent}`, { headers: this.reqHeader }).pipe();
     }
 }

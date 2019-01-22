@@ -61,7 +61,7 @@ import {
     refresh: Subject<any> = new Subject();
 
     events: CalendarEvent[] = [];
-    nameOfEvent: string = 'justForTest';
+    nameOfEvent: string = "justForTest";
     
     activeDayIsOpen = true;
     isLogin = false;
@@ -121,7 +121,8 @@ import {
           afterEnd: true
         }
       })
-      this.calendarService.sendCalendarEvent("ForFun4ik");
+      this.nameOfEvent = this.events[this.events.length].title;
+      this.calendarService.sendCalendarEvent(this.nameOfEvent);
       if (this.events.length > 0) {
         this.counterForEvent = true;
       } else {
