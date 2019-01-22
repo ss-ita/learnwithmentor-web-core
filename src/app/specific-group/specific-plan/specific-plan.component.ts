@@ -180,7 +180,7 @@ export class SpecificPlanComponent implements OnInit {
 
   onTaskEditClick(task: Task) {
     this.dialog.open(TaskEditorComponent, {
-      data : task
+      data : { task, sections : this.sections }
     });
   }
 
