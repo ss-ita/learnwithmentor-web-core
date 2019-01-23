@@ -43,8 +43,8 @@ export class PlansComponent implements OnInit {
       data: this.plans[index]
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigateByUrl('/RefrshComponent', {skipLocationChange: true}).then(()=>
-      this.router.navigate(["plans"]));       
+      this.router.navigateByUrl('/RefrshComponent', {skipLocationChange: true}).then(() =>
+      this.router.navigate(['plans']));
     });
   }
   activateErrorMessage(message: string): void {
