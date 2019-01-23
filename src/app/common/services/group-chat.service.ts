@@ -8,6 +8,7 @@ import { User } from '../models/user';
 import { Group } from '../models/group';
 import { Plan } from '../models/plan';
 import { Message } from '../models/message';
+import { ChatMessageWith } from '../models/groupchatmessage';
 import { UserWithImage } from '../models/userWithImage';
 import { AlertWindowsComponent } from './../../components/alert-windows/alert-windows.component';
 
@@ -41,6 +42,11 @@ export class GroupChatService {
 
   getMessages(userId: number) {
     this.http.get(`${this.url}chat/getmessages/${userId}`).subscribe();
+  }
+
+  getJsMessages(userId: number): Observable<any[]> {
+    const amount = 10;
+    return this.http.get<any[]>(`${this.url}chat/getjsmessages/${userId}/${amount}`, { headers: this.reqHeader }).pipe();
   }
 
   getLastMessages(userId: number) {

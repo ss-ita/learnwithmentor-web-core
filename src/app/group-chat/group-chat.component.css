@@ -1,4 +1,4 @@
-/* Button used to open the chat form - fixed at the bottom of the page */
+
 .open-button {
   display: none;
   background-color: rgb(184, 181, 181);
@@ -12,7 +12,16 @@
   right: 28px;
   width: 230px;
   border-radius: 3px;
-  
+}
+
+.center-spiner {
+  display: flex;
+  justify-content: center;
+}
+
+.spiner-margins {
+  margin: 15% 15%;
+  height: 50%;
 }
 
 .chatlogs{
@@ -32,9 +41,7 @@
   border-radius: 5px;
   background: rgba(0, 0, 0, .1)
 }
-.con {
-  border: red;
-}
+
 .chat{
   display: flex;
   flex-flow: row;
@@ -57,20 +64,15 @@
 
 .chatlogs .friend .chat-message{
   /*background: rgb(230, 224, 224);*/
-  background-color: rgb(184, 181, 181); /* Green */
+  background-color: rgb(184, 181, 181);
   
 }
 
 .chatlogs .self .chat-message{
-  /*background: rgb(114, 224, 247);*/
-  /*background: rgb(98, 255, 182);*/
-  /*background: rgb(18, 67, 175);*/
   background: rgb(47, 47, 238);
   margin-left: 50px;
   order: -1;
 }
-
-
 
 .chat-form{
   margin-top: 10px;
@@ -78,27 +80,20 @@
   align-items: flex-start;
 }
 
-
-/*deductuka*/
-
-
 .mybutton {
   background-color: rgb(170, 170, 170); 
-
   border-radius: 5px;
-  width: 100%;
+  width: 270px;
   color: white;
   padding: 15px 32px;
   text-align: center;
-
-
   font-size: 14px;
-
   cursor: pointer;
+  
   -webkit-transition-duration: 0.4s;  
   transition-duration: 0.4s;
-
-
+  -webkit-box-shadow: 0 50px 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 50px 10px rgba(0, 0, 0, 0.3);
 }
 
 .more-button {
@@ -131,7 +126,6 @@
   background: rgba(0, 0, 0, .1)
 }
 
-
 .chat-form input{
   background: whitesmoke;
   width: 100%;
@@ -144,8 +138,13 @@
   font-weight: bold;
   color: lightslategray;
 }
+
+.shadowbut{
+  box-shadow: 5px 10px rgb(248, 78, 78);
+}
+
 .chat-form button{
-  /*background:#1ddced;*/
+  
   background: rgb(47, 47, 238);
   padding: 2px 15px;
   
@@ -157,18 +156,7 @@
   border-radius: 3px;
   height: 28px;
   cursor:pointer;
-  /*height: 25px;
-  box-shadow: 0 3px #0eb2c1;
-
-  -webkit-transition: background .2s ease;
-  -moz-transition: background .2s ease;
-  -o-transition: background .2s ease;*/
 }
-
-/*.chat-form button:hover{
-  background: rgb(65, 178, 248);
-
-}*/
 
 .mybutton .material-icons {
   color: whitesmoke;
@@ -211,7 +199,7 @@
 .mat-toolbar {
   background-color: grey;
 }
-/* The popup chat - hidden by default */
+
 .form-popup {
   display: none;
   position: fixed;
@@ -220,7 +208,6 @@
   z-index: 9;
 }
 
-/* Add styles to the form container */
 .form-container {
   min-height: 250px;
   max-width: 250px;
@@ -232,13 +219,11 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.49);
 }
 
-/* When the textarea gets focus, do something */
 .form-container textarea:focus {
   background-color: whitesmoke;
   outline: none;
 }
 
-/* Set a style for the submit/login button */
 .form-container .btn {
   background-color: #4CAF50;
   color: white;
@@ -250,19 +235,15 @@
   opacity: 0.8;
 }
 
-/* Add a red background color to the cancel button */
 .form-container .cancel {
   background-color: rgb(126, 45, 58);
 }
 
-/* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
 
-/* Chat containers */
 .container {
-  border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 4px;
   padding: 10px;
@@ -276,21 +257,44 @@
   position: relative;
 }
 
-/* Darker chat container */
-.darker {
+.friendsmes {
   border-color: #ccc;
   background-color: #ddd;
   display: table;
+  width: 65%;
+  padding: 5px;
+  margin: 3px;
+  overflow-x: hidden;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
 }
 
-/* Clear floats */
+.selfmes{
+  border-color: #ccc;
+  background-color:  rgb(47, 47, 238);
+  display: table;
+  width: 65%;
+  padding: 5px;
+  margin-left: 80px;
+  overflow-x: hidden;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+
 .container::after {
   content: "";
   clear: both;
   display: table;
 }
 
-/* Style images */
 .container img {
   float: left;
   max-width: 30px;
@@ -299,7 +303,6 @@
   border-radius: 50%;
 }
 
-/* Style the right image */
 .container img.right {
   vertical-align: middle;
   float: right;
@@ -307,14 +310,12 @@
   margin-right:0;
 }
 
-/* Style time text */
 .time-right {
   font-size: 8pt;
   float: right;
   color: #aaa;
 }
 
-/* Style time text */
 .time-left {
   font-size: 8pt;
   float: left;
@@ -326,7 +327,7 @@
   font-size: 10pt;
   font-weight:bold;
   float: left;
-  color: rgb(63, 59, 59);
+  color: rgb(146, 146, 146);
 }
 
 .text-message{
@@ -343,6 +344,6 @@
   border: 1px solid rgb(184, 181, 181);
   border-radius: 50%;
   float: right;
-  margin-left: 20px;
+  margin-left: -10px;
   margin-right:0;
 }
