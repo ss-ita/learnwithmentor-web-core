@@ -7,6 +7,7 @@ import { AuthService } from '../../common/services/auth.service';
 import { PlanService } from '../../common/services/plan.service';
 import { AlertWindowsComponent } from '../../components/alert-windows/alert-windows.component';
 import { DialogsService } from '../../components/dialogs/dialogs.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plans',
@@ -21,6 +22,7 @@ export class PlansComponent implements OnInit {
   errorMessageActive = false;
 
   constructor(public dialog: MatDialog,
+    private router: Router,
     private dialogsService: DialogsService,
     private planService: PlanService,
     private authService: AuthService,
@@ -39,6 +41,10 @@ export class PlansComponent implements OnInit {
     const dialogRef = this.dialog.open(PlanEditorComponent, {
       width: '900px',
       data: this.plans[index]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigateByUrl('/RefrshComponent', {skipLocationChange: true}).then(()=>
+      this.router.navigate(["plans"]));       
     });
   }
   activateErrorMessage(message: string): void {
