@@ -14,6 +14,7 @@ import { GroupChatService } from '../common/services/group-chat.service';
 import { User } from '../common/models/user';
 import { Group } from '../common/models/group';
 import { environment } from '../../environments/environment';
+import { ChatMessageWith } from '../common/models/groupchatmessage';
 
 @Component({
   selector: 'app-group-chat',
@@ -33,9 +34,11 @@ export class GroupChatComponent implements OnInit {
   userImage = null;
   message = '';
   messages = [];
+  mess = [];
   user: User;
   isStudent: boolean;
-
+  loading: boolean;
+  process: boolean;
   isLogin = false;
 
   constructor(private dialog: MatDialog,
@@ -71,17 +74,12 @@ export class GroupChatComponent implements OnInit {
         document.getElementById('groupChatForm').style.display = 'none';
       }
     });
-
     this.authService.updateUserState();
     this.userName = this.authService.getUserFullName();
   }
 
   connectToChat(userId) {
     this.groupChatService.connectToGroup(userId);
-  }
-
-  addMessage(senderId, name, message, time) {
-    this.messages.push({senderName: name, textMessage: message, timeSent: time});
   }
 
   setUserPic(img: Image) {
@@ -104,13 +102,29 @@ export class GroupChatComponent implements OnInit {
     this.groupChatService.sendMessageToGroup(this.userId, this.message);
   }
 
+  addMessage(senderId, name, message, time) {
+    if (this.process) {
+      this.messages.push({SenderId: senderId, FullName: name, TextMessage: message, Time: time});
+    }
+
+    this.process = true;
+  }
+
   public openForm(): void {
+    this.loading = true;
     this.messages = [];
     this.connectToChat(this.userId);
     document.getElementById('groupChatForm').style.display = 'block';
     document.getElementById('messageInput').focus();
-    this.groupChatService.getLastMessages(this.userId);
-  }
+    this.process = false;
+    this.groupChatService.getJsMessages(this.userId)
+        .subscribe(
+            resultArray => {
+              this.messages = resultArray,
+              this.loading = false;
+          }
+        );
+    }
 
   public closeForm() {
     document.getElementById('groupChatForm').style.display = 'none';

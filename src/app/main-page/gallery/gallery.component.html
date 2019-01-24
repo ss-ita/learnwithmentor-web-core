@@ -6,7 +6,7 @@
           <div class="imgdiv">
             <div *ngIf="p.loading" class="spinner-container">
               <mat-spinner class="spinner-margins"></mat-spinner>
-            </div>
+            </div> 
             <img  *ngIf="p.imageData && !p.loading" [src]="p.imageData" alt="Plan image">
             <img  *ngIf="!p.imageData && !p.loading" src="../../../assets/images/LWMTagBlack.png" alt="Plan image">
           </div>
